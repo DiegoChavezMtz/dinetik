@@ -23,6 +23,7 @@
   --line:rgba(255,255,255,.09);
 }
 *{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 html,body{height:100%}
 body{
   font-family:"Plus Jakarta Sans",system-ui,sans-serif;
@@ -193,22 +194,51 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .view.active{opacity:1;pointer-events:auto;transform:none}
 .reel{
   height:100%;
+  position:relative;
+  overflow:hidden;
+  user-select:none;
+}
+.video-feed{
+  position:absolute;
+  inset:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scroll-snap-type:y mandatory;
+  overscroll-behavior-y:contain;
+  scrollbar-width:none;
+  touch-action:pan-y;
+  z-index:1;
+}
+.video-feed::-webkit-scrollbar{display:none}
+.feed-slide{
+  position:relative;
+  width:100%;
+  height:100%;
+  min-height:100%;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
   display:flex;
   flex-direction:column;
-  position:relative;
+  overflow:hidden;
 }
-.reel-bg{
+.feed-slide-bg{
   position:absolute;
   inset:0;
   background-size:cover;
   background-position:center;
-  transition:background-image .25s ease;
 }
-.reel-bg:after{
+.feed-slide-bg:after{
   content:"";
   position:absolute;
   inset:0;
   background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.06) 32%,rgba(0,0,0,.74) 73%,rgba(0,0,0,.95));
+}
+#reelView .topbar{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  z-index:5;
 }
 .topbar{
   position:relative;
@@ -329,7 +359,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
   box-shadow:0 18px 42px rgba(0,0,0,.34),0 0 34px rgba(245,190,94,.38);
 }
 .mascot-hud.full:after{
-  content:"lleno";
+  content:"0/3";
   min-width:32px;
 }
 .mascot-hud.complete-pop{
@@ -355,8 +385,11 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
   72%{transform:translateX(2px)}
 }
 .day-tabs{
-  position:relative;
-  z-index:2;
+  position:absolute;
+  top:101px;
+  left:0;
+  right:0;
+  z-index:5;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:7px;
@@ -375,9 +408,12 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .day-tabs button.on{background:var(--g);color:#04100c;border-color:var(--g)}
 .day-tabs button.done{color:var(--g);border-color:rgba(29,204,160,.3)}
 .progress-note{
-  position:relative;
-  z-index:2;
-  margin:10px 18px 0;
+  position:absolute;
+  top:149px;
+  left:18px;
+  right:18px;
+  z-index:5;
+  margin:0;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -395,7 +431,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
   position:relative;
   z-index:2;
   margin-top:auto;
-  padding:0 18px 16px;
+  padding:210px 18px 28px;
 }
 .tag{
   display:inline-flex;
@@ -474,43 +510,37 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
   pointer-events:none;
 }
 .round.coach:after{opacity:1}
-.video-rail{
-  position:relative;
-  z-index:2;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  padding:0 18px 88px;
+.swipe-cue{
+  position:absolute;
+  z-index:4;
+  right:18px;
+  bottom:212px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;
+  padding:7px 10px;
+  color:#fff;
+  background:rgba(5,10,14,.55);
+  backdrop-filter:blur(14px);
+  font-size:10px;
+  font-weight:900;
+  pointer-events:none;
 }
-.mini{
-  height:78px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.18);
-  background-size:cover;
-  background-position:center;
-  overflow:hidden;
-  position:relative;
+.swipe-cue span{font-size:17px;line-height:1;animation:swipeCue 1.5s ease-in-out infinite}
+@keyframes swipeCue{0%,100%{transform:translateY(2px);opacity:.6}50%{transform:translateY(-3px);opacity:1}}
+.challenge-sentinel{
+  background:radial-gradient(circle at 50% 38%,rgba(29,204,160,.28),transparent 34%),#05070b;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:90px 28px 28px;
   cursor:pointer;
 }
-.mini:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74))}
-.mini.on{outline:2px solid var(--g);outline-offset:2px}
-.mini.done:before{
-  content:"✓";
-  position:absolute;
-  z-index:2;
-  right:7px;
-  top:7px;
-  width:20px;
-  height:20px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  background:var(--g);
-  color:#04100c;
-  font-weight:900;
-  font-size:12px;
-}
-.mini span{position:absolute;z-index:2;left:8px;bottom:7px;font-size:10px;font-weight:900}
+.challenge-sentinel .sentinel-icon{font-size:54px;margin-bottom:14px}
+.challenge-sentinel h2{font-size:30px;line-height:1.05;margin-bottom:10px}
+.challenge-sentinel p{font-size:13px;line-height:1.55;color:var(--muted)}
 .bottom-bar{
   position:absolute;
   left:12px;
@@ -811,8 +841,151 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .trophy{font-size:62px;margin-bottom:10px}
 .summary h2{font-size:30px;line-height:1.08;letter-spacing:0;margin-bottom:10px}
 .summary p{color:var(--muted);font-size:13px;line-height:1.55}
+.summary .bottom-bar{bottom:86px}
 .breakdown{display:grid;gap:9px;margin-top:14px}
 .breakdown div{display:flex;justify-content:space-between;background:#101822;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;font-size:13px;font-weight:800}
+.wallet-coins{display:flex;gap:14px;justify-content:center;margin-bottom:16px}
+.coin-block{flex:1;background:#101822;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:16px 10px;text-align:center}
+.coin-block .coin-icon{font-size:28px;margin-bottom:6px}
+.coin-block strong{display:block;font-size:24px;color:var(--g)}
+.coin-block span{font-size:11px;color:var(--muted);font-weight:800}
+.coin-block.points strong{color:#f5be5e}
+.wallet-explainer{text-align:left;font-size:13px;color:#cfe0ec;line-height:1.6;background:rgba(29,204,160,.08);border:1px solid rgba(29,204,160,.22);border-radius:16px;padding:14px;margin-top:6px}
+.wallet-explainer strong{color:var(--g2)}
+.reward-icons{display:flex;gap:10px;justify-content:center;margin-top:10px}
+.reward-icon{flex:1;background:#101822;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:12px 6px;text-align:center}
+.reward-icon svg{width:22px;height:22px;stroke:var(--g);margin-bottom:6px}
+.reward-icon span{display:block;font-size:9.5px;color:var(--muted);font-weight:800;line-height:1.25}
+.reward-redeem{margin-top:8px;width:100%;border:0;border-radius:999px;background:var(--g);color:#04100c;font:900 9px "Plus Jakarta Sans";padding:5px 0;cursor:pointer}
+.premium-block{margin-top:16px;border:1px solid rgba(245,190,94,.35);border-radius:20px;padding:14px;background:rgba(245,190,94,.06);text-align:left}
+.premium-block.locked{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.premium-title{font-size:14px;font-weight:900;margin-bottom:6px;color:#f5be5e}
+.premium-block.locked .premium-title{color:var(--muted)}
+.premium-block p{font-size:12px;color:#cfe0ec;line-height:1.55;margin-bottom:10px}
+.premium-block.locked p{color:var(--muted)}
+.premium-block.locked .reward-icon svg{stroke:var(--muted)}
+.premium-block.locked .reward-icons{opacity:.45;filter:grayscale(1)}
+.premium-block.locked .reward-redeem{background:rgba(255,255,255,.1);color:var(--muted);cursor:not-allowed}
+.live-rank{margin-top:14px;background:#101822;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:12px 14px}
+.live-rank-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.live-rank-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.live-rank-badge{font-size:10px;font-weight:900;padding:3px 9px;border-radius:999px;background:rgba(29,204,160,.18);color:var(--g2);border:1px solid rgba(29,204,160,.4)}
+.live-rank.locked .live-rank-badge{background:rgba(255,255,255,.08);color:var(--muted);border-color:rgba(255,255,255,.14)}
+.live-rank-pos{display:block;font-size:20px;color:var(--ink)}
+.convert-row{display:flex;align-items:center;justify-content:center;gap:14px;margin:16px 0}
+.convert-block{flex:1;background:#101822;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:14px 8px;text-align:center}
+.convert-block strong{display:block;font-size:24px;color:var(--g)}
+.convert-block span{font-size:10px;color:var(--muted);font-weight:800}
+.convert-block.gems strong{color:#f5be5e}
+.convert-arrow{font-size:20px;color:var(--muted)}
+.rank-title{font-size:13px;font-weight:900;margin:14px 0 8px;color:var(--ink)}
+.rank-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.rank-row{display:flex;align-items:center;gap:8px;background:#101822;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 10px;font-size:12px;font-weight:800}
+.rank-row .rank-pos{color:var(--muted);width:34px}
+.rank-row .rank-name{flex:1;text-align:left;color:var(--ink)}
+.rank-row .rank-pts{color:var(--g)}
+.rank-row.me{border-color:rgba(29,204,160,.5);background:rgba(29,204,160,.1)}
+.rank-note{font-size:11px;color:var(--muted);line-height:1.5}
+.badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.badge-item{background:#101822;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:12px 6px;text-align:center}
+.badge-item .badge-icon{font-size:26px;margin-bottom:6px}
+.badge-item span{font-size:9.5px;color:var(--muted);font-weight:800;line-height:1.25;display:block}
+.cert-card{margin-top:8px;border:1.5px solid rgba(245,190,94,.5);border-radius:20px;padding:16px;background:linear-gradient(180deg,rgba(245,190,94,.08),rgba(12,18,25,.9));text-align:left}
+.cert-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}
+.cert-tag{font:900 10px "DM Mono",monospace;letter-spacing:.6px;text-transform:uppercase;color:#f5be5e}
+.cert-folio{font:800 10px "DM Mono",monospace;color:var(--muted)}
+.cert-card h3{font-size:15px;margin-bottom:8px}
+.cert-meta{font-size:11px;color:var(--muted);font-weight:800;margin-bottom:14px}
+.cert-sign{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sign-line{width:70%;border-bottom:1.5px dashed rgba(255,255,255,.3);height:28px}
+.cert-sign span{font-size:10px;color:var(--muted);font-weight:800}
+.app-nav{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:10;
+  height:74px;
+  padding:8px 8px 10px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  background:rgba(5,7,11,.94);
+  border-top:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(24px);
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(12px);
+  transition:opacity .2s,transform .2s;
+}
+.app-nav.visible{opacity:1;pointer-events:auto;transform:none}
+.intro-mode .app-nav{opacity:0;pointer-events:none}
+.nav-item{border:0;outline:none;background:transparent;color:#708397;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:800 9px "Plus Jakarta Sans";cursor:pointer;border-radius:14px}
+.nav-item svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nav-item.active{color:var(--g);background:rgba(29,204,160,.09)}
+.nav-item:focus-visible{box-shadow:inset 0 0 0 2px var(--g)}
+.hub-scroll{height:100%;overflow:auto;padding:52px 16px 104px;background:radial-gradient(circle at 50% 8%,rgba(29,204,160,.16),transparent 28%),#05070b;scrollbar-width:none}
+.hub-scroll::-webkit-scrollbar{display:none}
+.hub-header{display:flex;align-items:flex-end;justify-content:space-between;margin:10px 2px 18px}
+.hub-kicker{display:block;color:var(--g);font:900 10px "DM Mono",monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.hub-header h2{font-size:29px;line-height:1}
+.balance-chip{padding:8px 11px;border-radius:999px;background:#101822;border:1px solid rgba(255,255,255,.1);font-size:11px;font-weight:900;color:#f5be5e}
+.user-rank-hero{position:relative;overflow:hidden;border-radius:26px;padding:18px;background:linear-gradient(135deg,rgba(29,204,160,.2),rgba(77,158,255,.1));border:1px solid rgba(29,204,160,.38);margin-bottom:16px}
+.user-rank-hero:after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;right:-45px;top:-55px;border:24px solid rgba(255,255,255,.035)}
+.rank-overline{font-size:10px;font-weight:900;color:var(--g2);text-transform:uppercase;letter-spacing:.7px}
+.rank-main{display:flex;align-items:center;gap:13px;margin-top:10px}
+.rank-number{font:900 46px "DM Mono",monospace;line-height:1;color:#fff}
+.rank-avatar,.profile-avatar,.inventory-avatar{position:relative;border-radius:50%;background:#0e1a20;border:2px solid var(--g);overflow:visible;display:grid;place-items:center}
+.rank-avatar{width:52px;height:52px}.rank-avatar img,.profile-avatar img,.inventory-avatar img{width:100%;height:100%;object-fit:contain;border-radius:50%}
+.rank-person{flex:1}.rank-person strong{display:block;font-size:14px}.rank-person span{font-size:11px;color:var(--muted)}
+.rank-status{margin-top:13px;display:flex;justify-content:space-between;font-size:11px;color:#cfe0ec}.rank-status strong{color:var(--g)}
+.rank-board{background:#0b1218;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:14px}
+.rank-board h3{font-size:13px;margin-bottom:10px}
+.rank-board .rank-row{padding:11px 10px}
+.ranking-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;margin:-4px 0 15px;border-radius:17px;background:#0c131b;border:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:9;backdrop-filter:blur(18px)}
+.ranking-tab{height:38px;border:0;border-radius:12px;background:transparent;color:var(--muted);font:900 10px "Plus Jakarta Sans";cursor:pointer;transition:.22s ease}.ranking-tab.active{background:linear-gradient(135deg,var(--g),#52e6c0);color:#04100c;box-shadow:0 8px 20px rgba(29,204,160,.22)}
+.ranking-panel{display:none;animation:rankPanelIn .3s ease}.ranking-panel.active{display:block}
+@keyframes rankPanelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.map-panel{position:relative;margin:0 -16px;padding:0 16px 36px;overflow:hidden;background:radial-gradient(circle at 18% 4%,rgba(116,79,255,.26),transparent 22%),radial-gradient(circle at 86% 28%,rgba(29,204,160,.18),transparent 21%)}
+.map-panel:before,.map-panel:after{content:"";position:absolute;inset:0;pointer-events:none}.map-panel:before{background-image:radial-gradient(circle,#fff 0 1px,transparent 1.5px);background-size:31px 37px;opacity:.23;animation:starDrift 16s linear infinite}.map-panel:after{background:linear-gradient(transparent 80%,#05070b)}
+@keyframes starDrift{to{background-position:31px 74px}}
+.map-toolbar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:4px 3px 10px}.map-toolbar h3{font-size:17px;margin-top:2px}.map-toolbar p{font-size:8.5px;color:var(--muted);margin-top:3px}.sound-toggle{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;font-size:16px;cursor:pointer}.sound-toggle.off{opacity:.45}
+.level-map{position:relative;z-index:2;padding:25px 0 10px;display:flex;flex-direction:column-reverse;gap:13px}
+.level-map:before{content:"";position:absolute;left:50%;top:34px;bottom:42px;width:4px;transform:translateX(-50%);border-radius:99px;background:linear-gradient(to top,#1DCCA0 0 var(--map-fill),rgba(255,255,255,.1) var(--map-fill) 100%);box-shadow:0 0 14px rgba(29,204,160,.22)}
+.cosmic-level{--level-color:#7dafff;--level-tint:rgba(63,98,160,.32);--level-glow:rgba(90,140,255,.24);position:relative;width:100%;min-height:142px;padding:13px 13px 12px calc(50% + 39px);border-radius:21px;background:radial-gradient(circle at 22% 12%,var(--level-tint),transparent 44%),linear-gradient(145deg,var(--level-tint),rgba(8,12,18,.98) 72%);border:1px solid color-mix(in srgb,var(--level-color) 54%,transparent);box-shadow:0 14px 34px var(--level-glow);transition:.2s ease}.cosmic-level:before{content:"";position:absolute;inset:-18px -10px;z-index:-1;border-radius:34px;background:radial-gradient(ellipse at center,var(--level-glow),transparent 67%);opacity:.7}.cosmic-level:nth-child(even){padding:13px calc(50% + 39px) 12px 13px;text-align:right;background:radial-gradient(circle at 78% 12%,var(--level-tint),transparent 44%),linear-gradient(215deg,var(--level-tint),rgba(8,12,18,.98) 72%)}.cosmic-level.locked{opacity:.82}.cosmic-level.reached{border-color:var(--level-color)}.cosmic-level.current{min-height:218px;border-color:#fff;box-shadow:0 0 0 2px var(--level-color),0 20px 48px var(--level-glow);animation:currentGlow 1.8s ease-in-out infinite}@keyframes currentGlow{50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--level-color) 18%,transparent),0 22px 54px var(--level-glow)}}
+.cosmic-level.elite{border-color:#d9c2ff}
+.level-node{position:absolute;left:50%;top:50%;z-index:3;width:58px;height:58px;transform:translate(-50%,-50%);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,color-mix(in srgb,var(--level-color) 80%,#fff),color-mix(in srgb,var(--level-color) 42%,#111827));border:4px solid var(--level-color);box-shadow:0 0 0 5px #080d13,0 0 24px var(--level-glow);font-size:24px}.cosmic-level.reached .level-node{border-color:#fff}.cosmic-level.current .level-node{width:74px;height:74px;font-size:31px;animation:nodePulse 1.2s ease-in-out infinite}@keyframes nodePulse{50%{transform:translate(-50%,-50%) scale(1.08)}}
+.current-level-summary{margin:8px 0 4px;padding:8px;border-radius:12px;background:rgba(3,7,12,.32);border:1px solid color-mix(in srgb,var(--level-color) 36%,transparent);text-align:left}.cosmic-level:nth-child(even) .current-level-summary{text-align:right}.current-level-summary-head{display:flex;justify-content:space-between;gap:6px;font:900 7px "DM Mono",monospace;color:var(--level-color);text-transform:uppercase}.current-level-progress{height:6px;margin:7px 0 5px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}.current-level-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--level-color),#fff);box-shadow:0 0 12px var(--level-color)}.current-level-next{font-size:7.5px;color:#d8e3ee;font-weight:800}
+.level-number{font:900 8px "DM Mono",monospace;color:#9babc0;text-transform:uppercase}.cosmic-level h4{font-size:12px;margin:3px 0}.cosmic-level p{font-size:8.5px;color:var(--muted);line-height:1.35}.level-reward-row{display:flex;align-items:center;gap:5px;margin-top:7px}.cosmic-level:nth-child(even) .level-reward-row{flex-direction:row-reverse}.level-reward{flex:1;display:flex;align-items:center;min-height:30px;padding:5px 7px;border-radius:9px;background:rgba(167,139,250,.12);color:#d9ceff;font-size:8px;font-weight:900}
+.level-actions{margin-top:5px}.claim-level,.open-level-shop{border:0;border-radius:999px;font:900 7.5px "Plus Jakarta Sans";cursor:pointer}.claim-level{width:30px;height:30px;flex:0 0 30px;display:grid;place-items:center;padding:0;background:var(--level-color);color:#071018;font-size:14px;box-shadow:0 6px 14px var(--level-glow)}.claim-level:disabled,.open-level-shop:disabled{background:rgba(255,255,255,.08);color:#66778a;cursor:not-allowed;box-shadow:none}.claim-level.claimed{color:var(--level-color);background:rgba(3,8,13,.45);border:1px solid var(--level-color)}.open-level-shop{display:block;width:100%;min-height:28px;padding:5px 7px;background:linear-gradient(135deg,#7d5cff,#a78bfa);color:#fff;box-shadow:0 7px 16px rgba(93,65,190,.25)}
+.map-toast{position:sticky;bottom:4px;z-index:8;margin:0 auto;width:max-content;max-width:90%;padding:10px 14px;border-radius:999px;background:#f5be5e;color:#211500;font-size:9px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;transform:translateY(18px);pointer-events:none;transition:.25s}.map-toast.show{opacity:1;transform:none}
+.level-burst{position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden}.level-burst i{position:absolute;left:50%;top:52%;width:7px;height:7px;border-radius:2px;background:var(--c);animation:burstFly .9s ease-out forwards}@keyframes burstFly{to{transform:translate(var(--x),var(--y)) rotate(560deg);opacity:0}}
+.level-store-modal{position:absolute;inset:0;z-index:50;display:flex;align-items:flex-end;background:rgba(2,4,9,.78);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:.22s}.level-store-modal.show{opacity:1;pointer-events:auto}.level-store-sheet{width:100%;padding:15px 16px 27px;border-radius:30px 30px 0 0;background:radial-gradient(circle at 85% 0,rgba(125,92,255,.24),transparent 34%),#0b1119;border:1px solid rgba(255,255,255,.12);transform:translateY(34px);transition:.25s}.level-store-modal.show .level-store-sheet{transform:none}
+.level-store-handle{width:42px;height:4px;border-radius:99px;background:rgba(255,255,255,.2);margin:0 auto 16px}.level-store-head{display:flex;gap:12px;align-items:flex-start}.level-store-head>div{flex:1}.level-store-head span{font:900 8px "DM Mono",monospace;color:#a78bfa;text-transform:uppercase;letter-spacing:.6px}.level-store-head h2{font-size:22px;margin:3px 0}.level-store-head p{font-size:10px;color:var(--muted);line-height:1.45}.level-store-close{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:#18222d;color:#fff;font-size:18px;cursor:pointer}
+.level-store-balance{display:flex;justify-content:space-between;align-items:center;margin:14px 0 10px;padding:10px 12px;border-radius:14px;background:rgba(245,190,94,.08);border:1px solid rgba(245,190,94,.2);font-size:9px;font-weight:800}.level-store-balance strong{color:#f5be5e;font:900 14px "DM Mono",monospace}
+.level-special-card{display:grid;grid-template-columns:72px 1fr;gap:13px;align-items:center;padding:14px;border-radius:21px;background:linear-gradient(145deg,rgba(125,92,255,.16),rgba(17,26,35,.96));border:1px solid rgba(167,139,250,.28)}.level-special-icon{width:72px;height:82px;border-radius:17px;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,rgba(255,255,255,.24),rgba(125,92,255,.2));font-size:36px}.level-special-copy h3{font-size:14px;margin-bottom:4px}.level-special-copy p{font-size:9.5px;color:var(--muted);line-height:1.4;margin-bottom:9px}.buy-level-special{width:100%;height:34px;border:0;border-radius:999px;background:#f5be5e;color:#211500;font:900 9px "Plus Jakarta Sans";cursor:pointer}.buy-level-special:disabled{background:rgba(255,255,255,.09);color:var(--muted);cursor:not-allowed}.level-store-notice{min-height:20px;margin-top:9px;text-align:center;color:var(--g);font-size:9px;font-weight:900}
+.inventory-showcase{border-radius:28px;padding:18px;background:linear-gradient(160deg,rgba(77,158,255,.16),rgba(29,204,160,.08));border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.inventory-avatar{width:104px;height:104px;flex:0 0 auto;box-shadow:0 0 36px rgba(29,204,160,.16)}
+.avatar-accessory{position:absolute;right:-8px;top:-13px;font-size:34px;filter:drop-shadow(0 5px 8px rgba(0,0,0,.5));z-index:3}
+.showcase-copy h3{font-size:17px;margin-bottom:5px}.showcase-copy p{font-size:11px;line-height:1.45;color:var(--muted)}
+.inventory-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.inventory-item{border-radius:20px;padding:14px;background:#0d151e;border:1px solid rgba(255,255,255,.09);min-height:170px;display:flex;flex-direction:column}
+.inventory-item.owned{border-color:rgba(29,204,160,.35)}.inventory-item.equipped{box-shadow:inset 0 0 0 1px var(--g);background:rgba(29,204,160,.09)}
+.item-top{display:flex;justify-content:space-between;align-items:flex-start}.item-icon{font-size:36px}.item-rarity{font-size:8px;font-weight:900;text-transform:uppercase;color:var(--purple);background:rgba(167,139,250,.12);padding:4px 6px;border-radius:999px}
+.inventory-item h3{font-size:13px;margin:9px 0 4px}.inventory-item p{font-size:9.5px;line-height:1.4;color:var(--muted);flex:1}
+.inventory-action{margin-top:10px;border:0;border-radius:999px;padding:8px;background:var(--g);color:#04100c;font:900 10px "Plus Jakarta Sans";cursor:pointer}.inventory-action:disabled{background:rgba(255,255,255,.09);color:var(--muted);cursor:not-allowed}
+.profile-cover{height:106px;margin:-52px -16px 0;background:linear-gradient(125deg,#102a31,#12213a 48%,#1a1432);position:relative;overflow:hidden}.profile-cover:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 20%,rgba(29,204,160,.38),transparent 25%),linear-gradient(90deg,transparent,rgba(255,255,255,.03))}
+.profile-identity{margin-top:-43px;position:relative;z-index:2;display:flex;align-items:flex-end;gap:13px;padding:0 4px}
+.profile-avatar{width:90px;height:90px;border-width:3px;background:#081018}.profile-copy{flex:1;padding-bottom:3px}.profile-copy h2{font-size:22px}.profile-copy p{font-size:11px;color:var(--muted);margin-top:2px}.verified{color:var(--g);font-size:13px}
+.profile-edit{border:1px solid rgba(255,255,255,.15);background:#101822;color:#fff;border-radius:999px;padding:8px 11px;font:800 10px "Plus Jakarta Sans";cursor:pointer}
+.profile-bio{font-size:11px;line-height:1.55;color:#cbd8e4;margin:14px 4px}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.profile-stat{background:#0d151e;border:1px solid rgba(255,255,255,.08);border-radius:17px;padding:12px;text-align:center}.profile-stat strong{display:block;font-size:19px}.profile-stat span{font-size:8px;color:var(--muted);font-weight:800;text-transform:uppercase}
+.profile-card{background:#0d151e;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:15px;margin-top:10px}.profile-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}.profile-card-head h3{font-size:13px}.profile-card-head span{font-size:10px;color:var(--g);font-weight:900}
+.level-track,.path-track{height:7px;background:#1d2935;border-radius:99px;overflow:hidden}.level-track i,.path-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--g),var(--blue))}
+.level-note{font-size:9.5px;color:var(--muted);margin-top:8px}
+.path-list{display:grid;gap:11px}.path-row{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center}.path-row strong{font-size:10px}.path-row span{font-size:9px;color:var(--muted);text-align:right}.path-track{grid-column:1/-1;height:5px;margin-top:-4px}
+.profile-badges{display:flex;gap:8px}.profile-badge{flex:1;text-align:center;background:#101822;border-radius:14px;padding:10px 5px;border:1px solid rgba(255,255,255,.07)}.profile-badge b{display:block;font-size:23px}.profile-badge span{font-size:8px;color:var(--muted);font-weight:800}
+.profile-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.profile-actions button{height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:#101822;color:#fff;font:800 10px "Plus Jakarta Sans"}
+#reelView .video-copy{padding-bottom:96px}
 @media(max-height:760px){
   .phone{height:100vh;min-height:0;border-radius:0;padding:0}
   .phone:before{top:7px}
@@ -831,7 +1004,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 <section class="welcome" aria-label="Bienvenida Dinetik">
   <div class="welcome-card">
     <h1>DIN<span>E</span>TIK</h1>
-    <p>Scrollea, aprende y haz que el dinero te rinda</p>
+    <p>Ve 3 videos, resuelve el reto y gana puntos para el ranking y monedas para premios</p>
     <button class="welcome-start" id="startDemo">Comenzar</button>
   </div>
 </section>
@@ -842,11 +1015,11 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 
       <section class="view active" id="reelView">
         <div class="reel">
-          <div class="reel-bg" id="reelBg"></div>
+          <div class="video-feed" id="videoFeed" tabindex="0" aria-label="Feed vertical de videos"></div>
           <div class="topbar">
             <div class="logo">DIN<span>E</span>TIK</div>
             <div class="top-actions">
-              <div class="score-pill"><span id="totalPts">0</span> pts · 🔥 <span id="streak">0</span></div>
+              <div class="score-pill">⭐ <span id="totalPts">0</span> · 🪙 <span id="totalCoins">0</span></div>
               <div class="mascot-hud" aria-label="Progreso de la mascota">
                 <div class="coin-rain"><i></i><i></i><i></i></div>
                 <div class="mascot-inner">
@@ -857,26 +1030,20 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
           </div>
           <div class="day-tabs" id="dayTabs"></div>
           <div class="progress-note">
-            <div id="flowHint">Toca ✓ para completar este video</div>
+            <div id="flowHint">3 videos gratis · el 4º scroll abre el reto</div>
             <span id="seenHint">0/3 vistos</span>
           </div>
           <div class="actions">
-            <button class="round coach" id="markBtn" aria-label="Marcar visto" data-label="Marcar visto">
+            <button class="round coach" id="markBtn" aria-label="Video visto" data-label="+10 monedas" hidden>
               <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
             </button>
-            <button class="round" id="nextVideoBtn" aria-label="Siguiente video" data-label="Siguiente">›</button>
+            <button class="round" id="nextVideoBtn" aria-label="Siguiente video" data-label="Scroll gratis" hidden>›</button>
           </div>
-          <div class="video-copy">
-            <div class="tag" id="videoTag">Video 01</div>
-            <h1 id="videoTitle"></h1>
-            <p id="videoDesc"></p>
-            <div class="tip" id="videoTip"></div>
-          </div>
-          <div class="video-rail" id="videoRail"></div>
-          <div class="bottom-bar">
-            <button class="secondary" id="prevDayBtn">Día ←</button>
+          <div class="swipe-cue" aria-hidden="true"><span>↑</span> Desliza</div>
+          <div class="bottom-bar" hidden>
+            <button class="secondary" id="prevDayBtn" hidden>Día ←</button>
             <button class="primary" id="challengeBtn">Ver reto</button>
-            <button class="secondary" id="nextDayBtn">→ Día</button>
+            <button class="secondary" id="nextDayBtn" hidden>→ Día</button>
           </div>
         </div>
       </section>
@@ -884,9 +1051,9 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
       <section class="view" id="challengeView">
         <div class="challenge">
           <div class="challenge-head">
-            <button class="secondary" id="backToReel">←</button>
+            <button class="secondary" id="backToReel" disabled>🔒 Feed cerrado</button>
             <div class="top-actions">
-              <div class="score-pill"><span id="challengePts">0</span> pts · 🔥 <span id="challengeStreak">0</span></div>
+              <div class="score-pill">⭐ <span id="challengePts">0</span> · 🪙 <span id="challengeCoins">0</span></div>
               <div class="mascot-hud" aria-label="Progreso de la mascota">
                 <div class="coin-rain"><i></i><i></i><i></i></div>
                 <div class="mascot-inner">
@@ -903,12 +1070,12 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
             <div class="options" id="options"></div>
           </div>
           <div class="score-row">
-            <div class="stat"><strong id="dayScore">0</strong><span>este día</span></div>
+              <div class="stat"><strong id="dayScore">0</strong><span>pts + monedas</span></div>
             <div class="stat"><strong id="answersCount">0/3</strong><span>retos</span></div>
             <div class="stat"><strong id="videosCount">0/9</strong><span>videos</span></div>
           </div>
           <div class="bottom-bar">
-            <button class="secondary" id="challengePrev">Videos</button>
+            <button class="secondary" id="challengePrev" disabled>Sin regreso</button>
             <button class="primary" id="continueBtn">Continuar</button>
           </div>
         </div>
@@ -922,22 +1089,120 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
             <p>Recorriste 9 videos, respondiste los 3 retos y ya puedes mostrar cómo se siente Dinetik como hábito diario.</p>
             <div class="score-row">
               <div class="stat"><strong id="sumPts">0</strong><span>puntos</span></div>
-              <div class="stat"><strong id="sumStreak">0</strong><span>racha</span></div>
+              <div class="stat"><strong id="sumCoins">0</strong><span>monedas</span></div>
               <div class="stat"><strong>9</strong><span>videos</span></div>
             </div>
             <div class="breakdown" id="breakdown"></div>
           </div>
           <div class="bottom-bar">
-            <button class="secondary" id="summaryBack">←</button>
-            <button class="primary" id="restartBtn">Volver a empezar</button>
-            <button class="secondary" id="summaryHome">Día 1</button>
+            <button class="primary" id="summaryExploreBtn">Seguir explorando</button>
           </div>
         </div>
       </section>
 
+      <section class="view" id="top500View">
+        <div class="hub-scroll">
+          <header class="hub-header">
+            <div><span class="hub-kicker">Liga estelar</span><h2>Ranking</h2></div>
+            <div class="balance-chip">⭐ <span id="rankingPointsChip">0</span> pts</div>
+          </header>
+          <div class="ranking-tabs" role="tablist" aria-label="Vistas del ranking">
+            <button class="ranking-tab active" data-ranking-tab="global" role="tab" aria-selected="true">🏆 Global</button>
+            <button class="ranking-tab" data-ranking-tab="map" role="tab" aria-selected="false">✨ Mi mapa</button>
+          </div>
+          <section class="ranking-panel active" id="globalRankingPanel" data-ranking-panel="global">
+            <div class="user-rank-hero">
+              <span class="rank-overline">Tu posición global</span>
+              <div class="rank-main">
+                <div class="rank-number" id="topRankPosition">#342</div>
+                <div class="rank-avatar"><img src="PumitaDinetik.png" alt="Tu avatar"></div>
+                <div class="rank-person"><strong>@dinetik_user</strong><span><b id="rewardPointsTotal">0</b> puntos acumulados</span></div>
+              </div>
+              <div class="rank-status"><span id="rankEligibilityText">Subiendo por el mapa</span><strong id="rankEligibilityBadge">Nivel 1</strong></div>
+            </div>
+            <div class="rank-board">
+              <h3>Los mejores de Dinetik</h3>
+              <div class="rank-list" id="rankList"></div>
+              <div class="rank-note">La posición global se calcula con puntos. Las monedas nunca afectan tu lugar.</div>
+            </div>
+          </section>
+          <section class="ranking-panel map-panel" id="mapRankingPanel" data-ranking-panel="map">
+            <div class="map-toolbar"><div><span class="hub-kicker">Tu ascenso cósmico</span><h3>Camino a la élite</h3><p>Tu nivel actual está destacado dentro de la escalera.</p></div><button class="sound-toggle" id="mapSoundToggle" aria-label="Activar o desactivar sonido">🔊</button></div>
+            <div class="level-map" id="levelMap"></div>
+            <div class="map-toast" id="mapToast" aria-live="polite"></div>
+            <div class="level-burst" id="levelBurst"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="inventoryView">
+        <div class="hub-scroll">
+          <header class="hub-header">
+            <div><span class="hub-kicker">Personaliza tu identidad</span><h2>Inventario</h2></div>
+            <div class="balance-chip">🪙 <span id="inventoryCoins">0</span></div>
+          </header>
+          <div class="inventory-showcase">
+            <div class="inventory-avatar"><img src="PumitaDinetik.png" alt="Vista previa del avatar"><span class="avatar-accessory" id="inventoryAccessory"></span></div>
+            <div class="showcase-copy"><span class="hub-kicker">Vista previa</span><h3>Tu avatar, tu estilo</h3><p>Compra objetos digitales con monedas y equípalos cuando quieras.</p></div>
+          </div>
+          <div class="inventory-grid" id="inventoryGrid"></div>
+        </div>
+      </section>
+
+      <section class="view" id="profileView">
+        <div class="hub-scroll">
+          <div class="profile-cover"></div>
+          <div class="profile-identity">
+            <div class="profile-avatar"><img src="PumitaDinetik.png" alt="Avatar de perfil"><span class="avatar-accessory" id="profileAccessory"></span></div>
+            <div class="profile-copy"><h2>@dinetik_user <span class="verified">●</span></h2><p id="profileLevelLabel">Nivel 1 · Explorador financiero</p></div>
+            <button class="profile-edit">Editar</button>
+          </div>
+          <p class="profile-bio">Aprendiendo a tomar mejores decisiones, un scroll a la vez. Mi meta: dominar mis finanzas sin dejar de vivir.</p>
+          <div class="profile-stats">
+            <div class="profile-stat"><strong id="profilePoints">0</strong><span>Puntos</span></div>
+            <div class="profile-stat"><strong id="profileCoins">0</strong><span>Monedas</span></div>
+            <div class="profile-stat"><strong id="profileRank">#342</strong><span>Ranking</span></div>
+          </div>
+          <div class="profile-card">
+            <div class="profile-card-head"><h3 id="profileLevelTitle">Nivel 1</h3><span id="profileLevelPercent">0%</span></div>
+            <div class="level-track"><i id="profileLevelBar" style="width:0%"></i></div>
+            <div class="level-note" id="profileLevelNote">100 puntos para el siguiente nivel</div>
+          </div>
+          <div class="profile-card">
+            <div class="profile-card-head"><h3>Ruta de aprendizaje</h3><span id="profileCompleted">0/3 días</span></div>
+            <div class="path-list" id="profilePaths"></div>
+          </div>
+          <div class="profile-card">
+            <div class="profile-card-head"><h3>Logros destacados</h3><span>Ver todos</span></div>
+            <div class="profile-badges" id="profileBadges"></div>
+          </div>
+          <div class="profile-actions"><button>Compartir progreso</button><button>Configuración</button></div>
+        </div>
+      </section>
+
+      <nav class="app-nav visible" id="appNav" aria-label="Navegación principal">
+        <button class="nav-item active" data-view="reelView"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9H6v-9"/><path d="M10 20v-6h4v6"/></svg><span>Inicio</span></button>
+        <button class="nav-item" data-view="top500View"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4"/></svg><span>Ranking</span></button>
+        <button class="nav-item" data-view="inventoryView"><svg viewBox="0 0 24 24"><path d="m4 7 8-4 8 4-8 4-8-4Z"/><path d="m4 7 8 4 8-4v10l-8 4-8-4V7Z"/><path d="M12 11v10"/></svg><span>Inventario</span></button>
+        <button class="nav-item" data-view="profileView"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Perfil</span></button>
+      </nav>
+
+      <div class="level-store-modal" id="levelStoreModal" role="dialog" aria-modal="true" aria-labelledby="levelStoreTitle" aria-hidden="true">
+        <section class="level-store-sheet">
+          <div class="level-store-handle"></div>
+          <header class="level-store-head">
+            <div><span id="levelStoreKicker">Objeto especial · Nivel 1</span><h2 id="levelStoreTitle">Tienda de nivel</h2><p>Este derecho de compra se desbloquea al alcanzar el nivel. Se paga con monedas.</p></div>
+            <button class="level-store-close" id="closeLevelStore" aria-label="Cerrar tienda">×</button>
+          </header>
+          <div class="level-store-balance"><span>Saldo disponible</span><strong>🪙 <span id="levelStoreCoins">0</span></strong></div>
+          <div class="level-special-card" id="levelSpecialCard"></div>
+          <div class="level-store-notice" id="levelStoreNotice" aria-live="polite"></div>
+        </section>
+      </div>
+
       <div class="reward-layer" id="rewardLayer" aria-live="polite">
         <div class="mascot-stage">
-          <div class="reward-score"><span id="rewardPoints">+0</span> pts</div>
+          <div class="reward-score"><span id="rewardPoints">+0 pts · +0 monedas</span></div>
           <img class="mascot-big" src="PumitaDinetik.png" alt="" aria-hidden="true">
           <div class="speech">
             <span>Dinetik te dice</span>
@@ -952,9 +1217,9 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
           <h2 id="dayCompleteTitle">Día completado</h2>
           <p>Hoy alimentaste a tu pumita con videos, reto y una decisión más clara.</p>
           <div class="daily-result">
-            <div><strong id="dailyPts">0</strong><span>puntos</span></div>
+            <div><strong id="dailyPoints">0</strong><span>puntos</span></div>
+            <div><strong id="dailyCoins">0</strong><span>monedas</span></div>
             <div><strong>3/3</strong><span>videos</span></div>
-            <div><strong>1</strong><span>reto</span></div>
           </div>
           <button id="activateNextDay">Activar día 2</button>
         </div>
@@ -993,16 +1258,114 @@ const days=[
 ];
 
 const state={
-  day:0, video:0, seen:[new Set(),new Set(),new Set()], answer:[null,null,null], mascotProgress:-1, mascotCompleteKey:""
+  day:0, video:0, seen:[new Set(),new Set(),new Set()], answer:[null,null,null], mascotProgress:-1, mascotCompleteKey:"",
+  spentCoins:0, bonusCoins:0, claimedLevels:new Set(), purchasedLevelItems:new Set(), inventory:new Set(), equipped:null, challengeLocked:[false,false,false], feedTransitioning:false,
+  rankingTab:"global", soundOn:true, activeLevelStore:1
 };
+const rankMock=[
+  {pos:1,name:"@valeria_fin",pts:6840},
+  {pos:2,name:"@carlos.mtz",pts:6705},
+  {pos:3,name:"@julieta_ok",pts:6510},
+  {pos:4,name:"@javier.p",pts:6280},
+  {pos:5,name:"@renexyz",pts:6090}
+];
+const userRank=1342;
+const badgeMock=[
+  {icon:"🥇",name:"Primer reto"},
+  {icon:"🔥",name:"Racha 3 días"},
+  {icon:"🎬",name:"9 videos vistos"},
+  {icon:"💰",name:"Gasto invisible"},
+  {icon:"📆",name:"Ciclo de quincena"},
+  {icon:"💳",name:"Rompe la deuda"},
+  {icon:"🏅",name:"Top 500"}
+];
+const inventoryItems=[
+  {id:"pin",icon:"💚",name:"Pin Dinetik",desc:"El distintivo original para tu avatar.",cost:20,rarity:"Inicial"},
+  {id:"glasses",icon:"😎",name:"Lentes neón",desc:"Un look brillante para decisiones claras.",cost:45,rarity:"Raro"},
+  {id:"cap",icon:"🧢",name:"Gorra urbana",desc:"Estilo relajado para dominar el feed.",cost:60,rarity:"Raro"},
+  {id:"headphones",icon:"🎧",name:"Audífonos focus",desc:"Concentración total para tus retos.",cost:75,rarity:"Épico"},
+  {id:"aura",icon:"✨",name:"Aura financiera",desc:"Un brillo reservado para quienes avanzan.",cost:90,rarity:"Épico"},
+  {id:"crown",icon:"👑",name:"Corona Top 500",desc:"La pieza más exclusiva del ranking.",cost:120,rarity:"Legendario"},
+  {id:"mercury-pin",icon:"🪽",name:"Alas de Mercurio",desc:"Recompensa gratuita del nivel Órbita Mercurio.",cost:0,rarity:"Nivel 2",unlockLevel:2},
+  {id:"terra-halo",icon:"🌍",name:"Halo Terra",desc:"Recompensa gratuita del nivel Guardián Terra.",cost:0,rarity:"Nivel 4",unlockLevel:4},
+  {id:"meteor-belt",icon:"☄️",name:"Cinturón meteoro",desc:"Fragmentos cósmicos alrededor de tu avatar.",cost:0,rarity:"Nivel 6",unlockLevel:6},
+  {id:"saturn-rings",icon:"🪐",name:"Anillos de Saturno",desc:"Recompensa gratuita por dominar Saturno.",cost:0,rarity:"Nivel 8",unlockLevel:8},
+  {id:"neptune-trident",icon:"🔱",name:"Tridente Neptuno",desc:"Accesorio gratuito del nivel Navegante.",cost:0,rarity:"Nivel 10",unlockLevel:10},
+  {id:"orion-bow",icon:"🏹",name:"Arco de Orión",desc:"Recompensa gratuita de Cazador de Orión.",cost:0,rarity:"Nivel 12",unlockLevel:12},
+  {id:"cassiopeia-crown",icon:"👑",name:"Corona Casiopea",desc:"Corona estelar ganada al subir de nivel.",cost:0,rarity:"Nivel 14",unlockLevel:14},
+  {id:"aldebaran-eye",icon:"👁️",name:"Ojo de Aldebarán",desc:"Aura vigilante para tu avatar.",cost:0,rarity:"Nivel 16",unlockLevel:16},
+  {id:"andromeda-portal",icon:"🌌",name:"Portal Andrómeda",desc:"Fondo dimensional para tu avatar.",cost:0,rarity:"Nivel 18",unlockLevel:18},
+  {id:"conclave-crown",icon:"♛",name:"Corona del Cónclave",desc:"La insignia gratuita de los 500 elegidos.",cost:0,rarity:"Nivel 20",unlockLevel:20},
+  {id:"lunar-trail",icon:"🌠",name:"Estela lunar PRO",desc:"Objeto especial comprado en la tienda del nivel 1.",cost:15,rarity:"Especial",storeLevel:1},
+  {id:"mercury-helmet",icon:"🪖",name:"Casco Mercurio PRO",desc:"Velocidad orbital para tu identidad.",cost:25,rarity:"Especial",storeLevel:2},
+  {id:"terra-armor",icon:"🛡️",name:"Armadura Terra",desc:"Objeto premium exclusivo del nivel 4.",cost:40,rarity:"Épico",storeLevel:4},
+  {id:"meteor-aura",icon:"💫",name:"Aura meteoro PRO",desc:"Una estela animada alrededor del avatar.",cost:55,rarity:"Épico",storeLevel:6},
+  {id:"saturn-crown",icon:"🪐",name:"Corona de Saturno PRO",desc:"Anillos dorados reservados para nivel 8.",cost:70,rarity:"Legendario",storeLevel:8},
+  {id:"halley-tail",icon:"☄",name:"Cola de Halley",desc:"Accesorio animado de edición limitada.",cost:90,rarity:"Legendario",storeLevel:11},
+  {id:"regulus-jersey",icon:"🦁",name:"Jersey Regulus",desc:"Uniforme premium de la liga estelar.",cost:120,rarity:"Mítico",storeLevel:15}
+];
+const cosmicLevels=[
+  {level:1,min:0,icon:"🌙",name:"Chispa Lunar",reward:"10 monedas",coins:10,special:{id:"lunar-trail",icon:"🌠",name:"Estela lunar PRO",desc:"Accesorio premium para tu avatar.",cost:15,avatarId:"lunar-trail"}},
+  {level:2,min:50,icon:"☿",name:"Órbita Mercurio",reward:"Alas de Mercurio",rewardItem:"mercury-pin",special:{id:"mercury-helmet",icon:"🪖",name:"Casco Mercurio PRO",desc:"Objeto de avatar con acabado metálico.",cost:25,avatarId:"mercury-helmet"}},
+  {level:3,min:100,icon:"✨",name:"Aurora de Venus",reward:"15 monedas",coins:15,special:{id:"venus-cinema",icon:"🎬",name:"Descuento de cine 15%",desc:"Beneficio aplicable en cadenas participantes.",cost:30}},
+  {level:4,min:160,icon:"🌍",name:"Guardián Terra",reward:"Halo Terra",rewardItem:"terra-halo",special:{id:"terra-armor",icon:"🛡️",name:"Armadura Terra",desc:"Skin premium para tu avatar.",cost:40,avatarId:"terra-armor"}},
+  {level:5,min:230,icon:"🔴",name:"Centinela de Marte",reward:"20 monedas",coins:20,special:{id:"mars-cinema",icon:"🍿",name:"Combo de cine 2×1",desc:"Dos combos al precio de uno.",cost:45}},
+  {level:6,min:310,icon:"☄️",name:"Cinturón de Asteroides",reward:"Cinturón meteoro",rewardItem:"meteor-belt",special:{id:"meteor-aura",icon:"💫",name:"Aura meteoro PRO",desc:"Efecto animado para el avatar.",cost:55,avatarId:"meteor-aura"}},
+  {level:7,min:400,icon:"🌀",name:"Tormenta de Júpiter",reward:"25 monedas",coins:25,special:{id:"jupiter-cinema",icon:"🎟️",name:"Boletos de cine",desc:"Dos entradas para una función participante.",cost:60}},
+  {level:8,min:500,icon:"🪐",name:"Anillos de Saturno",reward:"Anillos de Saturno",rewardItem:"saturn-rings",special:{id:"saturn-crown",icon:"🪐",name:"Corona Saturno PRO",desc:"Objeto legendario de avatar.",cost:70,avatarId:"saturn-crown"}},
+  {level:9,min:620,icon:"💠",name:"Viajero de Urano",reward:"30 monedas",coins:30,special:{id:"uranus-pass",icon:"🎮",name:"Pase gaming",desc:"Crédito para experiencias digitales.",cost:75}},
+  {level:10,min:760,icon:"🔱",name:"Navegante Neptuno",reward:"Tridente Neptuno",rewardItem:"neptune-trident",special:{id:"neptune-cinema",icon:"🎬",name:"Noche de cine premium",desc:"Entradas y combo para dos personas.",cost:85}},
+  {level:11,min:920,icon:"☄",name:"Cometa Halley",reward:"35 monedas",coins:35,special:{id:"halley-tail",icon:"☄",name:"Cola de Halley",desc:"Accesorio animado de edición limitada.",cost:90,avatarId:"halley-tail"}},
+  {level:12,min:1100,icon:"🏹",name:"Cazador de Orión",reward:"Arco de Orión",rewardItem:"orion-bow",special:{id:"orion-football",icon:"⚽",name:"Descuento futbolero",desc:"Descuento en entradas seleccionadas.",cost:95}},
+  {level:13,min:1300,icon:"🔥",name:"Fuego de Fénix",reward:"40 monedas",coins:40,special:{id:"phoenix-cinema",icon:"🎞️",name:"Premiere de cine",desc:"Acceso doble a una función especial.",cost:105}},
+  {level:14,min:1530,icon:"👑",name:"Corona de Casiopea",reward:"Corona Casiopea",rewardItem:"cassiopeia-crown",special:{id:"cassiopeia-box",icon:"🎁",name:"Caja estelar premium",desc:"Coleccionable sorpresa de temporada.",cost:110}},
+  {level:15,min:1790,icon:"🦁",name:"León de Regulus",reward:"50 monedas",coins:50,special:{id:"regulus-jersey",icon:"🦁",name:"Jersey Regulus",desc:"Uniforme mítico para tu avatar.",cost:120,avatarId:"regulus-jersey"}},
+  {level:16,min:2080,icon:"👁️",name:"Ojo de Aldebarán",reward:"Ojo de Aldebarán",rewardItem:"aldebaran-eye",special:{id:"aldebaran-stadium",icon:"🏟️",name:"Experiencia en estadio",desc:"Tour y acceso a zona exclusiva.",cost:140}},
+  {level:17,min:2400,icon:"💫",name:"Luz de Vega",reward:"60 monedas",coins:60,special:{id:"vega-football",icon:"⚽",name:"Boletos de fútbol",desc:"Dos accesos para un partido participante.",cost:160}},
+  {level:18,min:2750,icon:"🌌",name:"Portal de Andrómeda",reward:"Portal Andrómeda",rewardItem:"andromeda-portal",special:{id:"andromeda-lounge",icon:"🥂",name:"Acceso a lounge premium",desc:"Hospitality para un evento seleccionado.",cost:180}},
+  {level:19,min:3150,icon:"💥",name:"Corazón Supernova",reward:"80 monedas",coins:80,special:{id:"supernova-presale",icon:"🎤",name:"Preventa de conciertos",desc:"Compra anticipada antes del público general.",cost:200}},
+  {level:20,min:3600,icon:"♛",name:"El Cónclave Celestial",reward:"Corona del Cónclave",rewardItem:"conclave-crown",elite:true,special:{id:"conclave-vip",icon:"🎫",name:"Boletos VIP para conciertos",desc:"La experiencia máxima del Cónclave Celestial.",cost:250}}
+];
+const cosmicPalette=[
+  {color:"#7DAFFF",tint:"rgba(61,101,176,.34)",glow:"rgba(84,137,255,.28)"},
+  {color:"#9BE7FF",tint:"rgba(74,153,179,.32)",glow:"rgba(125,221,255,.27)"},
+  {color:"#FF83C9",tint:"rgba(168,60,124,.32)",glow:"rgba(255,86,181,.27)"},
+  {color:"#39D6A2",tint:"rgba(31,134,105,.34)",glow:"rgba(35,210,158,.27)"},
+  {color:"#FF705D",tint:"rgba(163,63,48,.34)",glow:"rgba(255,85,64,.28)"},
+  {color:"#D8A55B",tint:"rgba(139,96,39,.34)",glow:"rgba(215,158,74,.27)"},
+  {color:"#F2A14C",tint:"rgba(159,91,28,.34)",glow:"rgba(242,139,45,.28)"},
+  {color:"#F6D36F",tint:"rgba(159,126,35,.34)",glow:"rgba(246,204,80,.28)"},
+  {color:"#5CE2E8",tint:"rgba(35,132,139,.34)",glow:"rgba(64,216,225,.28)"},
+  {color:"#5680FF",tint:"rgba(49,73,169,.35)",glow:"rgba(73,111,255,.3)"},
+  {color:"#C2F7FF",tint:"rgba(71,142,153,.31)",glow:"rgba(159,239,255,.28)"},
+  {color:"#9583FF",tint:"rgba(77,59,169,.35)",glow:"rgba(130,105,255,.3)"},
+  {color:"#FF5A66",tint:"rgba(167,42,55,.35)",glow:"rgba(255,65,81,.3)"},
+  {color:"#DC70FF",tint:"rgba(129,49,158,.35)",glow:"rgba(205,85,255,.3)"},
+  {color:"#FFC04A",tint:"rgba(165,109,24,.35)",glow:"rgba(255,177,41,.3)"},
+  {color:"#FF774F",tint:"rgba(165,57,30,.35)",glow:"rgba(255,95,55,.3)"},
+  {color:"#8CF4FF",tint:"rgba(54,143,153,.34)",glow:"rgba(99,231,244,.3)"},
+  {color:"#AE83FF",tint:"rgba(87,55,164,.36)",glow:"rgba(151,102,255,.31)"},
+  {color:"#FF54AA",tint:"rgba(165,39,104,.36)",glow:"rgba(255,55,151,.32)"},
+  {color:"#C190FF",tint:"rgba(91,53,158,.4)",glow:"rgba(175,116,255,.36)"}
+];
 const $=s=>document.querySelector(s);
 const $$=s=>document.querySelectorAll(s);
 $("#startDemo").addEventListener("click",()=>document.body.classList.remove("intro-mode"));
-function totalPoints(){return state.answer.reduce((sum,a,idx)=>sum+(a?days[idx].challenge.options.find(o=>o.letter===a).score:0),0)}
+function earnedPoints(){
+  return state.answer.reduce((sum,a,idx)=>sum+(a?days[idx].challenge.options.find(o=>o.letter===a).score:0),0);
+}
+function earnedCoins(){return seenVideos()*10+earnedPoints()+state.bonusCoins}
+function availableCoins(){return Math.max(0,earnedCoins()-state.spentCoins)}
 function completedDays(){return state.answer.filter(Boolean).length}
 function seenVideos(){return state.seen.reduce((sum,set)=>sum+set.size,0)}
 function tone(score){return score>=50?"good":score>=30?"mid":"low"}
-function show(id){hideReward();hideDayComplete();$$(".view").forEach(v=>v.classList.toggle("active",v.id===id))}
+function show(id){
+  hideReward();hideDayComplete();closeLevelStore();
+  $$(".view").forEach(v=>v.classList.toggle("active",v.id===id));
+  const navViews=["reelView","summaryView","top500View","inventoryView","profileView"];
+  $("#appNav").classList.toggle("visible",navViews.includes(id));
+  $$("#appNav .nav-item").forEach(btn=>btn.classList.toggle("active",btn.dataset.view===id || (id==="summaryView" && btn.dataset.view==="reelView")));
+}
 function currentMascotProgress(){
   return state.seen[state.day].size;
 }
@@ -1063,7 +1426,7 @@ function showReward(picked){
   const emotion=rewardEmotion(picked.score);
   window.clearTimeout(state.rewardTimer);
   window.clearTimeout(state.speakingTimer);
-  $("#rewardPoints").textContent=`+${picked.score}`;
+  $("#rewardPoints").textContent=`+${picked.score} pts · +${picked.score} monedas`;
   $("#mascotFeedback").textContent=mascotLine(picked);
   applyPumaExpression(picked.score);
   layer.className=`reward-layer show mascot speaking emotion-${emotion}`;
@@ -1084,7 +1447,9 @@ function hideReward(){
 function showDayComplete(){
   const picked=state.answer[state.day]?days[state.day].challenge.options.find(o=>o.letter===state.answer[state.day]):null;
   $("#dayCompleteTitle").textContent=`Día ${state.day+1} completado`;
-  $("#dailyPts").textContent=picked?picked.score:0;
+  const challengeReward=picked?picked.score:0;
+  $("#dailyPoints").textContent=challengeReward;
+  $("#dailyCoins").textContent=challengeReward+state.seen[state.day].size*10;
   $("#activateNextDay").textContent=state.day===2?"Ver resumen final":`Activar día ${state.day+2}`;
   $("#dayCompleteLayer").classList.add("show");
 }
@@ -1120,11 +1485,11 @@ function renderMascot(){
   if(complete) state.mascotCompleteKey=completeKey;
 }
 function renderGlobal(){
-  const pts=totalPoints(), streak=completedDays(), vids=seenVideos();
+  const pts=earnedPoints(), coins=availableCoins(), vids=seenVideos();
   $("#totalPts").textContent=pts;
-  $("#streak").textContent=streak;
+  $("#totalCoins").textContent=coins;
   $("#challengePts").textContent=pts;
-  $("#challengeStreak").textContent=streak;
+  $("#challengeCoins").textContent=coins;
   $("#dayScore").textContent=state.answer[state.day]?days[state.day].challenge.options.find(o=>o.letter===state.answer[state.day]).score:0;
   $("#answersCount").textContent=completedDays()+"/3";
   $("#videosCount").textContent=vids+"/9";
@@ -1132,41 +1497,57 @@ function renderGlobal(){
 }
 function renderTabs(){
   const unlocked=completedDays();
-  $("#dayTabs").innerHTML=days.map((d,i)=>`<button class="${i===state.day?"on":""} ${state.answer[i]?"done":""}" data-day="${i}" ${i>unlocked?"disabled":""}>${state.answer[i]?"✓ ":""}Día ${i+1}</button>`).join("");
+  $("#dayTabs").innerHTML=days.map((d,i)=>`<button class="${i===state.day?"on":""} ${state.answer[i]?"done":""}" data-day="${i}" ${i!==state.day?"disabled":""}>${state.answer[i]?"✓ ":""}Día ${i+1}</button>`).join("");
   $$("#dayTabs button").forEach(btn=>btn.addEventListener("click",()=>{if(btn.disabled)return;state.day=Number(btn.dataset.day);state.video=0;state.mascotProgress=-1;state.mascotCompleteKey="";renderReel()}));
 }
-function renderReel(){
-  const day=days[state.day], video=day.videos[state.video];
+function renderReelMeta(){
   const seenCount=state.seen[state.day].size;
-  document.documentElement.style.setProperty("--g",day.color);
-  $("#reelBg").style.backgroundImage=`url("${video.img}")`;
-  $("#videoTag").textContent=`Video ${video.n} · ${video.format}`;
-  $("#videoTitle").textContent=video.title;
-  $("#videoDesc").textContent=video.desc;
-  $("#videoTip").textContent="Tip rápido: “"+video.tip+"”";
-  $("#markBtn").classList.toggle("done",state.seen[state.day].has(state.video));
-  $("#markBtn").classList.toggle("coach",state.day===0 && state.video===0 && !state.seen[0].has(0));
   $("#seenHint").textContent=`${seenCount}/3 vistos`;
-  $("#flowHint").textContent=state.answer[state.day]
-    ?"Reto respondido: puedes cambiarlo"
-    :seenCount<3
-      ?"Marca los 3 videos para desbloquear el reto"
-      :"Reto desbloqueado";
-  $("#videoRail").innerHTML=day.videos.map((v,i)=>`<button class="mini ${i===state.video?"on":""} ${state.seen[state.day].has(i)?"done":""}" data-video="${i}" style="background-image:url('${v.img}')"><span>${v.n}</span></button>`).join("");
-  $$("#videoRail .mini").forEach(btn=>btn.addEventListener("click",()=>{state.video=Number(btn.dataset.video);renderReel()}));
-  $("#challengeBtn").disabled=seenCount<3;
-  $("#challengeBtn").textContent=state.answer[state.day]?"Cambiar respuesta":seenCount<3?`Faltan ${3-seenCount} video${3-seenCount>1?"s":""}`:"Responder reto";
-  $("#prevDayBtn").disabled=state.day===0;
-  $("#nextDayBtn").disabled=state.day===2 || !state.answer[state.day];
+  $("#flowHint").textContent=state.video<2
+    ?`${seenCount}/3 videos · scroll vertical ↑↓`
+    :"Siguiente pantalla: reto · después ya no podrás volver";
   renderTabs();
   renderGlobal();
+}
+function renderReel(){
+  const day=days[state.day], feed=$("#videoFeed");
+  document.documentElement.style.setProperty("--g",day.color);
+  if(feed.dataset.day!==String(state.day)){
+    feed.innerHTML=day.videos.map((video,index)=>`
+      <article class="feed-slide" data-video="${index}" aria-label="Video ${index+1} de 3">
+        <div class="feed-slide-bg" style="background-image:url('${video.img}')"></div>
+        <div class="video-copy">
+          <div class="tag">Video ${video.n} · ${video.format}</div>
+          <h1>${video.title}</h1>
+          <p>${video.desc}</p>
+          <div class="tip">Tip rápido: “${video.tip}”</div>
+        </div>
+      </article>`).join("")+`
+      <article class="feed-slide challenge-sentinel" aria-label="Reto del día">
+        <div class="sentinel-icon">⚡</div>
+        <h2>Ahora viene el reto</h2>
+        <p>Al entrar ya no podrás regresar a los videos.</p>
+        <span class="tag" style="margin-top:16px">Toca para continuar</span>
+      </article>`;
+    feed.dataset.day=String(state.day);
+    feed.scrollTop=state.video*feed.clientHeight;
+  }
+  state.seen[state.day].add(state.video);
+  const seenCount=state.seen[state.day].size;
+  $("#markBtn").classList.toggle("done",state.seen[state.day].has(state.video));
+  $("#markBtn").classList.toggle("coach",state.day===0 && state.video===0 && !state.seen[0].has(0));
+  $("#challengeBtn").disabled=seenCount<3;
+  $("#challengeBtn").textContent=seenCount<3?`Faltan ${3-seenCount} video${3-seenCount>1?"s":""}`:"4º scroll · Ir al reto";
+  $("#prevDayBtn").disabled=state.day===0;
+  $("#nextDayBtn").disabled=state.day===2 || !state.answer[state.day];
+  renderReelMeta();
 }
 function renderChallenge(){
   const day=days[state.day], ch=day.challenge, selected=state.answer[state.day];
   document.documentElement.style.setProperty("--g",day.color);
   $("#challengeTag").textContent=`Reto del día ${state.day+1}`;
   $("#question").textContent=ch.question;
-  $("#context").textContent=ch.context || "Elige una respuesta. Puedes cambiarla cuando quieras y tus puntos se corrigen al instante.";
+  $("#context").textContent=ch.context || "Ya cerraste el feed. Elige una respuesta para ganar la misma cantidad de puntos y monedas.";
   $("#options").innerHTML=ch.options.map(o=>`<button class="option ${selected===o.letter?"selected":""}" data-letter="${o.letter}"><span class="letter">${o.letter}</span><span>${o.text}</span></button>`).join("");
   $$("#options .option").forEach(btn=>btn.addEventListener("click",()=>{
     state.answer[state.day]=btn.dataset.letter;
@@ -1176,19 +1557,182 @@ function renderChallenge(){
   }));
   const picked=selected?ch.options.find(o=>o.letter===selected):null;
   $("#feedback").classList.toggle("show",!!picked);
-  $("#feedback").innerHTML=picked?`<strong>Respuesta guardada.</strong> Puedes cambiarla si quieres probar otra opción.`:"";
+  $("#feedback").innerHTML=picked?`<strong>Respuesta guardada.</strong> Sumaste ${picked.score} puntos y ${picked.score} monedas.`:"";
   $("#continueBtn").disabled=!picked;
   $("#continueBtn").textContent=!picked?"Elige una respuesta":state.day===2?"Ver resumen":`Ver día ${state.day+2}`;
   renderGlobal();
 }
 function renderSummary(){
-  $("#sumPts").textContent=totalPoints();
-  $("#sumStreak").textContent=completedDays();
+  $("#sumPts").textContent=earnedPoints();
+  $("#sumCoins").textContent=earnedCoins();
   $("#breakdown").innerHTML=days.map((d,i)=>{
     const a=state.answer[i];
     const score=a?d.challenge.options.find(o=>o.letter===a).score:0;
-    return `<div><span>Día ${i+1} · ${d.title}</span><strong>${score} pts</strong></div>`;
+    return `<div><span>Día ${i+1} · ${d.title}</span><strong>${score} pts · ${score+state.seen[i].size*10} monedas</strong></div>`;
   }).join("");
+}
+function renderTop500(){
+  const current=currentCosmicLevel();
+  $("#rankingPointsChip").textContent=earnedPoints();
+  $("#rewardPointsTotal").textContent=earnedPoints();
+  $("#topRankPosition").textContent=`#${userRank}`;
+  $("#rankEligibilityText").textContent="Ascenso cósmico en curso";
+  $("#rankEligibilityBadge").textContent=`Nivel ${current.level} · ${current.name}`;
+  $("#rankList").innerHTML=rankMock.map(r=>`<div class="rank-row"><span class="rank-pos">#${r.pos}</span><span class="rank-name">${r.name}</span><span class="rank-pts">${r.pts} pts</span></div>`).join("");
+  switchRankingTab(state.rankingTab,false);
+  if(state.rankingTab==="map") window.setTimeout(()=>$("#levelMap .current")?.scrollIntoView({behavior:"smooth",block:"center"}),120);
+}
+function currentCosmicLevel(){
+  const points=earnedPoints();
+  return [...cosmicLevels].reverse().find(level=>points>=level.min && (!level.elite||userRank<=500)) || cosmicLevels[0];
+}
+function playMapSound(type="move"){
+  if(!state.soundOn || !(window.AudioContext||window.webkitAudioContext)) return;
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;
+  const ctx=playMapSound.ctx || (playMapSound.ctx=new AudioCtx());
+  const notes=type==="claim"?[523,659,784]:type==="tab"?[330,440]:[260];
+  notes.forEach((frequency,index)=>{
+    const oscillator=ctx.createOscillator(), gain=ctx.createGain();
+    oscillator.type=type==="claim"?"sine":"triangle";
+    oscillator.frequency.setValueAtTime(frequency,ctx.currentTime+index*.08);
+    gain.gain.setValueAtTime(.0001,ctx.currentTime+index*.08);
+    gain.gain.exponentialRampToValueAtTime(.11,ctx.currentTime+index*.08+.015);
+    gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+index*.08+.22);
+    oscillator.connect(gain);gain.connect(ctx.destination);
+    oscillator.start(ctx.currentTime+index*.08);oscillator.stop(ctx.currentTime+index*.08+.24);
+  });
+}
+function showMapToast(message){
+  const toast=$("#mapToast");
+  toast.textContent=message;toast.classList.add("show");
+  window.clearTimeout(showMapToast.timer);
+  showMapToast.timer=window.setTimeout(()=>toast.classList.remove("show"),2200);
+}
+function launchLevelBurst(){
+  const burst=$("#levelBurst"),colors=["#1DCCA0","#f5be5e","#a78bfa","#4d9eff","#fff"];
+  burst.innerHTML=Array.from({length:24},(_,index)=>`<i style="--c:${colors[index%colors.length]};--x:${Math.round(Math.cos(index)*90+(Math.random()-.5)*80)}px;--y:${Math.round(Math.sin(index)*100-80-Math.random()*70)}px"></i>`).join("");
+  window.setTimeout(()=>burst.innerHTML="",950);
+}
+function claimCosmicLevel(levelNumber){
+  const level=cosmicLevels.find(item=>item.level===levelNumber);
+  if(!level || earnedPoints()<level.min || (level.elite&&userRank>500) || state.claimedLevels.has(levelNumber)) return;
+  state.claimedLevels.add(levelNumber);
+  state.bonusCoins+=level.coins||0;
+  if(level.rewardItem) state.inventory.add(level.rewardItem);
+  playMapSound("claim");launchLevelBurst();
+  showMapToast(`✨ Recompensa gratuita: ${level.reward}`);
+  renderMap();renderGlobal();
+}
+function closeLevelStore(){
+  const modal=$("#levelStoreModal");
+  if(!modal) return;
+  modal.classList.remove("show");modal.setAttribute("aria-hidden","true");
+}
+function renderLevelStore(){
+  const level=cosmicLevels.find(item=>item.level===state.activeLevelStore),special=level?.special;
+  if(!level||!special) return;
+  const reached=earnedPoints()>=level.min&&(!level.elite||userRank<=500),purchased=state.purchasedLevelItems.has(special.id),enough=availableCoins()>=special.cost;
+  $("#levelStoreKicker").textContent=`Objeto especial · Nivel ${level.level}`;
+  $("#levelStoreTitle").textContent=level.name;
+  $("#levelStoreCoins").textContent=availableCoins();
+  const label=purchased?"Comprado ✓":!reached?"Nivel bloqueado":enough?`Comprar · ${special.cost} 🪙`:`Faltan ${special.cost-availableCoins()} 🪙`;
+  $("#levelSpecialCard").innerHTML=`<div class="level-special-icon">${special.icon}</div><div class="level-special-copy"><h3>${special.name}</h3><p>${special.desc}</p><button class="buy-level-special" data-buy-special="${special.id}" ${purchased||!reached||!enough?"disabled":""}>${label}</button></div>`;
+  $("#levelSpecialCard [data-buy-special]").addEventListener("click",()=>buyLevelSpecial(level.level));
+}
+function openLevelStore(levelNumber){
+  const level=cosmicLevels.find(item=>item.level===levelNumber);
+  if(!level||earnedPoints()<level.min||(level.elite&&userRank>500)) return;
+  state.activeLevelStore=levelNumber;
+  $("#levelStoreNotice").textContent="";
+  renderLevelStore();
+  $("#levelStoreModal").classList.add("show");$("#levelStoreModal").setAttribute("aria-hidden","false");
+  playMapSound("tab");
+}
+function buyLevelSpecial(levelNumber){
+  const level=cosmicLevels.find(item=>item.level===levelNumber),special=level?.special;
+  if(!level||!special||earnedPoints()<level.min||(level.elite&&userRank>500)||state.purchasedLevelItems.has(special.id)) return;
+  if(availableCoins()<special.cost){$("#levelStoreNotice").textContent="Necesitas más monedas para comprar este objeto.";return}
+  state.spentCoins+=special.cost;state.purchasedLevelItems.add(special.id);
+  if(special.avatarId) state.inventory.add(special.avatarId);
+  playMapSound("claim");launchLevelBurst();
+  $("#levelStoreNotice").textContent=`Compra realizada: ${special.name}`;
+  renderLevelStore();renderMap();renderGlobal();
+}
+function renderMap(){
+  const points=earnedPoints(),current=currentCosmicLevel(),currentIndex=cosmicLevels.indexOf(current),next=cosmicLevels[currentIndex+1]||current;
+  const span=Math.max(1,next.min-current.min),progress=currentIndex===cosmicLevels.length-1?100:Math.max(0,Math.min(100,((points-current.min)/span)*100));
+  $("#levelMap").style.setProperty("--map-fill",`${(currentIndex/(cosmicLevels.length-1))*100}%`);
+  $("#levelMap").innerHTML=cosmicLevels.map(level=>{
+    const reached=points>=level.min && (!level.elite||userRank<=500),claimed=state.claimedLevels.has(level.level),isCurrent=level.level===current.level;
+    const claimIcon=claimed?"✓":reached?"🎁":"🔒";
+    const claimAria=claimed?`Recompensa ${level.reward} reclamada`:reached?`Reclamar ${level.reward}`:level.elite?"Recompensa bloqueada: requiere 3600 puntos y Top 500":`Recompensa bloqueada hasta ${level.min} puntos`;
+    const theme=cosmicPalette[level.level-1];
+    const currentSummary=isCurrent?`<div class="current-level-summary"><div class="current-level-summary-head"><span>✦ Estás aquí</span><strong>${points} pts</strong></div><div class="current-level-progress"><i style="width:${progress}%"></i></div><div class="current-level-next">${currentIndex===cosmicLevels.length-1?"Perteneces a la élite máxima":`${Math.max(0,next.min-points)} puntos para ${next.name}`}</div></div>`:"";
+    return `<article class="cosmic-level ${reached?"reached":"locked"} ${isCurrent?"current":""} ${level.elite?"elite":""}" data-level="${level.level}" style="--level-color:${theme.color};--level-tint:${theme.tint};--level-glow:${theme.glow}">
+      <div class="level-node">${level.icon}</div><span class="level-number">Nivel ${String(level.level).padStart(2,"0")}${level.elite?" · Élite 500":""}</span><h4>${level.name}</h4>${currentSummary}<p>${level.elite?"La liga más exclusiva de Dinetik. Solo 500 lugares.":`${level.min} puntos para alcanzar este escalón.`}</p><div class="level-reward-row"><span class="level-reward">${level.reward}</span><button class="claim-level ${claimed?"claimed":""}" data-claim-level="${level.level}" aria-label="${claimAria}" title="${claimAria}" ${!reached||claimed?"disabled":""}>${claimIcon}</button></div><div class="level-actions"><button class="open-level-shop" data-level-shop="${level.level}" ${!reached?"disabled":""}>${reached?"Comprar objetos especiales de nivel":"Tienda bloqueada"}</button></div>
+    </article>`;
+  }).join("");
+  $$("#levelMap [data-claim-level]").forEach(button=>button.addEventListener("click",()=>claimCosmicLevel(Number(button.dataset.claimLevel))));
+  $$("#levelMap [data-level-shop]").forEach(button=>button.addEventListener("click",()=>openLevelStore(Number(button.dataset.levelShop))));
+}
+function switchRankingTab(tab,focus=true){
+  state.rankingTab=tab;
+  $$(".ranking-tab").forEach(button=>{const active=button.dataset.rankingTab===tab;button.classList.toggle("active",active);button.setAttribute("aria-selected",String(active))});
+  $$(".ranking-panel").forEach(panel=>panel.classList.toggle("active",panel.dataset.rankingPanel===tab));
+  if(tab==="map"){
+    renderMap();
+    if(focus) window.setTimeout(()=>$("#levelMap .current")?.scrollIntoView({behavior:"smooth",block:"center"}),120);
+  }
+  if(focus) playMapSound("tab");
+}
+function renderInventory(){
+  $("#inventoryCoins").textContent=availableCoins();
+  const equipped=inventoryItems.find(item=>item.id===state.equipped);
+  $("#inventoryAccessory").textContent=equipped?equipped.icon:"";
+  const visibleItems=inventoryItems.filter(item=>!item.unlockLevel&&!item.storeLevel||state.inventory.has(item.id));
+  $("#inventoryGrid").innerHTML=visibleItems.map(item=>{
+    const owned=state.inventory.has(item.id), isEquipped=state.equipped===item.id;
+    const canBuy=availableCoins()>=item.cost;
+    const label=isEquipped?"Equipado ✓":owned?"Equipar":canBuy?`${item.cost} 🪙`:`Faltan ${item.cost-availableCoins()} 🪙`;
+    return `<article class="inventory-item ${owned?"owned":""} ${isEquipped?"equipped":""}">
+      <div class="item-top"><span class="item-icon">${item.icon}</span><span class="item-rarity">${item.rarity}</span></div>
+      <h3>${item.name}</h3><p>${item.desc}</p>
+      <button class="inventory-action" data-item="${item.id}" ${isEquipped||(!owned&&!canBuy)?"disabled":""}>${label}</button>
+    </article>`;
+  }).join("");
+  $$("#inventoryGrid .inventory-action").forEach(btn=>btn.addEventListener("click",()=>{
+    const item=inventoryItems.find(entry=>entry.id===btn.dataset.item);
+    if(!item) return;
+    if(!state.inventory.has(item.id)){
+      if(availableCoins()<item.cost) return;
+      state.spentCoins+=item.cost;
+      state.inventory.add(item.id);
+    }
+    state.equipped=item.id;
+    renderInventory();
+    renderGlobal();
+  }));
+}
+function renderProfile(){
+  const points=earnedPoints(), cosmic=currentCosmicLevel(), cosmicIndex=cosmicLevels.indexOf(cosmic), nextCosmic=cosmicLevels[cosmicIndex+1]||cosmic;
+  const progress=cosmicIndex===cosmicLevels.length-1?100:Math.round(((points-cosmic.min)/Math.max(1,nextCosmic.min-cosmic.min))*100);
+  const equipped=inventoryItems.find(item=>item.id===state.equipped);
+  $("#profileAccessory").textContent=equipped?equipped.icon:"";
+  $("#profilePoints").textContent=points;
+  $("#profileCoins").textContent=availableCoins();
+  $("#profileRank").textContent=`#${userRank}`;
+  $("#profileLevelLabel").textContent=`Nivel ${cosmic.level} · ${cosmic.name}`;
+  $("#profileLevelTitle").textContent=`${cosmic.icon} ${cosmic.name}`;
+  $("#profileLevelPercent").textContent=`${progress}%`;
+  $("#profileLevelBar").style.width=`${progress}%`;
+  $("#profileLevelNote").textContent=cosmicIndex===cosmicLevels.length-1?"Has alcanzado la élite máxima":`${Math.max(0,nextCosmic.min-points)} puntos para ${nextCosmic.name}`;
+  $("#profileCompleted").textContent=`${completedDays()}/3 días`;
+  $("#profilePaths").innerHTML=days.map((day,index)=>{
+    const value=Math.round(((state.seen[index].size+(state.answer[index]?1:0))/4)*100);
+    return `<div class="path-row"><strong>${day.title}</strong><span>${value}%</span><div class="path-track"><i style="width:${value}%"></i></div></div>`;
+  }).join("");
+  const highlights=[badgeMock[0],badgeMock[1],badgeMock[6]];
+  $("#profileBadges").innerHTML=highlights.map((badge,index)=>`<div class="profile-badge" style="opacity:${index===0&&completedDays()===0?0.42:1}"><b>${badge.icon}</b><span>${badge.name}</span></div>`).join("");
 }
 function goDay(delta){
   state.day=Math.max(0,Math.min(2,state.day+delta));
@@ -1198,19 +1742,62 @@ function goDay(delta){
   show("reelView");
   renderReel();
 }
-$("#markBtn").addEventListener("click",()=>{state.seen[state.day].add(state.video);if(state.video<2)state.video++;renderReel()});
-$("#nextVideoBtn").addEventListener("click",()=>{state.video=(state.video+1)%3;renderReel()});
-$("#challengeBtn").addEventListener("click",()=>{if(state.seen[state.day].size>=3){show("challengeView");renderChallenge()}});
+function enterChallenge(){
+  if(state.seen[state.day].size<3) return;
+  state.challengeLocked[state.day]=true;
+  show("challengeView");
+  renderChallenge();
+}
+let feedScrollTimer=0;
+function openChallengeFromFeed(){
+  if(state.feedTransitioning || !$("#reelView").classList.contains("active")) return;
+  [0,1,2].forEach(index=>state.seen[state.day].add(index));
+  state.video=2;
+  renderReelMeta();
+  state.feedTransitioning=true;
+  window.setTimeout(()=>{
+    enterChallenge();
+    state.feedTransitioning=false;
+  },90);
+}
+$("#videoFeed").addEventListener("scroll",()=>{
+  window.clearTimeout(feedScrollTimer);
+  feedScrollTimer=window.setTimeout(()=>{
+    const feed=$("#videoFeed");
+    if(!feed.clientHeight || state.feedTransitioning || !$("#reelView").classList.contains("active")) return;
+    const position=feed.scrollTop/feed.clientHeight;
+    if(position>=2.6){
+      openChallengeFromFeed();
+      return;
+    }
+    const next=Math.max(0,Math.min(2,Math.round(position)));
+    if(next!==state.video){
+      if(next>state.video){
+        for(let index=state.video+1;index<=next;index++) state.seen[state.day].add(index);
+      }
+      state.video=next;
+      state.seen[state.day].add(next);
+      renderReelMeta();
+    }
+  },36);
+},{passive:true});
+$("#videoFeed").addEventListener("click",event=>{
+  if(event.target.closest(".challenge-sentinel")) openChallengeFromFeed();
+});
+$("#markBtn").addEventListener("click",()=>{});
+$("#nextVideoBtn").addEventListener("click",()=>{});
+$("#challengeBtn").addEventListener("click",enterChallenge);
 $("#closeReward").addEventListener("click",()=>{hideReward();showDayComplete()});
-$("#backToReel").addEventListener("click",()=>{show("reelView");renderReel()});
+$("#backToReel").addEventListener("click",()=>{});
 $("#prevDayBtn").addEventListener("click",()=>goDay(-1));
 $("#nextDayBtn").addEventListener("click",()=>goDay(1));
-$("#challengePrev").addEventListener("click",()=>{show("reelView");renderReel()});
+$("#challengePrev").addEventListener("click",()=>{});
 $("#continueBtn").addEventListener("click",()=>{
   if(!state.answer[state.day]) return;
   if(state.day===2){show("summaryView");renderSummary();return}
   state.day++;
   state.video=0;
+  state.feedTransitioning=false;
   state.mascotProgress=-1;
   state.mascotCompleteKey="";
   show("reelView");
@@ -1220,14 +1807,32 @@ $("#activateNextDay").addEventListener("click",()=>{
   if(state.day===2){show("summaryView");renderSummary();return}
   state.day++;
   state.video=0;
+  state.feedTransitioning=false;
   state.mascotProgress=-1;
   state.mascotCompleteKey="";
   show("reelView");
   renderReel();
 });
-$("#summaryBack").addEventListener("click",()=>{show("challengeView");renderChallenge()});
-$("#summaryHome").addEventListener("click",()=>{state.day=0;state.video=0;state.mascotProgress=-1;state.mascotCompleteKey="";show("reelView");renderReel()});
-$("#restartBtn").addEventListener("click",()=>{state.day=0;state.video=0;state.seen=[new Set(),new Set(),new Set()];state.answer=[null,null,null];state.mascotProgress=-1;state.mascotCompleteKey="";show("reelView");renderReel()});
+$("#summaryExploreBtn").addEventListener("click",()=>{show("top500View");renderTop500()});
+$$(".ranking-tab").forEach(button=>button.addEventListener("click",()=>switchRankingTab(button.dataset.rankingTab)));
+$("#closeLevelStore").addEventListener("click",closeLevelStore);
+$("#levelStoreModal").addEventListener("click",event=>{if(event.target.id==="levelStoreModal") closeLevelStore()});
+document.addEventListener("keydown",event=>{if(event.key==="Escape") closeLevelStore()});
+$("#mapSoundToggle").addEventListener("click",()=>{
+  state.soundOn=!state.soundOn;
+  $("#mapSoundToggle").textContent=state.soundOn?"🔊":"🔇";
+  $("#mapSoundToggle").classList.toggle("off",!state.soundOn);
+  if(state.soundOn) playMapSound("claim");
+});
+$$("#appNav .nav-item").forEach(btn=>btn.addEventListener("click",()=>{
+  const view=btn.dataset.view;
+  if(view==="reelView" && completedDays()===3){show("summaryView");renderSummary();return}
+  show(view);
+  if(view==="reelView") renderReel();
+  if(view==="top500View") renderTop500();
+  if(view==="inventoryView") renderInventory();
+  if(view==="profileView") renderProfile();
+}));
 renderReel();
 </script>
 </body>
