@@ -949,9 +949,30 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .map-panel:before,.map-panel:after{content:"";position:absolute;inset:0;pointer-events:none}.map-panel:before{background-image:radial-gradient(circle,#fff 0 1px,transparent 1.5px);background-size:31px 37px;opacity:.23;animation:starDrift 16s linear infinite}.map-panel:after{background:linear-gradient(transparent 80%,#05070b)}
 @keyframes starDrift{to{background-position:31px 74px}}
 .map-toolbar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:4px 3px 10px}.map-toolbar h3{font-size:17px;margin-top:2px}.map-toolbar p{font-size:8.5px;color:var(--muted);margin-top:3px}.sound-toggle{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;font-size:16px;cursor:pointer}.sound-toggle.off{opacity:.45}
-.level-map{position:relative;z-index:2;padding:25px 0 10px;display:flex;flex-direction:column-reverse;gap:13px}
+.elite-prizes{position:relative;z-index:2;margin:0 0 10px;padding:8px 10px;border-radius:18px;background:linear-gradient(135deg,rgba(245,190,94,.18),rgba(12,9,4,.97));border:1px solid rgba(245,190,94,.42);box-shadow:0 10px 26px rgba(245,190,94,.2),0 0 0 1px rgba(245,190,94,.08) inset;backdrop-filter:blur(10px);overflow:hidden}
+.elite-prizes:before{content:"";position:absolute;top:-40%;bottom:-40%;width:40%;left:-60%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);animation:levelSweep 3.2s ease-in-out infinite;pointer-events:none}
+.elite-prizes-head{position:relative;display:flex;flex-direction:column;gap:1px;margin-bottom:6px}.elite-prizes-head span{font:900 7.5px "DM Mono",monospace;letter-spacing:.6px;text-transform:uppercase;color:#f5be5e}.elite-prizes-head b{font-size:11.5px;color:#fff5e0}
+.elite-prizes-row{position:relative;display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding-bottom:1px}.elite-prizes-row::-webkit-scrollbar{display:none}
+.elite-prize-card{scroll-snap-align:start;flex:0 0 auto;display:flex;align-items:center;gap:7px;min-width:158px;padding:6px 9px;border-radius:13px;background:rgba(0,0,0,.28);border:1px solid rgba(245,190,94,.3)}
+.elite-prize-icon{font-size:20px;filter:drop-shadow(0 0 6px rgba(245,190,94,.6))}
+.elite-prize-copy{display:flex;flex-direction:column;gap:1px;min-width:0}.elite-prize-copy strong{font-size:9px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.elite-prize-copy span{font-size:7px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.elite-prize-stock{margin-left:auto;flex:0 0 auto;padding:3px 6px;border-radius:999px;background:linear-gradient(135deg,#ff5f5f,#c81e3a);color:#fff;font:900 6.5px "Plus Jakarta Sans";text-transform:uppercase;white-space:nowrap;box-shadow:0 0 10px rgba(255,70,70,.4);animation:stockPulse 1.4s ease-in-out infinite}
+@keyframes stockPulse{50%{transform:scale(1.06)}}
+.level-map{position:relative;z-index:2;padding:25px 0 10px;display:flex;flex-direction:column-reverse;gap:5px}
 .level-map:before{content:"";position:absolute;left:50%;top:34px;bottom:42px;width:4px;transform:translateX(-50%);border-radius:99px;background:linear-gradient(to top,#1DCCA0 0 var(--map-fill),rgba(255,255,255,.1) var(--map-fill) 100%);box-shadow:0 0 14px rgba(29,204,160,.22)}
-.cosmic-level{--level-color:#7dafff;--level-tint:rgba(63,98,160,.32);--level-glow:rgba(90,140,255,.24);position:relative;width:100%;min-height:142px;padding:13px 13px 12px calc(50% + 39px);border-radius:21px;background:radial-gradient(circle at 22% 12%,var(--level-tint),transparent 44%),linear-gradient(145deg,var(--level-tint),rgba(8,12,18,.98) 72%);border:1px solid color-mix(in srgb,var(--level-color) 54%,transparent);box-shadow:0 14px 34px var(--level-glow);transition:.2s ease}.cosmic-level:before{content:"";position:absolute;inset:-18px -10px;z-index:-1;border-radius:34px;background:radial-gradient(ellipse at center,var(--level-glow),transparent 67%);opacity:.7}.cosmic-level:nth-child(even){padding:13px calc(50% + 39px) 12px 13px;text-align:right;background:radial-gradient(circle at 78% 12%,var(--level-tint),transparent 44%),linear-gradient(215deg,var(--level-tint),rgba(8,12,18,.98) 72%)}.cosmic-level.locked{opacity:.82}.cosmic-level.reached{border-color:var(--level-color)}.cosmic-level.current{min-height:218px;border-color:#fff;box-shadow:0 0 0 2px var(--level-color),0 20px 48px var(--level-glow);animation:currentGlow 1.8s ease-in-out infinite}@keyframes currentGlow{50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--level-color) 18%,transparent),0 22px 54px var(--level-glow)}}
+.cosmic-level{--level-color:#7dafff;--level-tint:rgba(63,98,160,.32);--level-glow:rgba(90,140,255,.24);--next-color:var(--level-color);position:relative;width:100%;min-height:142px;padding:13px 13px 12px calc(50% + 39px);border-radius:32px 8px 32px 8px;background:radial-gradient(circle at 22% 12%,var(--level-tint),transparent 44%),linear-gradient(145deg,var(--level-tint),rgba(8,12,18,.98) 72%);border:1px solid color-mix(in srgb,var(--level-color) 54%,transparent);box-shadow:0 10px 26px var(--level-glow);transition:filter .25s,box-shadow .25s,transform .25s}.cosmic-level:before{content:"";position:absolute;inset:-15px -8px;z-index:-1;border-radius:38px;background:radial-gradient(ellipse at center,var(--level-glow),transparent 68%);opacity:.65}.cosmic-level:nth-child(even){padding:13px calc(50% + 39px) 12px 13px;text-align:right;border-radius:8px 32px 8px 32px;background:radial-gradient(circle at 78% 12%,var(--level-tint),transparent 44%),linear-gradient(215deg,var(--level-tint),rgba(8,12,18,.98) 72%)}.cosmic-level.locked{opacity:1;filter:saturate(.5) brightness(.56)}.cosmic-level.reached{border-color:var(--level-color);filter:none}.cosmic-level.current{min-height:218px;filter:saturate(1.28) brightness(1.16);border-color:#fff;box-shadow:0 0 0 2px var(--level-color),0 22px 54px var(--level-glow);animation:currentGlow 1.8s ease-in-out infinite}@keyframes currentGlow{50%{filter:saturate(1.38) brightness(1.24);box-shadow:0 0 0 6px color-mix(in srgb,var(--level-color) 20%,transparent),0 26px 62px var(--level-glow)}}
+.level-link{position:absolute;top:-21px;z-index:0;width:11px;height:38px;border-radius:999px;background:linear-gradient(to top,var(--level-color),var(--next-color));box-shadow:0 0 12px var(--level-glow),0 4px 10px rgba(0,0,0,.4);pointer-events:none}
+.cosmic-level:nth-child(odd) .level-link{right:0;transform:translateX(50%)}
+.cosmic-level:nth-child(even) .level-link{left:0;transform:translateX(-50%)}
+.level-joint{position:absolute;top:0;z-index:3;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff,var(--next-color) 62%);box-shadow:0 0 0 4px #05070b,0 0 12px var(--level-glow);pointer-events:none}
+.cosmic-level:nth-child(odd) .level-joint{right:0;transform:translate(50%,-50%)}
+.cosmic-level:nth-child(even) .level-joint{left:0;transform:translate(-50%,-50%)}
+.cosmic-level.locked .level-joint{background:radial-gradient(circle at 34% 28%,#8a97a6,#4d5968 62%)}
+.cosmic-level.current .level-link{height:42px;top:-23px;filter:brightness(1.4);animation:linkPulse 1.2s ease-in-out infinite}
+.cosmic-level.current .level-joint{width:20px;height:20px;animation:jointPulse 1.2s ease-in-out infinite}
+@keyframes linkPulse{50%{filter:brightness(1.7)}}
+@keyframes jointPulse{50%{box-shadow:0 0 0 4px #05070b,0 0 20px var(--level-glow)}}
+.level-sheen{display:none}.cosmic-level.current .level-sheen{display:block;position:absolute;inset:0;z-index:1;border-radius:inherit;overflow:hidden;pointer-events:none}.cosmic-level.current .level-sheen:after{content:"";position:absolute;top:-25%;bottom:-25%;width:42%;left:-55%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:levelSweep 2.6s ease-in-out infinite}@keyframes levelSweep{55%,100%{left:115%}}
 .cosmic-level.elite{border-color:#d9c2ff}
 .level-node{position:absolute;left:50%;top:50%;z-index:3;width:58px;height:58px;transform:translate(-50%,-50%);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,color-mix(in srgb,var(--level-color) 80%,#fff),color-mix(in srgb,var(--level-color) 42%,#111827));border:4px solid var(--level-color);box-shadow:0 0 0 5px #080d13,0 0 24px var(--level-glow);font-size:24px}.cosmic-level.reached .level-node{border-color:#fff}.cosmic-level.current .level-node{width:74px;height:74px;font-size:31px;animation:nodePulse 1.2s ease-in-out infinite}@keyframes nodePulse{50%{transform:translate(-50%,-50%) scale(1.08)}}
 .current-level-summary{margin:8px 0 4px;padding:8px;border-radius:12px;background:rgba(3,7,12,.32);border:1px solid color-mix(in srgb,var(--level-color) 36%,transparent);text-align:left}.cosmic-level:nth-child(even) .current-level-summary{text-align:right}.current-level-summary-head{display:flex;justify-content:space-between;gap:6px;font:900 7px "DM Mono",monospace;color:var(--level-color);text-transform:uppercase}.current-level-progress{height:6px;margin:7px 0 5px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}.current-level-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--level-color),#fff);box-shadow:0 0 12px var(--level-color)}.current-level-next{font-size:7.5px;color:#d8e3ee;font-weight:800}
@@ -1128,6 +1149,10 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
           </section>
           <section class="ranking-panel map-panel" id="mapRankingPanel" data-ranking-panel="map">
             <div class="map-toolbar"><div><span class="hub-kicker">Tu ascenso cósmico</span><h3>Camino a la élite</h3><p>Tu nivel actual está destacado dentro de la escalera.</p></div><button class="sound-toggle" id="mapSoundToggle" aria-label="Activar o desactivar sonido">🔊</button></div>
+            <section class="elite-prizes" id="elitePrizes" aria-label="Premios exclusivos del nivel máximo">
+              <header class="elite-prizes-head"><span>♛ Solo para el Nivel 20 · Julio</span><b>Premios del Cónclave</b></header>
+              <div class="elite-prizes-row" id="elitePrizesRow"></div>
+            </section>
             <div class="level-map" id="levelMap"></div>
             <div class="map-toast" id="mapToast" aria-live="polite"></div>
             <div class="level-burst" id="levelBurst"></div>
@@ -1325,6 +1350,11 @@ const cosmicLevels=[
   {level:18,min:2750,icon:"🌌",name:"Portal de Andrómeda",reward:"Portal Andrómeda",rewardItem:"andromeda-portal",special:{id:"andromeda-lounge",icon:"🥂",name:"Acceso a lounge premium",desc:"Hospitality para un evento seleccionado.",cost:180}},
   {level:19,min:3150,icon:"💥",name:"Corazón Supernova",reward:"80 monedas",coins:80,special:{id:"supernova-presale",icon:"🎤",name:"Preventa de conciertos",desc:"Compra anticipada antes del público general.",cost:200}},
   {level:20,min:3600,icon:"♛",name:"El Cónclave Celestial",reward:"Corona del Cónclave",rewardItem:"conclave-crown",elite:true,special:{id:"conclave-vip",icon:"🎫",name:"Boletos VIP para conciertos",desc:"La experiencia máxima del Cónclave Celestial.",cost:250}}
+];
+const eliteMonthlyPrizes=[
+  {id:"vip-concert",icon:"🎤",name:"VIP Coldplay CDMX",desc:"2 boletos zona VIP + backstage pass",stock:1},
+  {id:"vip-nfl",icon:"🏈",name:"Palco NFL México",desc:"Hospitality completo para el juego internacional",stock:2},
+  {id:"vip-flight",icon:"✈️",name:"Vuelo redondo + hotel",desc:"Escapada premium a destino sorpresa",stock:1}
 ];
 const cosmicPalette=[
   {color:"#7DAFFF",tint:"rgba(61,101,176,.34)",glow:"rgba(84,137,255,.28)"},
@@ -1666,14 +1696,17 @@ function renderMap(){
     const reached=points>=level.min && (!level.elite||userRank<=500),claimed=state.claimedLevels.has(level.level),isCurrent=level.level===current.level;
     const claimIcon=claimed?"✓":reached?"🎁":"🔒";
     const claimAria=claimed?`Recompensa ${level.reward} reclamada`:reached?`Reclamar ${level.reward}`:level.elite?"Recompensa bloqueada: requiere 3600 puntos y Top 500":`Recompensa bloqueada hasta ${level.min} puntos`;
-    const theme=cosmicPalette[level.level-1];
+    const theme=cosmicPalette[level.level-1],nextTheme=cosmicPalette[level.level]||theme;
     const currentSummary=isCurrent?`<div class="current-level-summary"><div class="current-level-summary-head"><span>✦ Estás aquí</span><strong>${points} pts</strong></div><div class="current-level-progress"><i style="width:${progress}%"></i></div><div class="current-level-next">${currentIndex===cosmicLevels.length-1?"Perteneces a la élite máxima":`${Math.max(0,next.min-points)} puntos para ${next.name}`}</div></div>`:"";
-    return `<article class="cosmic-level ${reached?"reached":"locked"} ${isCurrent?"current":""} ${level.elite?"elite":""}" data-level="${level.level}" style="--level-color:${theme.color};--level-tint:${theme.tint};--level-glow:${theme.glow}">
-      <div class="level-node">${level.icon}</div><span class="level-number">Nivel ${String(level.level).padStart(2,"0")}${level.elite?" · Élite 500":""}</span><h4>${level.name}</h4>${currentSummary}<p>${level.elite?"La liga más exclusiva de Dinetik. Solo 500 lugares.":`${level.min} puntos para alcanzar este escalón.`}</p><div class="level-reward-row"><span class="level-reward">${level.reward}</span><button class="claim-level ${claimed?"claimed":""}" data-claim-level="${level.level}" aria-label="${claimAria}" title="${claimAria}" ${!reached||claimed?"disabled":""}>${claimIcon}</button></div><div class="level-actions"><button class="open-level-shop" data-level-shop="${level.level}" ${!reached?"disabled":""}>${reached?"Comprar objetos especiales de nivel":"Tienda bloqueada"}</button></div>
+    return `<article class="cosmic-level ${reached?"reached":"locked"} ${isCurrent?"current":""} ${level.elite?"elite":""}" data-level="${level.level}" style="--level-color:${theme.color};--level-tint:${theme.tint};--level-glow:${theme.glow};--next-color:${nextTheme.color}">
+      <span class="level-link" aria-hidden="true"></span><span class="level-joint" aria-hidden="true"></span><span class="level-sheen" aria-hidden="true"></span><div class="level-node">${level.icon}</div><span class="level-number">Nivel ${String(level.level).padStart(2,"0")}${level.elite?" · Élite 500":""}</span><h4>${level.name}</h4>${currentSummary}<p>${level.elite?"La liga más exclusiva de Dinetik. Solo 500 lugares.":`${level.min} puntos para alcanzar este escalón.`}</p><div class="level-reward-row"><span class="level-reward">${level.reward}</span><button class="claim-level ${claimed?"claimed":""}" data-claim-level="${level.level}" aria-label="${claimAria}" title="${claimAria}" ${!reached||claimed?"disabled":""}>${claimIcon}</button></div><div class="level-actions"><button class="open-level-shop" data-level-shop="${level.level}" ${!reached?"disabled":""}>${reached?"Comprar objetos especiales de nivel":"Tienda bloqueada"}</button></div>
     </article>`;
   }).join("");
   $$("#levelMap [data-claim-level]").forEach(button=>button.addEventListener("click",()=>claimCosmicLevel(Number(button.dataset.claimLevel))));
   $$("#levelMap [data-level-shop]").forEach(button=>button.addEventListener("click",()=>openLevelStore(Number(button.dataset.levelShop))));
+}
+function renderElitePrizes(){
+  $("#elitePrizesRow").innerHTML=eliteMonthlyPrizes.map(prize=>`<article class="elite-prize-card"><span class="elite-prize-icon">${prize.icon}</span><span class="elite-prize-copy"><strong>${prize.name}</strong><span>${prize.desc}</span></span><span class="elite-prize-stock">Quedan ${prize.stock}</span></article>`).join("");
 }
 function switchRankingTab(tab,focus=true){
   state.rankingTab=tab;
@@ -1681,6 +1714,7 @@ function switchRankingTab(tab,focus=true){
   $$(".ranking-panel").forEach(panel=>panel.classList.toggle("active",panel.dataset.rankingPanel===tab));
   if(tab==="map"){
     renderMap();
+    renderElitePrizes();
     if(focus) window.setTimeout(()=>$("#levelMap .current")?.scrollIntoView({behavior:"smooth",block:"center"}),120);
   }
   if(focus) playMapSound("tab");
