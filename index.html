@@ -262,6 +262,10 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
   font-weight:900;
   color:var(--g);
 }
+.streak-pill{display:flex;align-items:center;gap:5px;min-width:56px;justify-content:center;border:1px solid rgba(255,138,76,.34);background:rgba(33,14,11,.66);color:#ffb36b;border-radius:999px;padding:6px 9px;font:900 11px "DM Mono",monospace;box-shadow:inset 0 0 16px rgba(255,102,44,.08);transition:.3s ease}
+.streak-pill .flame-icon{width:15px;height:18px;fill:#ff6b3d;filter:drop-shadow(0 0 5px rgba(255,100,50,.55))}
+.streak-pill.active{color:#fff1d4;border-color:#ff9f4a;background:linear-gradient(135deg,rgba(255,88,42,.5),rgba(245,190,94,.2));box-shadow:0 0 20px rgba(255,93,42,.3),inset 0 0 16px rgba(255,186,95,.18);animation:streakPulse 1.5s ease-in-out infinite}
+@keyframes streakPulse{50%{transform:translateY(-1px) scale(1.04);box-shadow:0 0 30px rgba(255,93,42,.48),inset 0 0 18px rgba(255,186,95,.25)}}
 .top-actions{
   display:flex;
   align-items:center;
@@ -776,6 +780,24 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
   transition:opacity .22s ease;
 }
 .day-complete-layer.show{opacity:1;pointer-events:auto}
+.streak-layer{position:absolute;inset:0;z-index:32;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 38%,rgba(255,97,45,.36),transparent 34%),rgba(8,3,3,.9);backdrop-filter:blur(18px);opacity:0;pointer-events:none;transition:opacity .24s ease;overflow:hidden}
+.streak-layer.show{opacity:1;pointer-events:auto}
+.streak-layer:before,.streak-layer:after{content:"";position:absolute;inset:13%;border:1px solid rgba(255,174,90,.24);border-radius:50%;animation:streakRings 1.9s ease-out infinite}
+.streak-layer:after{inset:23%;animation-delay:.55s;border-color:rgba(255,104,53,.24)}
+@keyframes streakRings{0%{transform:scale(.45);opacity:0}35%{opacity:1}100%{transform:scale(1.35);opacity:0}}
+.streak-card{position:relative;width:min(320px,100%);text-align:center;padding:28px 20px 22px;border-radius:32px;background:linear-gradient(160deg,rgba(49,19,16,.98),rgba(12,10,13,.98));border:1.5px solid rgba(255,159,74,.78);box-shadow:0 0 0 5px rgba(255,109,45,.08),0 30px 85px rgba(0,0,0,.58),0 0 58px rgba(255,93,42,.34);animation:streakCardIn .58s cubic-bezier(.18,1.35,.3,1) both;overflow:hidden}
+.streak-card:before{content:"";position:absolute;inset:-45% 20%;background:linear-gradient(90deg,transparent,rgba(255,210,130,.22),transparent);transform:rotate(18deg);animation:streakSheen 2.6s ease-in-out infinite}
+@keyframes streakSheen{55%,100%{transform:translateX(180%) rotate(18deg)}}
+.streak-flame{position:relative;z-index:1;width:92px;height:110px;margin:0 auto 2px;filter:drop-shadow(0 0 18px rgba(255,102,48,.9));animation:flameFloat 1.1s ease-in-out infinite}
+.streak-flame svg{width:100%;height:100%;fill:url(#streakFire);stroke:#ffd18b;stroke-width:1.2}
+.streak-card .eyebrow{position:relative;z-index:1;color:#ffb36b;font:900 10px "DM Mono",monospace;letter-spacing:1.4px;text-transform:uppercase}
+.streak-card h2{position:relative;z-index:1;font-size:32px;line-height:.98;margin:7px 0 8px;color:#fff7e8}
+.streak-card p{position:relative;z-index:1;color:#ffd9bb;font-size:13px;line-height:1.5}
+.streak-bonus{position:relative;z-index:1;display:inline-flex;align-items:center;gap:7px;margin:15px auto 17px;padding:10px 15px;border-radius:999px;background:linear-gradient(135deg,#ff693d,#f5be5e);color:#2a0b05;font:900 16px "Plus Jakarta Sans";box-shadow:0 10px 28px rgba(255,103,53,.35)}
+.streak-bonus strong{font:900 20px "DM Mono",monospace}
+.streak-card button{position:relative;z-index:1;width:100%;height:48px;border:0;border-radius:999px;background:#fff1d4;color:#321006;font:900 13px "Plus Jakarta Sans";cursor:pointer}
+@keyframes flameFloat{50%{transform:translateY(-7px) scale(1.05)}}
+@keyframes streakCardIn{0%{opacity:0;transform:scale(.72) translateY(24px)}100%{opacity:1;transform:none}}
 .day-complete-card{
   width:min(330px,100%);
   text-align:center;
@@ -941,9 +963,9 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .rank-board{background:#0b1218;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:14px}
 .rank-board h3{font-size:13px;margin-bottom:10px}
 .rank-board .rank-row{padding:11px 10px}
-.ranking-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;margin:-4px 0 15px;border-radius:17px;background:#0c131b;border:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:9;backdrop-filter:blur(18px)}
-.ranking-tab{height:38px;border:0;border-radius:12px;background:transparent;color:var(--muted);font:900 10px "Plus Jakarta Sans";cursor:pointer;transition:.22s ease}.ranking-tab.active{background:linear-gradient(135deg,var(--g),#52e6c0);color:#04100c;box-shadow:0 8px 20px rgba(29,204,160,.22)}
-.ranking-panel{display:none;animation:rankPanelIn .3s ease}.ranking-panel.active{display:block}
+.ranking-tabs,.inventory-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;margin:-4px 0 15px;border-radius:17px;background:#0c131b;border:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:9;backdrop-filter:blur(18px)}
+.ranking-tab,.inventory-tab{height:38px;border:0;border-radius:12px;background:transparent;color:var(--muted);font:900 10px "Plus Jakarta Sans";cursor:pointer;transition:.22s ease}.ranking-tab.active,.inventory-tab.active{background:linear-gradient(135deg,var(--g),#52e6c0);color:#04100c;box-shadow:0 8px 20px rgba(29,204,160,.22)}
+.ranking-panel,.inventory-panel{display:none;animation:rankPanelIn .3s ease}.ranking-panel.active,.inventory-panel.active{display:block}
 @keyframes rankPanelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .map-panel{position:relative;margin:0 -16px;padding:0 16px 36px;overflow:hidden;background:radial-gradient(circle at 18% 4%,rgba(116,79,255,.26),transparent 22%),radial-gradient(circle at 86% 28%,rgba(29,204,160,.18),transparent 21%)}
 .map-panel:before,.map-panel:after{content:"";position:absolute;inset:0;pointer-events:none}.map-panel:before{background-image:radial-gradient(circle,#fff 0 1px,transparent 1.5px);background-size:31px 37px;opacity:.23;animation:starDrift 16s linear infinite}.map-panel:after{background:linear-gradient(transparent 80%,#05070b)}
@@ -958,25 +980,16 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .elite-prize-copy{display:flex;flex-direction:column;gap:1px;min-width:0}.elite-prize-copy strong{font-size:9px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.elite-prize-copy span{font-size:7px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .elite-prize-stock{margin-left:auto;flex:0 0 auto;padding:3px 6px;border-radius:999px;background:linear-gradient(135deg,#ff5f5f,#c81e3a);color:#fff;font:900 6.5px "Plus Jakarta Sans";text-transform:uppercase;white-space:nowrap;box-shadow:0 0 10px rgba(255,70,70,.4);animation:stockPulse 1.4s ease-in-out infinite}
 @keyframes stockPulse{50%{transform:scale(1.06)}}
-.level-map{position:relative;z-index:2;padding:25px 0 10px;display:flex;flex-direction:column-reverse;gap:5px}
+.level-map{position:relative;z-index:2;padding:25px 0 10px;display:flex;flex-direction:column-reverse;gap:0}
 .level-map:before{content:"";position:absolute;left:50%;top:34px;bottom:42px;width:4px;transform:translateX(-50%);border-radius:99px;background:linear-gradient(to top,#1DCCA0 0 var(--map-fill),rgba(255,255,255,.1) var(--map-fill) 100%);box-shadow:0 0 14px rgba(29,204,160,.22)}
-.cosmic-level{--level-color:#7dafff;--level-tint:rgba(63,98,160,.32);--level-glow:rgba(90,140,255,.24);--next-color:var(--level-color);position:relative;width:100%;min-height:142px;padding:13px 13px 12px calc(50% + 39px);border-radius:32px 8px 32px 8px;background:radial-gradient(circle at 22% 12%,var(--level-tint),transparent 44%),linear-gradient(145deg,var(--level-tint),rgba(8,12,18,.98) 72%);border:1px solid color-mix(in srgb,var(--level-color) 54%,transparent);box-shadow:0 10px 26px var(--level-glow);transition:filter .25s,box-shadow .25s,transform .25s}.cosmic-level:before{content:"";position:absolute;inset:-15px -8px;z-index:-1;border-radius:38px;background:radial-gradient(ellipse at center,var(--level-glow),transparent 68%);opacity:.65}.cosmic-level:nth-child(even){padding:13px calc(50% + 39px) 12px 13px;text-align:right;border-radius:8px 32px 8px 32px;background:radial-gradient(circle at 78% 12%,var(--level-tint),transparent 44%),linear-gradient(215deg,var(--level-tint),rgba(8,12,18,.98) 72%)}.cosmic-level.locked{opacity:1;filter:saturate(.5) brightness(.56)}.cosmic-level.reached{border-color:var(--level-color);filter:none}.cosmic-level.current{min-height:218px;filter:saturate(1.28) brightness(1.16);border-color:#fff;box-shadow:0 0 0 2px var(--level-color),0 22px 54px var(--level-glow);animation:currentGlow 1.8s ease-in-out infinite}@keyframes currentGlow{50%{filter:saturate(1.38) brightness(1.24);box-shadow:0 0 0 6px color-mix(in srgb,var(--level-color) 20%,transparent),0 26px 62px var(--level-glow)}}
-.level-link{position:absolute;top:-21px;z-index:0;width:11px;height:38px;border-radius:999px;background:linear-gradient(to top,var(--level-color),var(--next-color));box-shadow:0 0 12px var(--level-glow),0 4px 10px rgba(0,0,0,.4);pointer-events:none}
-.cosmic-level:nth-child(odd) .level-link{right:0;transform:translateX(50%)}
-.cosmic-level:nth-child(even) .level-link{left:0;transform:translateX(-50%)}
-.level-joint{position:absolute;top:0;z-index:3;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff,var(--next-color) 62%);box-shadow:0 0 0 4px #05070b,0 0 12px var(--level-glow);pointer-events:none}
-.cosmic-level:nth-child(odd) .level-joint{right:0;transform:translate(50%,-50%)}
-.cosmic-level:nth-child(even) .level-joint{left:0;transform:translate(-50%,-50%)}
-.cosmic-level.locked .level-joint{background:radial-gradient(circle at 34% 28%,#8a97a6,#4d5968 62%)}
-.cosmic-level.current .level-link{height:42px;top:-23px;filter:brightness(1.4);animation:linkPulse 1.2s ease-in-out infinite}
-.cosmic-level.current .level-joint{width:20px;height:20px;animation:jointPulse 1.2s ease-in-out infinite}
-@keyframes linkPulse{50%{filter:brightness(1.7)}}
-@keyframes jointPulse{50%{box-shadow:0 0 0 4px #05070b,0 0 20px var(--level-glow)}}
-.level-sheen{display:none}.cosmic-level.current .level-sheen{display:block;position:absolute;inset:0;z-index:1;border-radius:inherit;overflow:hidden;pointer-events:none}.cosmic-level.current .level-sheen:after{content:"";position:absolute;top:-25%;bottom:-25%;width:42%;left:-55%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:levelSweep 2.6s ease-in-out infinite}@keyframes levelSweep{55%,100%{left:115%}}
+.level-piece{--level-color:#7dafff;--level-tint:rgba(63,98,160,.32);--level-glow:rgba(90,140,255,.24);--connector-accent:var(--level-color);position:relative;width:100%}
+.cosmic-level{position:relative;z-index:1;width:100%;min-height:142px;padding:13px 13px 36px calc(50% + 39px);overflow:hidden;border-radius:24px;background:radial-gradient(circle at 22% 12%,var(--level-tint),transparent 44%),linear-gradient(145deg,var(--level-tint),rgba(8,12,18,.98) 72%);border:1px solid color-mix(in srgb,var(--level-color) 54%,transparent);box-shadow:0 10px 26px var(--level-glow),0 0 50px -12px var(--level-glow);transition:filter .25s,box-shadow .25s,transform .25s}.level-piece:nth-child(even) .cosmic-level{padding:13px calc(50% + 39px) 36px 13px;text-align:right;background:radial-gradient(circle at 78% 12%,var(--level-tint),transparent 44%),linear-gradient(215deg,var(--level-tint),rgba(8,12,18,.98) 72%)}.level-piece.origin .cosmic-level{padding-bottom:13px}.cosmic-level.locked{opacity:1;filter:saturate(.5) brightness(.56) drop-shadow(0 6px 7px rgba(0,0,0,.45))}.cosmic-level.reached{border-color:var(--level-color);filter:drop-shadow(0 6px 7px rgba(0,0,0,.55))}.cosmic-level.current{min-height:218px;filter:saturate(1.28) brightness(1.16) drop-shadow(0 8px 10px rgba(0,0,0,.6));border-color:#fff;box-shadow:0 0 0 2px var(--level-color),0 22px 54px var(--level-glow);animation:currentGlow 1.8s ease-in-out infinite}@keyframes currentGlow{50%{filter:saturate(1.38) brightness(1.24) drop-shadow(0 8px 10px rgba(0,0,0,.6));box-shadow:0 0 0 6px color-mix(in srgb,var(--level-color) 20%,transparent),0 26px 62px var(--level-glow)}}
+.hex-tab{position:absolute;left:50%;top:-36px;z-index:8;width:82px;height:48px;transform:translateX(-50%);clip-path:polygon(20% 0,80% 0,100% 36%,100% 64%,80% 100%,20% 100%,0 64%,0 36%);background:linear-gradient(180deg,color-mix(in srgb,var(--next-color) 82%,#eafcff) 0 46%,color-mix(in srgb,var(--level-color) 88%,#071018) 54% 100%);filter:drop-shadow(0 -5px 10px color-mix(in srgb,var(--next-color) 34%,transparent)) drop-shadow(0 7px 11px var(--level-glow));pointer-events:none}.hex-tab:before{content:"";position:absolute;inset:3px;clip-path:inherit;background:linear-gradient(155deg,rgba(255,255,255,.34),transparent 31%,rgba(3,8,14,.28) 70%,rgba(255,255,255,.14));opacity:.8}.hex-tab:after{content:"";position:absolute;inset:11px 24px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:linear-gradient(180deg,color-mix(in srgb,var(--next-color) 55%,var(--connector-accent)),color-mix(in srgb,var(--level-color) 55%,var(--connector-accent)));box-shadow:0 0 10px color-mix(in srgb,var(--connector-accent) 45%,transparent)}.level-piece.terminal .hex-tab{display:none}.level-piece.locked-piece{--connector-accent:#071018}.level-piece.locked-piece .hex-tab{filter:saturate(.45) brightness(.6) drop-shadow(0 5px 8px rgba(0,0,0,.42))}.level-piece.completed-piece{--connector-accent:#1DCCA0}.level-piece.completed-piece .hex-tab{filter:saturate(1.3) brightness(1.04) drop-shadow(0 0 12px rgba(29,204,160,.42)) drop-shadow(0 7px 11px var(--level-glow))}.level-piece.current-piece{--connector-accent:#52e6c0}.level-piece.current-piece .hex-tab{filter:brightness(1.2) drop-shadow(0 0 15px rgba(82,230,192,.55)) drop-shadow(0 7px 11px var(--level-glow))}
+.level-sheen{display:none}.cosmic-level.current .level-sheen{display:block;position:absolute;inset:0;z-index:1;clip-path:inherit;overflow:hidden;pointer-events:none}.cosmic-level.current .level-sheen:after{content:"";position:absolute;top:-25%;bottom:-25%;width:42%;left:-55%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:levelSweep 2.6s ease-in-out infinite}@keyframes levelSweep{55%,100%{left:115%}}
 .cosmic-level.elite{border-color:#d9c2ff}
 .level-node{position:absolute;left:50%;top:50%;z-index:3;width:58px;height:58px;transform:translate(-50%,-50%);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,color-mix(in srgb,var(--level-color) 80%,#fff),color-mix(in srgb,var(--level-color) 42%,#111827));border:4px solid var(--level-color);box-shadow:0 0 0 5px #080d13,0 0 24px var(--level-glow);font-size:24px}.cosmic-level.reached .level-node{border-color:#fff}.cosmic-level.current .level-node{width:74px;height:74px;font-size:31px;animation:nodePulse 1.2s ease-in-out infinite}@keyframes nodePulse{50%{transform:translate(-50%,-50%) scale(1.08)}}
-.current-level-summary{margin:8px 0 4px;padding:8px;border-radius:12px;background:rgba(3,7,12,.32);border:1px solid color-mix(in srgb,var(--level-color) 36%,transparent);text-align:left}.cosmic-level:nth-child(even) .current-level-summary{text-align:right}.current-level-summary-head{display:flex;justify-content:space-between;gap:6px;font:900 7px "DM Mono",monospace;color:var(--level-color);text-transform:uppercase}.current-level-progress{height:6px;margin:7px 0 5px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}.current-level-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--level-color),#fff);box-shadow:0 0 12px var(--level-color)}.current-level-next{font-size:7.5px;color:#d8e3ee;font-weight:800}
-.level-number{font:900 8px "DM Mono",monospace;color:#9babc0;text-transform:uppercase}.cosmic-level h4{font-size:12px;margin:3px 0}.cosmic-level p{font-size:8.5px;color:var(--muted);line-height:1.35}.level-reward-row{display:flex;align-items:center;gap:5px;margin-top:7px}.cosmic-level:nth-child(even) .level-reward-row{flex-direction:row-reverse}.level-reward{flex:1;display:flex;align-items:center;min-height:30px;padding:5px 7px;border-radius:9px;background:rgba(167,139,250,.12);color:#d9ceff;font-size:8px;font-weight:900}
+.current-level-summary{margin:8px 0 4px;padding:8px;border-radius:12px;background:rgba(3,7,12,.32);border:1px solid color-mix(in srgb,var(--level-color) 36%,transparent);text-align:left}.level-piece:nth-child(even) .current-level-summary{text-align:right}.current-level-summary-head{display:flex;justify-content:space-between;gap:6px;font:900 7px "DM Mono",monospace;color:var(--level-color);text-transform:uppercase}.current-level-progress{height:6px;margin:7px 0 5px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}.current-level-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--level-color),#fff);box-shadow:0 0 12px var(--level-color)}.current-level-next{font-size:7.5px;color:#d8e3ee;font-weight:800}
+.level-number{font:900 8px "DM Mono",monospace;color:#9babc0;text-transform:uppercase}.cosmic-level h4{font-size:12px;margin:3px 0}.cosmic-level p{font-size:8.5px;color:var(--muted);line-height:1.35}.level-reward-row{display:flex;align-items:center;gap:5px;margin-top:7px}.level-piece:nth-child(even) .level-reward-row{flex-direction:row-reverse}.level-reward{flex:1;display:flex;align-items:center;min-height:30px;padding:5px 7px;border-radius:9px;background:rgba(167,139,250,.12);color:#d9ceff;font-size:8px;font-weight:900}
 .level-actions{margin-top:5px}.claim-level,.open-level-shop{border:0;border-radius:999px;font:900 7.5px "Plus Jakarta Sans";cursor:pointer}.claim-level{width:30px;height:30px;flex:0 0 30px;display:grid;place-items:center;padding:0;background:var(--level-color);color:#071018;font-size:14px;box-shadow:0 6px 14px var(--level-glow)}.claim-level:disabled,.open-level-shop:disabled{background:rgba(255,255,255,.08);color:#66778a;cursor:not-allowed;box-shadow:none}.claim-level.claimed{color:var(--level-color);background:rgba(3,8,13,.45);border:1px solid var(--level-color)}.open-level-shop{display:block;width:100%;min-height:28px;padding:5px 7px;background:linear-gradient(135deg,#7d5cff,#a78bfa);color:#fff;box-shadow:0 7px 16px rgba(93,65,190,.25)}
 .map-toast{position:sticky;bottom:4px;z-index:8;margin:0 auto;width:max-content;max-width:90%;padding:10px 14px;border-radius:999px;background:#f5be5e;color:#211500;font-size:9px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;transform:translateY(18px);pointer-events:none;transition:.25s}.map-toast.show{opacity:1;transform:none}
 .level-burst{position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden}.level-burst i{position:absolute;left:50%;top:52%;width:7px;height:7px;border-radius:2px;background:var(--c);animation:burstFly .9s ease-out forwards}@keyframes burstFly{to{transform:translate(var(--x),var(--y)) rotate(560deg);opacity:0}}
@@ -994,6 +1007,10 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .item-top{display:flex;justify-content:space-between;align-items:flex-start}.item-icon{font-size:36px}.item-rarity{font-size:8px;font-weight:900;text-transform:uppercase;color:var(--purple);background:rgba(167,139,250,.12);padding:4px 6px;border-radius:999px}
 .inventory-item h3{font-size:13px;margin:9px 0 4px}.inventory-item p{font-size:9.5px;line-height:1.4;color:var(--muted);flex:1}
 .inventory-action{margin-top:10px;border:0;border-radius:999px;padding:8px;background:var(--g);color:#04100c;font:900 10px "Plus Jakarta Sans";cursor:pointer}.inventory-action:disabled{background:rgba(255,255,255,.09);color:var(--muted);cursor:not-allowed}
+.inventory-section-head{display:flex;align-items:flex-end;justify-content:space-between;margin:0 2px 11px}.inventory-section-head h3{font-size:15px}.inventory-section-head span{font-size:9px;color:var(--muted);font-weight:800}
+.inventory-empty{padding:30px 20px;border-radius:22px;border:1px dashed rgba(255,255,255,.15);background:rgba(13,21,30,.7);text-align:center}.inventory-empty-icon{display:block;font-size:38px;margin-bottom:9px}.inventory-empty h3{font-size:15px;margin-bottom:6px}.inventory-empty p{font-size:10px;line-height:1.5;color:var(--muted);margin-bottom:14px}.inventory-empty button{border:0;border-radius:999px;padding:10px 18px;background:var(--g);color:#04100c;font:900 10px "Plus Jakarta Sans";cursor:pointer}
+.store-intro{display:flex;align-items:center;gap:11px;margin-bottom:12px;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,rgba(245,190,94,.13),rgba(77,158,255,.08));border:1px solid rgba(245,190,94,.2)}.store-intro>span{font-size:26px}.store-intro strong{display:block;font-size:12px;margin-bottom:2px}.store-intro p{font-size:9px;color:var(--muted);line-height:1.4}
+.inventory-item.sold{opacity:.72}.inventory-item.sold .inventory-action{background:rgba(29,204,160,.12);color:var(--g2);border:1px solid rgba(29,204,160,.22)}
 .profile-cover{height:106px;margin:-52px -16px 0;background:linear-gradient(125deg,#102a31,#12213a 48%,#1a1432);position:relative;overflow:hidden}.profile-cover:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 20%,rgba(29,204,160,.38),transparent 25%),linear-gradient(90deg,transparent,rgba(255,255,255,.03))}
 .profile-identity{margin-top:-43px;position:relative;z-index:2;display:flex;align-items:flex-end;gap:13px;padding:0 4px}
 .profile-avatar{width:90px;height:90px;border-width:3px;background:#081018}.profile-copy{flex:1;padding-bottom:3px}.profile-copy h2{font-size:22px}.profile-copy p{font-size:11px;color:var(--muted);margin-top:2px}.verified{color:var(--g);font-size:13px}
@@ -1003,7 +1020,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .profile-card{background:#0d151e;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:15px;margin-top:10px}.profile-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}.profile-card-head h3{font-size:13px}.profile-card-head span{font-size:10px;color:var(--g);font-weight:900}
 .level-track,.path-track{height:7px;background:#1d2935;border-radius:99px;overflow:hidden}.level-track i,.path-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--g),var(--blue))}
 .level-note{font-size:9.5px;color:var(--muted);margin-top:8px}
-.path-list{display:grid;gap:11px}.path-row{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center}.path-row strong{font-size:10px}.path-row span{font-size:9px;color:var(--muted);text-align:right}.path-track{grid-column:1/-1;height:5px;margin-top:-4px}
+.path-list{display:grid;gap:11px}.path-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:12px;border-radius:17px;background:#101822;border:1px solid rgba(255,255,255,.07);transition:border-color .2s,box-shadow .2s}.path-row.ready{border-color:rgba(29,204,160,.5);box-shadow:0 0 24px rgba(29,204,160,.1)}.path-row strong{font-size:11px}.path-row>span{font:900 10px "DM Mono",monospace;color:var(--g);text-align:right}.path-track{grid-column:1/-1;height:7px;margin-top:0}.path-meta{grid-column:1/-1;display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:8.5px;font-weight:800}.path-reward{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:2px;padding:9px 10px;border-radius:13px;background:rgba(245,190,94,.08);border:1px solid rgba(245,190,94,.18)}.path-reward-copy{display:flex;align-items:center;gap:7px;color:#f3d390;font-size:9px;font-weight:900}.claim-topic{min-width:92px;height:31px;padding:0 12px;border:0;border-radius:999px;background:var(--g);color:#04100c;font:900 8.5px "Plus Jakarta Sans";cursor:pointer;box-shadow:0 8px 18px rgba(29,204,160,.2)}.claim-topic:disabled{background:rgba(255,255,255,.08);color:#66778a;box-shadow:none;cursor:not-allowed}.claim-topic.claimed{color:var(--g);border:1px solid rgba(29,204,160,.32);background:rgba(29,204,160,.08)}.path-status{grid-column:1/-1;min-height:12px;text-align:center;color:var(--g);font-size:8.5px;font-weight:900}
 .profile-badges{display:flex;gap:8px}.profile-badge{flex:1;text-align:center;background:#101822;border-radius:14px;padding:10px 5px;border:1px solid rgba(255,255,255,.07)}.profile-badge b{display:block;font-size:23px}.profile-badge span{font-size:8px;color:var(--muted);font-weight:800}
 .profile-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.profile-actions button{height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:#101822;color:#fff;font:800 10px "Plus Jakarta Sans"}
 #reelView .video-copy{padding-bottom:96px}
@@ -1040,7 +1057,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
           <div class="topbar">
             <div class="logo">DIN<span>E</span>TIK</div>
             <div class="top-actions">
-              <div class="score-pill">⭐ <span id="totalPts">0</span> · 🪙 <span id="totalCoins">0</span></div>
+              <div class="score-pill">⭐ <span id="totalPts">0</span> · 🪙 <span id="totalCoins">0</span></div><div class="streak-pill" id="streakHud"><svg class="flame-icon" viewBox="0 0 24 28" aria-hidden="true"><path d="M13.5 1.5c.7 5.2-3.7 6.7-3.1 10.3.2 1.1 1.1 2 2.2 2.4-.2-2.4 1.4-4.2 3-5.4 2 2.3 3.7 5.1 3.7 8.3 0 4.8-3.2 8.1-7.8 8.1S3.8 21.9 3.8 17.3c0-3.3 1.8-6.4 4.3-8.7-.2 2.1.5 3.5 1.4 4.2C9.3 8.8 11.6 5.1 13.5 1.5Z"/></svg><span id="streakCount">0</span>/3</div>
               <div class="mascot-hud" aria-label="Progreso de la mascota">
                 <div class="coin-rain"><i></i><i></i><i></i></div>
                 <div class="mascot-inner">
@@ -1074,7 +1091,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
           <div class="challenge-head">
             <button class="secondary" id="backToReel" disabled>🔒 Feed cerrado</button>
             <div class="top-actions">
-              <div class="score-pill">⭐ <span id="challengePts">0</span> · 🪙 <span id="challengeCoins">0</span></div>
+              <div class="score-pill">⭐ <span id="challengePts">0</span> · 🪙 <span id="challengeCoins">0</span></div><div class="streak-pill" id="challengeStreakHud"><svg class="flame-icon" viewBox="0 0 24 28" aria-hidden="true"><path d="M13.5 1.5c.7 5.2-3.7 6.7-3.1 10.3.2 1.1 1.1 2 2.2 2.4-.2-2.4 1.4-4.2 3-5.4 2 2.3 3.7 5.1 3.7 8.3 0 4.8-3.2 8.1-7.8 8.1S3.8 21.9 3.8 17.3c0-3.3 1.8-6.4 4.3-8.7-.2 2.1.5 3.5 1.4 4.2C9.3 8.8 11.6 5.1 13.5 1.5Z"/></svg><span class="challenge-streak-count">0</span>/3</div>
               <div class="mascot-hud" aria-label="Progreso de la mascota">
                 <div class="coin-rain"><i></i><i></i><i></i></div>
                 <div class="mascot-inner">
@@ -1166,11 +1183,24 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
             <div><span class="hub-kicker">Personaliza tu identidad</span><h2>Inventario</h2></div>
             <div class="balance-chip">🪙 <span id="inventoryCoins">0</span></div>
           </header>
-          <div class="inventory-showcase">
-            <div class="inventory-avatar"><img src="PumitaDinetik.png" alt="Vista previa del avatar"><span class="avatar-accessory" id="inventoryAccessory"></span></div>
-            <div class="showcase-copy"><span class="hub-kicker">Vista previa</span><h3>Tu avatar, tu estilo</h3><p>Compra objetos digitales con monedas y equípalos cuando quieras.</p></div>
+          <div class="inventory-tabs" role="tablist" aria-label="Vistas del inventario">
+            <button class="inventory-tab active" data-inventory-tab="owned" role="tab" aria-selected="true">🎒 Mi inventario</button>
+            <button class="inventory-tab" data-inventory-tab="store" role="tab" aria-selected="false">🛍️ Tienda</button>
           </div>
-          <div class="inventory-grid" id="inventoryGrid"></div>
+          <section class="inventory-panel active" data-inventory-panel="owned">
+            <div class="inventory-showcase">
+              <div class="inventory-avatar"><img src="PumitaDinetik.png" alt="Vista previa del avatar"><span class="avatar-accessory" id="inventoryAccessory"></span></div>
+              <div class="showcase-copy"><span class="hub-kicker">Vista previa</span><h3>Tu avatar, tu estilo</h3><p>Combina los activos digitales que has conseguido.</p></div>
+            </div>
+            <div class="inventory-section-head"><h3>Tus activos</h3><span id="ownedItemsCount">0 adquiridos</span></div>
+            <div class="inventory-grid" id="ownedInventoryGrid"></div>
+            <div class="inventory-empty" id="inventoryEmpty" hidden><span class="inventory-empty-icon">🎒</span><h3>Tu colección comienza aquí</h3><p>Compra tu primer activo en la tienda o gana recompensas al subir de nivel.</p><button id="openStoreFromEmpty">Explorar tienda</button></div>
+          </section>
+          <section class="inventory-panel" data-inventory-panel="store">
+            <div class="store-intro"><span>✦</span><div><strong>Activos para hacer tuyo el avatar</strong><p>Usa tus monedas para adquirir accesorios digitales.</p></div></div>
+            <div class="inventory-section-head"><h3>Productos disponibles</h3><span id="storeItemsCount">0 productos</span></div>
+            <div class="inventory-grid" id="storeInventoryGrid"></div>
+          </section>
         </div>
       </section>
 
@@ -1194,7 +1224,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
             <div class="level-note" id="profileLevelNote">100 puntos para el siguiente nivel</div>
           </div>
           <div class="profile-card">
-            <div class="profile-card-head"><h3>Ruta de aprendizaje</h3><span id="profileCompleted">0/3 días</span></div>
+            <div class="profile-card-head"><h3>Ruta de aprendizaje</h3><span id="profileCompleted">0/3 lecciones</span></div>
             <div class="path-list" id="profilePaths"></div>
           </div>
           <div class="profile-card">
@@ -1249,6 +1279,16 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
           <button id="activateNextDay">Activar día 2</button>
         </div>
       </div>
+      <div class="streak-layer" id="streakLayer" aria-live="assertive">
+        <div class="streak-card">
+          <div class="streak-flame" aria-hidden="true"><svg viewBox="0 0 100 120"><defs><linearGradient id="streakFire" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff4d2e"/><stop offset=".55" stop-color="#ff9f3f"/><stop offset="1" stop-color="#fff0a1"/></linearGradient></defs><path d="M56 4c8 20-9 27-3 42 2 5 7 8 13 9-1-10 6-17 13-23 10 12 17 26 17 42 0 25-17 42-42 42S12 99 12 75c0-18 10-34 23-45-1 10 2 17 9 22C42 31 50 16 56 4Z"/></svg></div>
+          <span class="eyebrow">racha completada</span>
+          <h2>¡Racha encendida!</h2>
+          <p>Respondiste 3 días seguidos. Tu constancia acaba de desbloquear un multiplicador.</p>
+          <div class="streak-bonus"><strong>×2</strong> puntos y monedas</div>
+          <button id="closeStreak">Seguir con el bono</button>
+        </div>
+      </div>
     </div>
   </div>
 </main>
@@ -1284,8 +1324,8 @@ const days=[
 
 const state={
   day:0, video:0, seen:[new Set(),new Set(),new Set()], answer:[null,null,null], mascotProgress:-1, mascotCompleteKey:"",
-  spentCoins:0, bonusCoins:0, claimedLevels:new Set(), purchasedLevelItems:new Set(), inventory:new Set(), equipped:null, challengeLocked:[false,false,false], feedTransitioning:false,
-  rankingTab:"global", soundOn:true, activeLevelStore:1
+  spentCoins:0, bonusCoins:0, claimedLevels:new Set(), claimedTopics:new Set(), purchasedLevelItems:new Set(), inventory:new Set(), equipped:null, challengeLocked:[false,false,false], feedTransitioning:false,
+  rankingTab:"global", inventoryTab:"owned", soundOn:true, activeLevelStore:1, streakCelebrated:false
 };
 const rankMock=[
   {pos:1,name:"@valeria_fin",pts:6840},
@@ -1304,6 +1344,12 @@ const badgeMock=[
   {icon:"💳",name:"Rompe la deuda"},
   {icon:"🏅",name:"Top 500"}
 ];
+const learningTopic={
+  id:"finanzas-cotidianas",
+  name:"Finanzas del día a día",
+  achievement:{icon:"🧭",name:"Dominio cotidiano"},
+  rewardCoins:50
+};
 const inventoryItems=[
   {id:"pin",icon:"💚",name:"Pin Dinetik",desc:"El distintivo original para tu avatar.",cost:20,rarity:"Inicial"},
   {id:"glasses",icon:"😎",name:"Lentes neón",desc:"Un look brillante para decisiones claras.",cost:45,rarity:"Raro"},
@@ -1381,16 +1427,17 @@ const cosmicPalette=[
 const $=s=>document.querySelector(s);
 const $$=s=>document.querySelectorAll(s);
 $("#startDemo").addEventListener("click",()=>document.body.classList.remove("intro-mode"));
-function earnedPoints(){
-  return state.answer.reduce((sum,a,idx)=>sum+(a?days[idx].challenge.options.find(o=>o.letter===a).score:0),0);
-}
-function earnedCoins(){return seenVideos()*10+earnedPoints()+state.bonusCoins}
+function baseEarnedPoints(){return state.answer.reduce((sum,a,idx)=>sum+(a?days[idx].challenge.options.find(o=>o.letter===a).score:0),0)}
+function streakCount(){return Math.min(3,completedDays())}
+function streakMultiplier(){return streakCount()>=3?2:1}
+function earnedPoints(){return baseEarnedPoints()*streakMultiplier()}
+function earnedCoins(){return (seenVideos()*10+baseEarnedPoints())*streakMultiplier()+state.bonusCoins}
 function availableCoins(){return Math.max(0,earnedCoins()-state.spentCoins)}
 function completedDays(){return state.answer.filter(Boolean).length}
 function seenVideos(){return state.seen.reduce((sum,set)=>sum+set.size,0)}
 function tone(score){return score>=50?"good":score>=30?"mid":"low"}
 function show(id){
-  hideReward();hideDayComplete();closeLevelStore();
+  hideReward();hideDayComplete();hideStreak();closeLevelStore();
   $$(".view").forEach(v=>v.classList.toggle("active",v.id===id));
   const navViews=["reelView","summaryView","top500View","inventoryView","profileView"];
   $("#appNav").classList.toggle("visible",navViews.includes(id));
@@ -1456,7 +1503,8 @@ function showReward(picked){
   const emotion=rewardEmotion(picked.score);
   window.clearTimeout(state.rewardTimer);
   window.clearTimeout(state.speakingTimer);
-  $("#rewardPoints").textContent=`+${picked.score} pts · +${picked.score} monedas`;
+  const reward=picked.score*streakMultiplier();
+  $("#rewardPoints").textContent=`+${reward} pts · +${reward} monedas`;
   $("#mascotFeedback").textContent=mascotLine(picked);
   applyPumaExpression(picked.score);
   layer.className=`reward-layer show mascot speaking emotion-${emotion}`;
@@ -1477,15 +1525,20 @@ function hideReward(){
 function showDayComplete(){
   const picked=state.answer[state.day]?days[state.day].challenge.options.find(o=>o.letter===state.answer[state.day]):null;
   $("#dayCompleteTitle").textContent=`Día ${state.day+1} completado`;
-  const challengeReward=picked?picked.score:0;
+  const challengeReward=picked?picked.score*streakMultiplier():0;
   $("#dailyPoints").textContent=challengeReward;
-  $("#dailyCoins").textContent=challengeReward+state.seen[state.day].size*10;
+  $("#dailyCoins").textContent=challengeReward+state.seen[state.day].size*10*streakMultiplier();
   $("#activateNextDay").textContent=state.day===2?"Ver resumen final":`Activar día ${state.day+2}`;
   $("#dayCompleteLayer").classList.add("show");
+  if(streakCount()>=3 && !state.streakCelebrated){
+    state.streakCelebrated=true;
+    window.setTimeout(()=>$("#streakLayer").classList.add("show"),180);
+  }
 }
 function hideDayComplete(){
   $("#dayCompleteLayer").classList.remove("show");
 }
+function hideStreak(){$("#streakLayer").classList.remove("show")}
 function renderMascot(){
   const progress=currentMascotProgress();
   const fill=Math.min(100,progress*(100/3))+"%";
@@ -1520,6 +1573,10 @@ function renderGlobal(){
   $("#totalCoins").textContent=coins;
   $("#challengePts").textContent=pts;
   $("#challengeCoins").textContent=coins;
+  const streak=streakCount(),active=streak>=3;
+  $("#streakCount").textContent=streak;
+  $("#challengeStreakHud .challenge-streak-count").textContent=streak;
+  $$(".streak-pill").forEach(hud=>{hud.classList.toggle("active",active);hud.setAttribute("aria-label",active?"Racha activa: multiplicador x2":"Racha de días consecutivos")});
   $("#dayScore").textContent=state.answer[state.day]?days[state.day].challenge.options.find(o=>o.letter===state.answer[state.day]).score:0;
   $("#answersCount").textContent=completedDays()+"/3";
   $("#videosCount").textContent=vids+"/9";
@@ -1587,7 +1644,8 @@ function renderChallenge(){
   }));
   const picked=selected?ch.options.find(o=>o.letter===selected):null;
   $("#feedback").classList.toggle("show",!!picked);
-  $("#feedback").innerHTML=picked?`<strong>Respuesta guardada.</strong> Sumaste ${picked.score} puntos y ${picked.score} monedas.`:"";
+  const reward=picked?picked.score*streakMultiplier():0;
+  $("#feedback").innerHTML=picked?`<strong>Respuesta guardada.</strong> Sumaste ${reward} puntos y ${reward} monedas${streakMultiplier()>1?" · bono ×2":""}.`:"";
   $("#continueBtn").disabled=!picked;
   $("#continueBtn").textContent=!picked?"Elige una respuesta":state.day===2?"Ver resumen":`Ver día ${state.day+2}`;
   renderGlobal();
@@ -1597,8 +1655,8 @@ function renderSummary(){
   $("#sumCoins").textContent=earnedCoins();
   $("#breakdown").innerHTML=days.map((d,i)=>{
     const a=state.answer[i];
-    const score=a?d.challenge.options.find(o=>o.letter===a).score:0;
-    return `<div><span>Día ${i+1} · ${d.title}</span><strong>${score} pts · ${score+state.seen[i].size*10} monedas</strong></div>`;
+    const score=a?d.challenge.options.find(o=>o.letter===a).score*streakMultiplier():0;
+    return `<div><span>Día ${i+1} · ${d.title}</span><strong>${score} pts · ${score+state.seen[i].size*10*streakMultiplier()} monedas</strong></div>`;
   }).join("");
 }
 function renderTop500(){
@@ -1698,9 +1756,11 @@ function renderMap(){
     const claimAria=claimed?`Recompensa ${level.reward} reclamada`:reached?`Reclamar ${level.reward}`:level.elite?"Recompensa bloqueada: requiere 3600 puntos y Top 500":`Recompensa bloqueada hasta ${level.min} puntos`;
     const theme=cosmicPalette[level.level-1],nextTheme=cosmicPalette[level.level]||theme;
     const currentSummary=isCurrent?`<div class="current-level-summary"><div class="current-level-summary-head"><span>✦ Estás aquí</span><strong>${points} pts</strong></div><div class="current-level-progress"><i style="width:${progress}%"></i></div><div class="current-level-next">${currentIndex===cosmicLevels.length-1?"Perteneces a la élite máxima":`${Math.max(0,next.min-points)} puntos para ${next.name}`}</div></div>`:"";
-    return `<article class="cosmic-level ${reached?"reached":"locked"} ${isCurrent?"current":""} ${level.elite?"elite":""}" data-level="${level.level}" style="--level-color:${theme.color};--level-tint:${theme.tint};--level-glow:${theme.glow};--next-color:${nextTheme.color}">
-      <span class="level-link" aria-hidden="true"></span><span class="level-joint" aria-hidden="true"></span><span class="level-sheen" aria-hidden="true"></span><div class="level-node">${level.icon}</div><span class="level-number">Nivel ${String(level.level).padStart(2,"0")}${level.elite?" · Élite 500":""}</span><h4>${level.name}</h4>${currentSummary}<p>${level.elite?"La liga más exclusiva de Dinetik. Solo 500 lugares.":`${level.min} puntos para alcanzar este escalón.`}</p><div class="level-reward-row"><span class="level-reward">${level.reward}</span><button class="claim-level ${claimed?"claimed":""}" data-claim-level="${level.level}" aria-label="${claimAria}" title="${claimAria}" ${!reached||claimed?"disabled":""}>${claimIcon}</button></div><div class="level-actions"><button class="open-level-shop" data-level-shop="${level.level}" ${!reached?"disabled":""}>${reached?"Comprar objetos especiales de nivel":"Tienda bloqueada"}</button></div>
-    </article>`;
+    return `<div class="level-piece ${level.level===1?"origin":""} ${level.level===20?"terminal":""} ${!reached?"locked-piece":""} ${reached&&!isCurrent?"completed-piece":""} ${isCurrent?"current-piece":""}" style="--level-color:${theme.color};--level-tint:${theme.tint};--level-glow:${theme.glow};--next-color:${nextTheme.color}">
+      <article class="cosmic-level ${reached?"reached":"locked"} ${isCurrent?"current":""} ${level.elite?"elite":""}" data-level="${level.level}">
+        <span class="level-sheen" aria-hidden="true"></span><div class="level-node">${level.icon}</div><span class="level-number">Nivel ${String(level.level).padStart(2,"0")}${level.elite?" · Élite 500":""}</span><h4>${level.name}</h4>${currentSummary}<p>${level.elite?"La liga más exclusiva de Dinetik. Solo 500 lugares.":`${level.min} puntos para alcanzar este escalón.`}</p><div class="level-reward-row"><span class="level-reward">${level.reward}</span><button class="claim-level ${claimed?"claimed":""}" data-claim-level="${level.level}" aria-label="${claimAria}" title="${claimAria}" ${!reached||claimed?"disabled":""}>${claimIcon}</button></div><div class="level-actions"><button class="open-level-shop" data-level-shop="${level.level}" ${!reached?"disabled":""}>${reached?"Comprar objetos especiales de nivel":"Tienda bloqueada"}</button></div>
+      </article><span class="hex-tab" aria-hidden="true"></span>
+    </div>`;
   }).join("");
   $$("#levelMap [data-claim-level]").forEach(button=>button.addEventListener("click",()=>claimCosmicLevel(Number(button.dataset.claimLevel))));
   $$("#levelMap [data-level-shop]").forEach(button=>button.addEventListener("click",()=>openLevelStore(Number(button.dataset.levelShop))));
@@ -1719,33 +1779,56 @@ function switchRankingTab(tab,focus=true){
   }
   if(focus) playMapSound("tab");
 }
+function switchInventoryTab(tab){
+  state.inventoryTab=tab;
+  $$(".inventory-tab").forEach(button=>{const active=button.dataset.inventoryTab===tab;button.classList.toggle("active",active);button.setAttribute("aria-selected",String(active))});
+  $$(".inventory-panel").forEach(panel=>panel.classList.toggle("active",panel.dataset.inventoryPanel===tab));
+}
 function renderInventory(){
   $("#inventoryCoins").textContent=availableCoins();
   const equipped=inventoryItems.find(item=>item.id===state.equipped);
   $("#inventoryAccessory").textContent=equipped?equipped.icon:"";
-  const visibleItems=inventoryItems.filter(item=>!item.unlockLevel&&!item.storeLevel||state.inventory.has(item.id));
-  $("#inventoryGrid").innerHTML=visibleItems.map(item=>{
-    const owned=state.inventory.has(item.id), isEquipped=state.equipped===item.id;
-    const canBuy=availableCoins()>=item.cost;
-    const label=isEquipped?"Equipado ✓":owned?"Equipar":canBuy?`${item.cost} 🪙`:`Faltan ${item.cost-availableCoins()} 🪙`;
-    return `<article class="inventory-item ${owned?"owned":""} ${isEquipped?"equipped":""}">
+  const ownedItems=inventoryItems.filter(item=>state.inventory.has(item.id));
+  const storeItems=inventoryItems.filter(item=>!item.unlockLevel&&!item.storeLevel);
+  $("#ownedItemsCount").textContent=`${ownedItems.length} ${ownedItems.length===1?"adquirido":"adquiridos"}`;
+  $("#storeItemsCount").textContent=`${storeItems.length} productos`;
+  $("#inventoryEmpty").hidden=ownedItems.length>0;
+  $("#ownedInventoryGrid").hidden=ownedItems.length===0;
+  $("#ownedInventoryGrid").innerHTML=ownedItems.map(item=>{
+    const isEquipped=state.equipped===item.id;
+    return `<article class="inventory-item owned ${isEquipped?"equipped":""}">
       <div class="item-top"><span class="item-icon">${item.icon}</span><span class="item-rarity">${item.rarity}</span></div>
       <h3>${item.name}</h3><p>${item.desc}</p>
-      <button class="inventory-action" data-item="${item.id}" ${isEquipped||(!owned&&!canBuy)?"disabled":""}>${label}</button>
+      <button class="inventory-action" data-equip-item="${item.id}" ${isEquipped?"disabled":""}>${isEquipped?"Equipado ✓":"Equipar"}</button>
     </article>`;
   }).join("");
-  $$("#inventoryGrid .inventory-action").forEach(btn=>btn.addEventListener("click",()=>{
-    const item=inventoryItems.find(entry=>entry.id===btn.dataset.item);
-    if(!item) return;
-    if(!state.inventory.has(item.id)){
-      if(availableCoins()<item.cost) return;
-      state.spentCoins+=item.cost;
-      state.inventory.add(item.id);
-    }
-    state.equipped=item.id;
+  $("#storeInventoryGrid").innerHTML=storeItems.map(item=>{
+    const owned=state.inventory.has(item.id);
+    const canBuy=availableCoins()>=item.cost;
+    const label=owned?"Adquirido ✓":canBuy?`${item.cost} 🪙`:`Faltan ${item.cost-availableCoins()} 🪙`;
+    return `<article class="inventory-item ${owned?"sold":""}">
+      <div class="item-top"><span class="item-icon">${item.icon}</span><span class="item-rarity">${item.rarity}</span></div>
+      <h3>${item.name}</h3><p>${item.desc}</p>
+      <button class="inventory-action" data-buy-item="${item.id}" ${owned||!canBuy?"disabled":""}>${label}</button>
+    </article>`;
+  }).join("");
+  $$("#ownedInventoryGrid [data-equip-item]").forEach(btn=>btn.addEventListener("click",()=>{
+    state.equipped=btn.dataset.equipItem;
     renderInventory();
     renderGlobal();
   }));
+  $$("#storeInventoryGrid [data-buy-item]").forEach(btn=>btn.addEventListener("click",()=>{
+    const item=inventoryItems.find(entry=>entry.id===btn.dataset.buyItem);
+    if(!item) return;
+    if(state.inventory.has(item.id)||availableCoins()<item.cost) return;
+    state.spentCoins+=item.cost;
+    state.inventory.add(item.id);
+    state.equipped=item.id;
+    state.inventoryTab="owned";
+    renderInventory();
+    renderGlobal();
+  }));
+  switchInventoryTab(state.inventoryTab);
 }
 function renderProfile(){
   const points=earnedPoints(), cosmic=currentCosmicLevel(), cosmicIndex=cosmicLevels.indexOf(cosmic), nextCosmic=cosmicLevels[cosmicIndex+1]||cosmic;
@@ -1760,13 +1843,36 @@ function renderProfile(){
   $("#profileLevelPercent").textContent=`${progress}%`;
   $("#profileLevelBar").style.width=`${progress}%`;
   $("#profileLevelNote").textContent=cosmicIndex===cosmicLevels.length-1?"Has alcanzado la élite máxima":`${Math.max(0,nextCosmic.min-points)} puntos para ${nextCosmic.name}`;
-  $("#profileCompleted").textContent=`${completedDays()}/3 días`;
-  $("#profilePaths").innerHTML=days.map((day,index)=>{
-    const value=Math.round(((state.seen[index].size+(state.answer[index]?1:0))/4)*100);
-    return `<div class="path-row"><strong>${day.title}</strong><span>${value}%</span><div class="path-track"><i style="width:${value}%"></i></div></div>`;
-  }).join("");
-  const highlights=[badgeMock[0],badgeMock[1],badgeMock[6]];
-  $("#profileBadges").innerHTML=highlights.map((badge,index)=>`<div class="profile-badge" style="opacity:${index===0&&completedDays()===0?0.42:1}"><b>${badge.icon}</b><span>${badge.name}</span></div>`).join("");
+  const videosSeen=seenVideos();
+  const topicProgress=Math.round((videosSeen/9)*100);
+  const finishedLessons=state.seen.filter(seen=>seen.size===3).length;
+  const topicReady=videosSeen===9;
+  const topicClaimed=state.claimedTopics.has(learningTopic.id);
+  $("#profileCompleted").textContent=`${finishedLessons}/3 lecciones`;
+  $("#profilePaths").innerHTML=`
+    <div class="path-row ${topicReady&&!topicClaimed?"ready":""}">
+      <strong>${learningTopic.name}</strong><span>${topicProgress}%</span>
+      <div class="path-track"><i style="width:${topicProgress}%"></i></div>
+      <div class="path-meta"><span>${videosSeen}/9 videos vistos</span><span>${finishedLessons}/3 lecciones</span></div>
+      <div class="path-reward">
+        <div class="path-reward-copy"><span>🪙</span><span>${topicClaimed?"Recompensa obtenida":`+${learningTopic.rewardCoins} monedas · 1 logro`}</span></div>
+        <button class="claim-topic ${topicClaimed?"claimed":""}" ${topicReady&&!topicClaimed?"":"disabled"}>${topicClaimed?"✓ Reclamado":topicReady?"Reclamar":"Completa el tema"}</button>
+      </div>
+      <div class="path-status" aria-live="polite">${topicClaimed?`Logro desbloqueado: ${learningTopic.achievement.name}`:topicReady?"¡Tema completo! Tu recompensa está lista.":`Mira ${9-videosSeen} video${9-videosSeen===1?"":"s"} más para desbloquearla.`}</div>
+    </div>`;
+  const highlights=[
+    {badge:learningTopic.achievement,unlocked:topicClaimed},
+    {badge:badgeMock[0],unlocked:completedDays()>0},
+    {badge:badgeMock[2],unlocked:videosSeen===9}
+  ];
+  $("#profileBadges").innerHTML=highlights.map(({badge,unlocked})=>`<div class="profile-badge" style="opacity:${unlocked?1:.38}"><b>${unlocked?badge.icon:"🔒"}</b><span>${badge.name}</span></div>`).join("");
+}
+function claimLearningTopic(){
+  if(seenVideos()<9 || state.claimedTopics.has(learningTopic.id)) return;
+  state.claimedTopics.add(learningTopic.id);
+  state.bonusCoins+=learningTopic.rewardCoins;
+  renderGlobal();
+  renderProfile();
 }
 function goDay(delta){
   state.day=Math.max(0,Math.min(2,state.day+delta));
@@ -1818,10 +1924,14 @@ $("#videoFeed").addEventListener("scroll",()=>{
 $("#videoFeed").addEventListener("click",event=>{
   if(event.target.closest(".challenge-sentinel")) openChallengeFromFeed();
 });
+$("#profilePaths").addEventListener("click",event=>{
+  if(event.target.closest(".claim-topic")) claimLearningTopic();
+});
 $("#markBtn").addEventListener("click",()=>{});
 $("#nextVideoBtn").addEventListener("click",()=>{});
 $("#challengeBtn").addEventListener("click",enterChallenge);
 $("#closeReward").addEventListener("click",()=>{hideReward();showDayComplete()});
+$("#closeStreak").addEventListener("click",hideStreak);
 $("#backToReel").addEventListener("click",()=>{});
 $("#prevDayBtn").addEventListener("click",()=>goDay(-1));
 $("#nextDayBtn").addEventListener("click",()=>goDay(1));
@@ -1849,6 +1959,8 @@ $("#activateNextDay").addEventListener("click",()=>{
 });
 $("#summaryExploreBtn").addEventListener("click",()=>{show("top500View");renderTop500()});
 $$(".ranking-tab").forEach(button=>button.addEventListener("click",()=>switchRankingTab(button.dataset.rankingTab)));
+$$(".inventory-tab").forEach(button=>button.addEventListener("click",()=>switchInventoryTab(button.dataset.inventoryTab)));
+$("#openStoreFromEmpty").addEventListener("click",()=>switchInventoryTab("store"));
 $("#closeLevelStore").addEventListener("click",closeLevelStore);
 $("#levelStoreModal").addEventListener("click",event=>{if(event.target.id==="levelStoreModal") closeLevelStore()});
 document.addEventListener("keydown",event=>{if(event.key==="Escape") closeLevelStore()});
