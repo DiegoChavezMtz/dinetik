@@ -951,6 +951,9 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .hub-kicker{display:block;color:var(--g);font:900 10px "DM Mono",monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
 .hub-header h2{font-size:29px;line-height:1}
 .balance-chip{padding:8px 11px;border-radius:999px;background:#101822;border:1px solid rgba(255,255,255,.1);font-size:11px;font-weight:900;color:#f5be5e}
+.points-counters{display:flex;gap:5px}.points-counters span{display:grid;grid-template-columns:auto auto;column-gap:3px;align-items:center;padding:6px 8px;border-radius:12px;background:#101822;border:1px solid rgba(255,255,255,.1);font:900 10px "DM Mono",monospace;color:#f5be5e}.points-counters small{grid-column:1/-1;color:#8d9cac;font:800 6.5px "Plus Jakarta Sans";text-transform:uppercase;letter-spacing:.35px}.progress-hero{padding:17px 15px 15px;border-radius:24px 24px 18px 18px;background:radial-gradient(circle at 88% 15%,rgba(82,230,192,.22),transparent 24%),linear-gradient(145deg,#173b7b,#10234e);border:1px solid rgba(128,196,255,.26);overflow:hidden}.progress-hero h3{margin-top:3px;font-size:21px}.progress-hero p{margin-top:4px;color:#d5e4ff;font-size:10px;line-height:1.5}.progress-point-row{display:flex;gap:7px;margin-top:12px}.progress-point-row span{flex:1;padding:8px;border-radius:12px;background:rgba(2,11,14,.24);font-size:8px;color:#c9daf3}.progress-point-row b{display:block;margin-bottom:2px;color:#fff;font:900 13px "DM Mono",monospace}.progress-map-card{margin-top:10px;padding:18px 14px 16px;background:#101d25}.progress-route{--route-progress:0%;position:relative;display:grid;gap:0;padding:6px 0 5px}.progress-route:before{content:"";position:absolute;z-index:0;left:26px;top:31px;bottom:31px;width:9px;border-radius:99px;background:linear-gradient(to bottom,#27aeeb 0 var(--route-progress),#263842 var(--route-progress) 100%);box-shadow:0 0 12px rgba(39,174,235,.25)}.route-step{position:relative;z-index:1;display:grid;grid-template-columns:54px 1fr;column-gap:13px;min-height:95px;align-items:start}.route-step:last-child{min-height:63px}.route-node{width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:#263842;border:5px solid #20323d;color:#72838d;font-size:23px;box-shadow:0 0 0 3px #101d25}.route-step.done .route-node,.route-step.current .route-node{background:linear-gradient(145deg,#45caff,#159bdc);border-color:#d4f6ff;color:#fff;box-shadow:0 0 0 3px #101d25,0 0 18px rgba(39,174,235,.38)}.route-step.current .route-node{animation:routePulse 1.8s ease-in-out infinite}.route-copy{padding:7px 4px 8px 0}.route-score{display:block;color:#63cfff;font:900 10px "DM Mono",monospace;letter-spacing:.2px}.route-copy h4{margin:3px 0 3px;font-size:14px;line-height:1.25}.route-copy p{font-size:9px;line-height:1.35;color:#9eb0ba}.route-step.locked{filter:saturate(.45);opacity:.68}.route-step.done .route-copy h4{color:#f4fbff}@keyframes routePulse{50%{transform:scale(1.1);box-shadow:0 0 0 3px #101d25,0 0 28px rgba(39,174,235,.7)}}
+.route-stage{position:relative;margin:0 0 22px;padding:12px 0 2px}.route-stage:last-child{margin-bottom:0}.route-stage-head{display:flex;justify-content:space-between;align-items:center;margin:0 4px 11px}.route-stage-head b{font-size:12px}.route-stage-head span{font:900 8px "DM Mono",monospace;color:#68d4ff}.topic-graph{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;padding:9px 0}.topic-graph:before{content:"";position:absolute;left:25%;right:25%;top:38px;height:2px;background:linear-gradient(90deg,#1c526b,#37c7f4,#1c526b)}.topic-node{position:relative;z-index:1;display:flex;align-items:center;gap:8px;padding:8px;border:0;border-radius:16px;background:#162631;color:#fff;text-align:left;cursor:pointer}.topic-node.locked{opacity:.5}.topic-node.done{background:linear-gradient(135deg,#17688b,#1f9ed2)}.topic-node-icon{width:32px;height:32px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#283e49;font-size:16px}.topic-node.done .topic-node-icon{background:#e8fbff;color:#178fc5}.topic-node strong{display:block;font-size:8px;line-height:1.2}.topic-node small{display:block;margin-top:3px;color:#b9d5df;font-size:7px}.certificate-gate{position:relative;margin:3px 18px 0;padding:13px;border-radius:18px;text-align:center;background:linear-gradient(135deg,rgba(255,216,102,.17),rgba(115,65,206,.2));border:1px solid rgba(255,218,115,.35)}.certificate-gate:before{content:"";position:absolute;top:-13px;left:50%;height:13px;width:2px;background:#5cdcff}.certificate-gate b{display:block;color:#ffe28a;font-size:11px}.certificate-gate p{margin:4px 0 9px;color:#c9c0d6;font-size:8px;line-height:1.35}.claim-certificate{width:100%;height:32px;border:0;border-radius:999px;background:linear-gradient(135deg,#ffe79b,#dca52b);color:#241404;font:900 9px "Plus Jakarta Sans";cursor:pointer}.claim-certificate:disabled{background:rgba(255,255,255,.1);color:#84929b;cursor:not-allowed}.route-stage.future{opacity:.52}.progress-route:before{display:none}.topic-modal,.certificate-modal{position:absolute;inset:0;z-index:70;display:grid;place-items:center;padding:22px;background:rgba(2,7,12,.82);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:.22s}.topic-modal.show,.certificate-modal.show{opacity:1;pointer-events:auto}.topic-sheet,.certificate-sheet{width:100%;max-width:340px;padding:20px;border-radius:26px;background:#101d25;border:1px solid rgba(255,255,255,.14);box-shadow:0 20px 50px rgba(0,0,0,.5)}.topic-sheet h3,.certificate-sheet h2{margin:7px 0;font-size:20px}.topic-sheet p,.certificate-sheet p{color:#adc0ca;font-size:11px;line-height:1.55}.topic-progress{height:8px;margin:15px 0 7px;border-radius:99px;overflow:hidden;background:#263944}.topic-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#35c8f5,#8cf2d6)}.topic-actions,.certificate-actions{display:flex;gap:8px;margin-top:16px}.topic-actions button,.certificate-actions button{flex:1;height:36px;border:0;border-radius:12px;background:#1d313d;color:#fff;font:800 9px "Plus Jakarta Sans";cursor:pointer}.topic-actions button:first-child,.certificate-actions button:first-child{background:#37c7f4;color:#06232e}.certificate-sheet{text-align:center;background:radial-gradient(circle at 50% 0,rgba(255,221,117,.3),transparent 32%),#171129}.certificate-emblem{font-size:54px;animation:certificatePop .7s ease both}@keyframes certificatePop{0%{transform:scale(.2) rotate(-20deg);opacity:0}70%{transform:scale(1.16) rotate(7deg)}100%{transform:none;opacity:1}}
+.topic-graph{gap:10px;padding:4px 0 0}.topic-graph:before{display:none}.topic-node{min-height:72px;padding:10px;border:1px solid rgba(113,222,255,.16);background:linear-gradient(145deg,#142a37,#12212b);box-shadow:inset 0 1px rgba(255,255,255,.04),0 8px 16px rgba(0,0,0,.13);transition:transform .2s,box-shadow .2s}.topic-node.done{border-color:rgba(110,229,255,.62);background:radial-gradient(circle at 18% 0,rgba(93,229,255,.22),transparent 47%),linear-gradient(145deg,#176b87,#15465c);box-shadow:inset 0 1px rgba(255,255,255,.17),0 8px 20px rgba(29,181,230,.16)}.topic-node.done:after{content:"";position:absolute;right:9px;top:9px;width:6px;height:6px;border-radius:50%;background:#8af6cf;box-shadow:0 0 10px #8af6cf}.topic-node:hover{transform:translateY(-2px)}.topic-node-icon{width:36px;height:36px;border:2px solid rgba(255,255,255,.08)}.topic-node.done .topic-node-icon{border-color:#bff7ff;box-shadow:0 0 13px rgba(104,225,255,.42)}.topic-node strong{font-size:9px}.topic-node small{font-size:7.5px;color:#c7e6ef}.route-merge{position:relative;height:28px;margin:0 24%;display:grid;place-items:center}.route-merge:before{content:"";position:absolute;top:0;left:50%;width:2px;height:100%;background:linear-gradient(#45d8ff,#f7d976);box-shadow:0 0 10px #41d8ff}.route-merge span{position:relative;z-index:1;width:18px;height:18px;display:grid;place-items:center;border-radius:50%;background:#203a47;color:#b6f4ff;font-size:9px;box-shadow:0 0 0 4px #101d25,0 0 14px rgba(82,222,255,.42)}.certificate-gate{margin:0 8px;padding:15px;border-color:rgba(255,218,115,.66);background:radial-gradient(circle at 50% 0,rgba(255,226,122,.18),transparent 48%),linear-gradient(135deg,rgba(73,55,25,.78),rgba(44,28,77,.9));box-shadow:inset 0 1px rgba(255,255,255,.12),0 12px 26px rgba(0,0,0,.2)}.certificate-gate:before{display:none}.certificate-gate b{font-size:13px}.certificate-gate p{font-size:9px}.claim-certificate:not(:disabled){height:37px;background:linear-gradient(180deg,#fff0a0,#d99c28);box-shadow:0 5px 0 #8c5513,0 0 20px rgba(255,211,77,.32);animation:certificateReady 1.8s ease-in-out infinite}@keyframes certificateReady{50%{transform:translateY(-1px);box-shadow:0 6px 0 #8c5513,0 0 28px rgba(255,227,117,.66)}}
 .user-rank-hero{position:relative;overflow:hidden;border-radius:26px;padding:18px;background:linear-gradient(135deg,rgba(29,204,160,.2),rgba(77,158,255,.1));border:1px solid rgba(29,204,160,.38);margin-bottom:16px}
 .user-rank-hero:after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;right:-45px;top:-55px;border:24px solid rgba(255,255,255,.035)}
 .rank-overline{font-size:10px;font-weight:900;color:var(--g2);text-transform:uppercase;letter-spacing:.7px}
@@ -992,6 +995,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 .level-node{position:absolute;left:50%;top:50%;z-index:3;width:58px;height:58px;transform:translate(-50%,-50%);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,color-mix(in srgb,var(--level-color) 80%,#fff),color-mix(in srgb,var(--level-color) 42%,#111827));border:4px solid var(--level-color);box-shadow:0 0 0 5px #080d13,0 0 24px var(--level-glow);font-size:24px}.cosmic-level.reached .level-node{border-color:#fff}.cosmic-level.current .level-node{width:74px;height:74px;font-size:31px;animation:nodePulse 1.2s ease-in-out infinite}@keyframes nodePulse{50%{transform:translate(-50%,-50%) scale(1.08)}}
 .current-level-summary{margin:8px 0 4px;padding:8px;border-radius:12px;background:rgba(3,7,12,.32);border:1px solid color-mix(in srgb,var(--level-color) 36%,transparent);text-align:left}.level-piece:nth-child(even) .current-level-summary{text-align:right}.current-level-summary-head{display:flex;justify-content:space-between;gap:6px;font:900 7px "DM Mono",monospace;color:var(--level-color);text-transform:uppercase}.current-level-progress{height:6px;margin:7px 0 5px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}.current-level-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--level-color),#fff);box-shadow:0 0 12px var(--level-color)}.current-level-next{font-size:7.5px;color:#d8e3ee;font-weight:800}
 .level-number{font:900 8px "DM Mono",monospace;color:#9babc0;text-transform:uppercase}.cosmic-level h4{font-size:12px;margin:3px 0}.cosmic-level p{font-size:8.5px;color:var(--muted);line-height:1.35}.level-reward-row{display:flex;align-items:center;gap:5px;margin-top:7px}.level-piece:nth-child(even) .level-reward-row{flex-direction:row-reverse}.level-reward{flex:1;display:flex;align-items:center;min-height:30px;padding:5px 7px;border-radius:9px;background:rgba(167,139,250,.12);color:#d9ceff;font-size:8px;font-weight:900}
+.final-league-store{position:relative;z-index:3;margin:14px -2px 2px;padding:15px 13px 13px;overflow:hidden;border-radius:25px;background:radial-gradient(circle at 10% 12%,rgba(255,235,146,.34),transparent 19%),radial-gradient(circle at 93% 18%,rgba(237,102,255,.34),transparent 24%),linear-gradient(145deg,#1e0d39,#090714 67%);border:1px solid rgba(255,220,109,.72);box-shadow:0 0 0 2px rgba(124,69,232,.32) inset,0 16px 35px rgba(0,0,0,.48),0 0 30px rgba(184,100,255,.25)}.final-league-store:before{content:"";position:absolute;inset:-60%;background:linear-gradient(110deg,transparent 44%,rgba(255,255,255,.36) 49%,transparent 54%);animation:vipSweep 3.5s linear infinite;pointer-events:none}.final-store-top,.vip-prizes-label,.vip-prize-slider,.open-final-store,.final-store-note{position:relative;z-index:1}.final-store-top{display:flex;align-items:center;gap:10px}.final-store-icon{width:47px;height:47px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(145deg,#ffe88d,#a56b18);border:2px solid #fff2ae;color:#241204;font-size:26px;box-shadow:0 0 17px rgba(255,211,82,.7)}.final-store-copy{flex:1}.final-store-copy span{display:block;color:#ffdf74;font:900 7px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.9px}.final-store-copy h4{margin:3px 0;font-size:15px;color:#fff5cc;text-shadow:0 0 12px rgba(255,213,92,.45)}.final-store-copy p{font-size:8.5px;line-height:1.35;color:#d6c9e5}.vip-prizes-label{margin:14px 2px 7px;color:#efd886;font:900 7px "DM Mono",monospace;text-transform:uppercase;letter-spacing:.9px}.vip-prize-slider{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 2px 5px}.vip-prize-slider::-webkit-scrollbar{display:none}.vip-prize-card{flex:0 0 136px;min-height:105px;padding:10px;border-radius:16px;scroll-snap-align:start;background:linear-gradient(150deg,rgba(255,255,255,.15),rgba(18,9,32,.74));border:1px solid rgba(255,237,159,.35);box-shadow:inset 0 1px rgba(255,255,255,.14)}.vip-prize-icon{display:block;font-size:25px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.45))}.vip-prize-card strong{display:block;margin:7px 0 3px;color:#fff;font-size:10px}.vip-prize-card span{display:block;color:#cfc2dd;font-size:7.5px;line-height:1.35}.open-final-store{width:100%;height:37px;margin-top:10px;border:1px solid #fff0a2;border-radius:999px;background:linear-gradient(180deg,#ffe58a,#d08a1c);color:#201003;font:900 10px "Plus Jakarta Sans";cursor:pointer;box-shadow:0 5px 0 #7e4210,0 0 18px rgba(255,197,57,.35)}.open-final-store:disabled{border-color:rgba(255,255,255,.08);background:rgba(255,255,255,.1);color:#898297;box-shadow:none;cursor:not-allowed}.final-store-note{margin-top:10px;text-align:center;color:#a59ab3;font:800 7px "Plus Jakarta Sans"}.final-store-note b{color:#ffd96c}@keyframes vipSweep{to{transform:translateX(52%)}}
 .level-actions{margin-top:5px}.claim-level,.open-level-shop{border:0;border-radius:999px;font:900 7.5px "Plus Jakarta Sans";cursor:pointer}.claim-level{width:30px;height:30px;flex:0 0 30px;display:grid;place-items:center;padding:0;background:var(--level-color);color:#071018;font-size:14px;box-shadow:0 6px 14px var(--level-glow)}.claim-level:disabled,.open-level-shop:disabled{background:rgba(255,255,255,.08);color:#66778a;cursor:not-allowed;box-shadow:none}.claim-level.claimed{color:var(--level-color);background:rgba(3,8,13,.45);border:1px solid var(--level-color)}.open-level-shop{display:block;width:100%;min-height:28px;padding:5px 7px;background:linear-gradient(135deg,#7d5cff,#a78bfa);color:#fff;box-shadow:0 7px 16px rgba(93,65,190,.25)}
 .map-toast{position:sticky;bottom:4px;z-index:8;margin:0 auto;width:max-content;max-width:90%;padding:10px 14px;border-radius:999px;background:#f5be5e;color:#211500;font-size:9px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;transform:translateY(18px);pointer-events:none;transition:.25s}.map-toast.show{opacity:1;transform:none}
 .level-burst{position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden}.level-burst i{position:absolute;left:50%;top:52%;width:7px;height:7px;border-radius:2px;background:var(--c);animation:burstFly .9s ease-out forwards}@keyframes burstFly{to{transform:translate(var(--x),var(--y)) rotate(560deg);opacity:0}}
@@ -1143,35 +1147,27 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
       <section class="view" id="top500View">
         <div class="hub-scroll">
           <header class="hub-header">
-            <div><span class="hub-kicker">Liga estelar</span><h2>Ranking</h2></div>
-            <div class="balance-chip">⭐ <span id="rankingPointsChip">0</span> pts</div>
+            <div><span class="hub-kicker">Tu avance financiero</span><h2>Mi Ruta</h2></div>
+            <div class="points-counters" aria-label="Contadores de puntos"><span>🌐 <b id="globalPointsChip">0</b><small>globales</small></span><span>✦ <b id="monthlyPointsChip">0</b><small>este mes</small></span></div>
           </header>
-          <div class="ranking-tabs" role="tablist" aria-label="Vistas del ranking">
-            <button class="ranking-tab active" data-ranking-tab="global" role="tab" aria-selected="true">🏆 Global</button>
-            <button class="ranking-tab" data-ranking-tab="map" role="tab" aria-selected="false">✨ Mi mapa</button>
+          <div class="ranking-tabs" role="tablist" aria-label="Vistas de recompensas">
+            <button class="ranking-tab active" data-ranking-tab="global" role="tab" aria-selected="true">🧭 Mi progreso</button>
+            <button class="ranking-tab" data-ranking-tab="map" role="tab" aria-selected="false">🏆 Liga</button>
           </div>
           <section class="ranking-panel active" id="globalRankingPanel" data-ranking-panel="global">
-            <div class="user-rank-hero">
-              <span class="rank-overline">Tu posición global</span>
-              <div class="rank-main">
-                <div class="rank-number" id="topRankPosition">#342</div>
-                <div class="rank-avatar"><img src="PumitaDinetik.png" alt="Tu avatar"></div>
-                <div class="rank-person"><strong>@dinetik_user</strong><span><b id="rewardPointsTotal">0</b> puntos acumulados</span></div>
-              </div>
-              <div class="rank-status"><span id="rankEligibilityText">Subiendo por el mapa</span><strong id="rankEligibilityBadge">Nivel 1</strong></div>
+            <div class="progress-hero">
+              <span class="hub-kicker">Mapa de certificados</span><h3>Mi progreso</h3>
+              <p>Avanza con tus lecciones, acumula puntos y desbloquea cada certificado.</p>
+              <div class="progress-point-row"><span><b id="progressGlobalPoints">0</b> puntos globales</span><span><b id="progressMonthPoints">0</b> puntos este mes</span></div>
             </div>
-            <div class="rank-board">
-              <h3>Los mejores de Dinetik</h3>
-              <div class="rank-list" id="rankList"></div>
-              <div class="rank-note">La posición global se calcula con puntos. Las monedas nunca afectan tu lugar.</div>
+            <div class="profile-card progress-map-card">
+              <div class="profile-card-head"><h3>Tu ruta de certificados</h3><span id="progressCompleted">0/5 hitos</span></div>
+              <div class="progress-route" id="progressPaths"></div>
             </div>
           </section>
           <section class="ranking-panel map-panel" id="mapRankingPanel" data-ranking-panel="map">
-            <div class="map-toolbar"><div><span class="hub-kicker">Tu ascenso cósmico</span><h3>Camino a la élite</h3><p>Tu nivel actual está destacado dentro de la escalera.</p></div><button class="sound-toggle" id="mapSoundToggle" aria-label="Activar o desactivar sonido">🔊</button></div>
-            <section class="elite-prizes" id="elitePrizes" aria-label="Premios exclusivos del nivel máximo">
-              <header class="elite-prizes-head"><span>♛ Solo para el Nivel 20 · Julio</span><b>Premios del Cónclave</b></header>
-              <div class="elite-prizes-row" id="elitePrizesRow"></div>
-            </section>
+            <div class="map-toolbar"><div><span class="hub-kicker">Liga mensual</span><h3>Camino a la siguiente liga</h3><p>Tu avance se calcula con los puntos que sumas este mes.</p></div><button class="sound-toggle" id="mapSoundToggle" aria-label="Activar o desactivar sonido">🔊</button></div>
+            <section class="final-league-store" id="finalLeagueStore" aria-label="Tienda especial de la liga final"></section>
             <div class="level-map" id="levelMap"></div>
             <div class="map-toast" id="mapToast" aria-live="polite"></div>
             <div class="level-burst" id="levelBurst"></div>
@@ -1239,7 +1235,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
 
       <nav class="app-nav visible" id="appNav" aria-label="Navegación principal">
         <button class="nav-item active" data-view="reelView"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9H6v-9"/><path d="M10 20v-6h4v6"/></svg><span>Inicio</span></button>
-        <button class="nav-item" data-view="top500View"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4"/></svg><span>Ranking</span></button>
+        <button class="nav-item" data-view="top500View"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4"/></svg><span>Mi Ruta</span></button>
         <button class="nav-item" data-view="inventoryView"><svg viewBox="0 0 24 24"><path d="m4 7 8-4 8 4-8 4-8-4Z"/><path d="m4 7 8 4 8-4v10l-8 4-8-4V7Z"/><path d="M12 11v10"/></svg><span>Inventario</span></button>
         <button class="nav-item" data-view="profileView"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Perfil</span></button>
       </nav>
@@ -1248,7 +1244,7 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
         <section class="level-store-sheet">
           <div class="level-store-handle"></div>
           <header class="level-store-head">
-            <div><span id="levelStoreKicker">Objeto especial · Nivel 1</span><h2 id="levelStoreTitle">Tienda de nivel</h2><p>Este derecho de compra se desbloquea al alcanzar el nivel. Se paga con monedas.</p></div>
+            <div><span id="levelStoreKicker">Tienda especial · Liga final</span><h2 id="levelStoreTitle">Tienda especial</h2><p id="levelStoreDescription">Este objeto se desbloquea al alcanzar la última liga. Se paga con monedas.</p></div>
             <button class="level-store-close" id="closeLevelStore" aria-label="Cerrar tienda">×</button>
           </header>
           <div class="level-store-balance"><span>Saldo disponible</span><strong>🪙 <span id="levelStoreCoins">0</span></strong></div>
@@ -1291,6 +1287,8 @@ body:not(.intro-mode) .welcome{opacity:0;pointer-events:none;transform:scale(1.0
           <button id="closeStreak">Seguir con el bono</button>
         </div>
       </div>
+      <div class="topic-modal" id="topicModal" role="dialog" aria-modal="true" aria-labelledby="topicModalTitle"><section class="topic-sheet" id="topicModalContent"></section></div>
+      <div class="certificate-modal" id="certificateModal" role="dialog" aria-modal="true" aria-labelledby="certificateModalTitle"><section class="certificate-sheet" id="certificateModalContent"></section></div>
     </div>
   </div>
 </main>
@@ -1326,7 +1324,7 @@ const days=[
 
 const state={
   day:0, video:0, seen:[new Set(),new Set(),new Set()], answer:[null,null,null], mascotProgress:-1, mascotCompleteKey:"",
-  spentCoins:0, bonusCoins:0, claimedLevels:new Set(), claimedTopics:new Set(), purchasedLevelItems:new Set(), inventory:new Set(), equipped:null, challengeLocked:[false,false,false], feedTransitioning:false,
+  spentCoins:0, bonusCoins:0, claimedLevels:new Set(), claimedTopics:new Set(), claimedCertificates:new Set(), purchasedLevelItems:new Set(), inventory:new Set(), equipped:null, challengeLocked:[false,false,false], feedTransitioning:false,
   rankingTab:"global", inventoryTab:"owned", soundOn:true, activeLevelStore:1, streakCelebrated:false
 };
 const rankMock=[
@@ -1337,6 +1335,9 @@ const rankMock=[
   {pos:5,name:"@renexyz",pts:6090}
 ];
 const userRank=1342;
+// Los puntos globales conservan el historial de ligas cerradas; los del mes
+// son los que determinan el ascenso en la liga activa.
+const previousLeaguePoints=1280;
 const badgeMock=[
   {icon:"🥇",name:"Primer reto"},
   {icon:"🔥",name:"Racha 3 días"},
@@ -1352,6 +1353,33 @@ const learningTopic={
   achievement:{icon:"🧭",name:"Dominio cotidiano"},
   rewardCoins:50
 };
+const certificateRoute=[
+  {points:0,icon:"🌱",title:"Da tus primeros pasos",detail:"Conoce cómo tus decisiones diarias impactan tu dinero."},
+  {points:25,icon:"👁️",title:"Identifica tus gastos",detail:"Reconoce los gastos que pasan desapercibidos."},
+  {points:50,icon:"🧾",title:"Ordena tu presupuesto",detail:"Convierte tus ingresos y gastos en un plan simple."},
+  {points:90,icon:"🛟",title:"Protege tu futuro",detail:"Construye hábitos para estar listo ante imprevistos."},
+  {points:130,icon:"🎯",title:"Toma decisiones conscientes",detail:"Aplica lo aprendido a tus metas financieras."},
+  {points:170,icon:"🏆",title:"Certificado desbloqueado",detail:"Completaste tu ruta de Finanzas del día a día."}
+];
+const learningRoutes=[
+  {id:"bases",name:"Bases de tu dinero",certificate:{id:"cert-bases-v1",name:"Bases financieras",icon:"🏅",description:"Completaste todas las temáticas esenciales para tomar el control."},topics:[
+    {id:"habitos",icon:"🌱",name:"Hábitos financieros",lessons:3,detail:"Entiende cómo tus decisiones cotidianas construyen tu relación con el dinero.",progress:()=>Math.min(3,seenVideos())},
+    {id:"gastos",requires:["habitos"],icon:"👁️",name:"Gastos invisibles",lessons:3,detail:"Detecta fugas de dinero y conviértelas en decisiones conscientes.",progress:()=>completedDays()>=1?3:0},
+    {id:"presupuesto",requires:["habitos"],icon:"🧾",name:"Presupuesto realista",lessons:3,detail:"Organiza tu dinero sin dejar de vivir lo que te importa.",progress:()=>completedDays()>=2?3:0},
+    {id:"deuda",requires:["gastos","presupuesto"],icon:"🛟",name:"Deuda saludable",lessons:3,detail:"Aprende a usar el crédito sin que controle tus decisiones.",progress:()=>completedDays()>=3?3:0}
+  ]},
+  {id:"control",name:"Control y crecimiento",requires:"cert-bases-v1",certificate:{id:"cert-control-v1",name:"Control financiero",icon:"💎",description:"Dominaste la siguiente etapa de tu ruta."},topics:[
+    {id:"ahorro",icon:"🐷",name:"Ahorro con propósito",lessons:4,detail:"Dale dirección a tu ahorro.",progress:()=>0},
+    {id:"metas",requires:["ahorro"],icon:"🎯",name:"Metas que sí cumples",lessons:4,detail:"Convierte tus objetivos en acciones.",progress:()=>0},
+    {id:"proteccion",requires:["ahorro","metas"],icon:"🛡️",name:"Fondo de respaldo",lessons:3,detail:"Prepárate para lo inesperado.",progress:()=>0}
+  ]}
+];
+const vipFinalPrizes=[
+  {icon:"🎤",name:"Concierto VIP",detail:"Boletos premium para tu artista favorito."},
+  {icon:"⚽",name:"Fútbol en palco",detail:"Una experiencia de partido para recordar."},
+  {icon:"🏎️",name:"Fórmula 1",detail:"Acceso especial a un fin de semana de carrera."},
+  {icon:"✈️",name:"Escapada sorpresa",detail:"Viaje y hospedaje para celebrar tu ascenso."}
+];
 const inventoryItems=[
   {id:"pin",icon:"💚",name:"Pin Dinetik",desc:"El distintivo original para tu avatar.",cost:20,rarity:"Inicial"},
   {id:"glasses",icon:"😎",name:"Lentes neón",desc:"Un look brillante para decisiones claras.",cost:45,rarity:"Raro"},
@@ -1662,19 +1690,18 @@ function renderSummary(){
   }).join("");
 }
 function renderTop500(){
-  const current=currentCosmicLevel();
-  $("#rankingPointsChip").textContent=earnedPoints();
-  $("#rewardPointsTotal").textContent=earnedPoints();
-  $("#topRankPosition").textContent=`#${userRank}`;
-  $("#rankEligibilityText").textContent="Ascenso cósmico en curso";
-  $("#rankEligibilityBadge").textContent=`Nivel ${current.level} · ${current.name}`;
-  $("#rankList").innerHTML=rankMock.map(r=>`<div class="rank-row"><span class="rank-pos">#${r.pos}</span><span class="rank-name">${r.name}</span><span class="rank-pts">${r.pts} pts</span></div>`).join("");
+  const monthlyPoints=earnedPoints(),globalPoints=previousLeaguePoints+monthlyPoints;
+  $("#globalPointsChip").textContent=globalPoints;
+  $("#monthlyPointsChip").textContent=monthlyPoints;
+  $("#progressGlobalPoints").textContent=globalPoints;
+  $("#progressMonthPoints").textContent=monthlyPoints;
+  renderProgressMap();
   switchRankingTab(state.rankingTab,false);
   if(state.rankingTab==="map") window.setTimeout(()=>$("#levelMap .current")?.scrollIntoView({behavior:"smooth",block:"center"}),120);
 }
 function currentCosmicLevel(){
   const points=earnedPoints();
-  return [...cosmicLevels].reverse().find(level=>points>=level.min && (!level.elite||userRank<=500)) || cosmicLevels[0];
+  return [...cosmicLevels].reverse().find(level=>points>=level.min) || cosmicLevels[0];
 }
 function playMapSound(type="move"){
   if(!state.soundOn || !(window.AudioContext||window.webkitAudioContext)) return;
@@ -1705,7 +1732,7 @@ function launchLevelBurst(){
 }
 function claimCosmicLevel(levelNumber){
   const level=cosmicLevels.find(item=>item.level===levelNumber);
-  if(!level || earnedPoints()<level.min || (level.elite&&userRank>500) || state.claimedLevels.has(levelNumber)) return;
+  if(!level || earnedPoints()<level.min || state.claimedLevels.has(levelNumber)) return;
   state.claimedLevels.add(levelNumber);
   state.bonusCoins+=level.coins||0;
   if(level.rewardItem) state.inventory.add(level.rewardItem);
@@ -1721,17 +1748,19 @@ function closeLevelStore(){
 function renderLevelStore(){
   const level=cosmicLevels.find(item=>item.level===state.activeLevelStore),special=level?.special;
   if(!level||!special) return;
-  const reached=earnedPoints()>=level.min&&(!level.elite||userRank<=500),purchased=state.purchasedLevelItems.has(special.id),enough=availableCoins()>=special.cost;
-  $("#levelStoreKicker").textContent=`Objeto especial · Nivel ${level.level}`;
-  $("#levelStoreTitle").textContent=level.name;
+  const reached=earnedPoints()>=level.min,purchased=state.purchasedLevelItems.has(special.id),enough=availableCoins()>=special.cost;
+  const isFinalLeague=level.level===cosmicLevels.length;
+  $("#levelStoreKicker").textContent=isFinalLeague?"Tienda especial · Liga final":`Objeto especial · Liga ${level.level}`;
+  $("#levelStoreTitle").textContent=isFinalLeague?"Tienda especial":level.name;
+  $("#levelStoreDescription").textContent=isFinalLeague?"Un objeto exclusivo para celebrar que llegaste a la última liga. Se paga con monedas.":"Este objeto se desbloquea al alcanzar la liga. Se paga con monedas.";
   $("#levelStoreCoins").textContent=availableCoins();
-  const label=purchased?"Comprado ✓":!reached?"Nivel bloqueado":enough?`Comprar · ${special.cost} 🪙`:`Faltan ${special.cost-availableCoins()} 🪙`;
+  const label=purchased?"Comprado ✓":!reached?"Liga bloqueada":enough?`Comprar · ${special.cost} 🪙`:`Faltan ${special.cost-availableCoins()} 🪙`;
   $("#levelSpecialCard").innerHTML=`<div class="level-special-icon">${special.icon}</div><div class="level-special-copy"><h3>${special.name}</h3><p>${special.desc}</p><button class="buy-level-special" data-buy-special="${special.id}" ${purchased||!reached||!enough?"disabled":""}>${label}</button></div>`;
   $("#levelSpecialCard [data-buy-special]").addEventListener("click",()=>buyLevelSpecial(level.level));
 }
 function openLevelStore(levelNumber){
   const level=cosmicLevels.find(item=>item.level===levelNumber);
-  if(!level||earnedPoints()<level.min||(level.elite&&userRank>500)) return;
+  if(!level||earnedPoints()<level.min) return;
   state.activeLevelStore=levelNumber;
   $("#levelStoreNotice").textContent="";
   renderLevelStore();
@@ -1740,7 +1769,7 @@ function openLevelStore(levelNumber){
 }
 function buyLevelSpecial(levelNumber){
   const level=cosmicLevels.find(item=>item.level===levelNumber),special=level?.special;
-  if(!level||!special||earnedPoints()<level.min||(level.elite&&userRank>500)||state.purchasedLevelItems.has(special.id)) return;
+  if(!level||!special||earnedPoints()<level.min||state.purchasedLevelItems.has(special.id)) return;
   if(availableCoins()<special.cost){$("#levelStoreNotice").textContent="Necesitas más monedas para comprar este objeto.";return}
   state.spentCoins+=special.cost;state.purchasedLevelItems.add(special.id);
   if(special.avatarId) state.inventory.add(special.avatarId);
@@ -1753,23 +1782,40 @@ function renderMap(){
   const span=Math.max(1,next.min-current.min),progress=currentIndex===cosmicLevels.length-1?100:Math.max(0,Math.min(100,((points-current.min)/span)*100));
   $("#levelMap").style.setProperty("--map-fill",`${(currentIndex/(cosmicLevels.length-1))*100}%`);
   $("#levelMap").innerHTML=cosmicLevels.map(level=>{
-    const reached=points>=level.min && (!level.elite||userRank<=500),claimed=state.claimedLevels.has(level.level),isCurrent=level.level===current.level;
+    const reached=points>=level.min,claimed=state.claimedLevels.has(level.level),isCurrent=level.level===current.level;
     const claimIcon=claimed?"✓":reached?"🎁":"🔒";
-    const claimAria=claimed?`Recompensa ${level.reward} reclamada`:reached?`Reclamar ${level.reward}`:level.elite?"Recompensa bloqueada: requiere 3600 puntos y Top 500":`Recompensa bloqueada hasta ${level.min} puntos`;
+    const claimAria=claimed?`Recompensa ${level.reward} reclamada`:reached?`Reclamar ${level.reward}`:`Recompensa bloqueada hasta ${level.min} puntos`;
     const theme=cosmicPalette[level.level-1],nextTheme=cosmicPalette[level.level]||theme;
-    const currentSummary=isCurrent?`<div class="current-level-summary"><div class="current-level-summary-head"><span>✦ Estás aquí</span><strong>${points} pts</strong></div><div class="current-level-progress"><i style="width:${progress}%"></i></div><div class="current-level-next">${currentIndex===cosmicLevels.length-1?"Perteneces a la élite máxima":`${Math.max(0,next.min-points)} puntos para ${next.name}`}</div></div>`:"";
+    const currentSummary=isCurrent?`<div class="current-level-summary"><div class="current-level-summary-head"><span>✦ Estás aquí</span><strong>${points} pts este mes</strong></div><div class="current-level-progress"><i style="width:${progress}%"></i></div><div class="current-level-next">${currentIndex===cosmicLevels.length-1?"Has completado todas las ligas":`${Math.max(0,next.min-points)} puntos para ${next.name}`}</div></div>`:"";
     const tabDepth=Math.abs(level.level-current.level)<=1?8:10;
     const shapeTop=level.level===20?"M4 0H96":`M4 0H40L46 -${tabDepth}H54L60 0H96`;
     const shapeBottom=level.level===1?"L96 100H4":`L96 100H60L54 ${100-tabDepth}H46L40 100H4`;
     const shapePath=`${shapeTop}L100 50${shapeBottom}L0 50Z`;
     return `<div class="level-piece ${level.level===1?"origin":""} ${level.level===20?"terminal":""} ${!reached?"locked-piece":""} ${reached&&!isCurrent?"completed-piece":""} ${isCurrent?"current-piece":""}" style="--level-color:${theme.color};--level-tint:${theme.tint};--level-glow:${theme.glow};--next-color:${nextTheme.color}">
       <article class="cosmic-level ${reached?"reached":"locked"} ${isCurrent?"current":""} ${level.elite?"elite":""}" data-level="${level.level}">
-        <svg class="cosmic-level-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="level-gradient-${level.level}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--level-color)" stop-opacity=".52"/><stop offset=".58" stop-color="var(--level-tint)" stop-opacity=".82"/><stop offset="1" stop-color="#080c12" stop-opacity=".98"/></linearGradient><linearGradient id="level-foil-${level.level}" gradientUnits="userSpaceOnUse" x1="-80" y1="0" x2="-20" y2="100"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".46"/><stop offset="1" stop-color="#fff" stop-opacity="0"><animate attributeName="x1" values="-80;180" dur="2.8s" repeatCount="indefinite"/><animate attributeName="x2" values="-20;240" dur="2.8s" repeatCount="indefinite"/></linearGradient></defs><path d="${shapePath}" fill="url(#level-gradient-${level.level})"/><path class="shape-highlight" d="${shapePath}"/><path class="shape-foil" d="${shapePath}" fill="url(#level-foil-${level.level})"/></svg><span class="level-sheen" aria-hidden="true"></span><div class="level-node">${level.icon}</div><span class="level-number">Nivel ${String(level.level).padStart(2,"0")}${level.elite?" · Élite 500":""}</span><h4>${level.name}</h4>${currentSummary}<p>${level.elite?"La liga más exclusiva de Dinetik. Solo 500 lugares.":`${level.min} puntos para alcanzar este escalón.`}</p><div class="level-reward-row"><span class="level-reward">${level.reward}</span><button class="claim-level ${claimed?"claimed":""}" data-claim-level="${level.level}" aria-label="${claimAria}" title="${claimAria}" ${!reached||claimed?"disabled":""}>${claimIcon}</button></div><div class="level-actions"><button class="open-level-shop" data-level-shop="${level.level}" ${!reached?"disabled":""}>${reached?"Comprar objetos especiales de nivel":"Tienda bloqueada"}</button></div>
+        <svg class="cosmic-level-shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="level-gradient-${level.level}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--level-color)" stop-opacity=".52"/><stop offset=".58" stop-color="var(--level-tint)" stop-opacity=".82"/><stop offset="1" stop-color="#080c12" stop-opacity=".98"/></linearGradient><linearGradient id="level-foil-${level.level}" gradientUnits="userSpaceOnUse" x1="-80" y1="0" x2="-20" y2="100"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".46"/><stop offset="1" stop-color="#fff" stop-opacity="0"><animate attributeName="x1" values="-80;180" dur="2.8s" repeatCount="indefinite"/><animate attributeName="x2" values="-20;240" dur="2.8s" repeatCount="indefinite"/></linearGradient></defs><path d="${shapePath}" fill="url(#level-gradient-${level.level})"/><path class="shape-highlight" d="${shapePath}"/><path class="shape-foil" d="${shapePath}" fill="url(#level-foil-${level.level})"/></svg><span class="level-sheen" aria-hidden="true"></span><div class="level-node">${level.icon}</div><span class="level-number">Liga ${String(level.level).padStart(2,"0")}</span><h4>${level.name}</h4>${currentSummary}<p>${level.min} puntos este mes para alcanzar esta liga.</p><div class="level-reward-row"><span class="level-reward">Recompensa por ascender: ${level.reward}</span><button class="claim-level ${claimed?"claimed":""}" data-claim-level="${level.level}" aria-label="${claimAria}" title="${claimAria}" ${!reached||claimed?"disabled":""}>${claimIcon}</button></div>
       </article>
     </div>`;
   }).join("");
   $$("#levelMap [data-claim-level]").forEach(button=>button.addEventListener("click",()=>claimCosmicLevel(Number(button.dataset.claimLevel))));
-  $$("#levelMap [data-level-shop]").forEach(button=>button.addEventListener("click",()=>openLevelStore(Number(button.dataset.levelShop))));
+  renderFinalLeagueStore();
+}
+function renderFinalLeagueStore(){
+  const finalLeague=cosmicLevels[cosmicLevels.length-1],special=finalLeague.special;
+  const reached=earnedPoints()>=finalLeague.min;
+  const purchased=state.purchasedLevelItems.has(special.id);
+  $("#finalLeagueStore").innerHTML=`
+    <div class="final-store-top">
+      <div class="final-store-icon">${special.icon}</div>
+      <div class="final-store-copy"><span>La cima de Mi Ruta</span><h4>La Bóveda VIP</h4><p>${special.name} · ${special.cost} monedas</p></div>
+    </div>
+    <div class="vip-prizes-label">Experiencias VIP que puedes desbloquear</div>
+    <div class="vip-prize-slider" aria-label="Premios VIP disponibles">
+      ${vipFinalPrizes.map(prize=>`<article class="vip-prize-card"><i class="vip-prize-icon">${prize.icon}</i><strong>${prize.name}</strong><span>${prize.detail}</span></article>`).join("")}
+    </div>
+    <button class="open-final-store" data-open-final-store ${reached&&!purchased?"":"disabled"}>${purchased?"Objeto adquirido ✓":reached?"Entrar a la Bóveda VIP":`Llega a Liga ${finalLeague.level} para abrirla`}</button>
+    <p class="final-store-note">✦ <b>Liga final</b> · desliza para conocer las experiencias</p>`;
+  $("#finalLeagueStore [data-open-final-store]").addEventListener("click",()=>{if(!purchased) openLevelStore(finalLeague.level)});
 }
 function renderElitePrizes(){
   $("#elitePrizesRow").innerHTML=eliteMonthlyPrizes.map(prize=>`<article class="elite-prize-card"><span class="elite-prize-icon">${prize.icon}</span><span class="elite-prize-copy"><strong>${prize.name}</strong><span>${prize.desc}</span></span><span class="elite-prize-stock">Quedan ${prize.stock}</span></article>`).join("");
@@ -1780,7 +1826,6 @@ function switchRankingTab(tab,focus=true){
   $$(".ranking-panel").forEach(panel=>panel.classList.toggle("active",panel.dataset.rankingPanel===tab));
   if(tab==="map"){
     renderMap();
-    renderElitePrizes();
     if(focus) window.setTimeout(()=>$("#levelMap .current")?.scrollIntoView({behavior:"smooth",block:"center"}),120);
   }
   if(focus) playMapSound("tab");
@@ -1836,6 +1881,62 @@ function renderInventory(){
   }));
   switchInventoryTab(state.inventoryTab);
 }
+function learningPathMarkup(){
+  const videosSeen=seenVideos();
+  const topicProgress=Math.round((videosSeen/9)*100);
+  const finishedLessons=state.seen.filter(seen=>seen.size===3).length;
+  const topicReady=videosSeen===9;
+  const topicClaimed=state.claimedTopics.has(learningTopic.id);
+  return {finishedLessons,markup:`
+    <div class="path-row ${topicReady&&!topicClaimed?"ready":""}">
+      <strong>${learningTopic.name}</strong><span>${topicProgress}%</span>
+      <div class="path-track"><i style="width:${topicProgress}%"></i></div>
+      <div class="path-meta"><span>${videosSeen}/9 videos vistos</span><span>${finishedLessons}/3 lecciones</span></div>
+      <div class="path-reward">
+        <div class="path-reward-copy"><span>🪙</span><span>${topicClaimed?"Recompensa obtenida":`+${learningTopic.rewardCoins} monedas · 1 logro`}</span></div>
+        <button class="claim-topic ${topicClaimed?"claimed":""}" ${topicReady&&!topicClaimed?"":"disabled"}>${topicClaimed?"✓ Reclamado":topicReady?"Reclamar":"Completa el tema"}</button>
+      </div>
+      <div class="path-status" aria-live="polite">${topicClaimed?`Logro desbloqueado: ${learningTopic.achievement.name}`:topicReady?"¡Tema completo! Tu recompensa está lista.":`Mira ${9-videosSeen} video${9-videosSeen===1?"":"s"} más para desbloquearla.`}</div>
+    </div>`};
+}
+function renderProgressMap(){
+  const completeCertificates=learningRoutes.filter(route=>state.claimedCertificates.has(route.certificate.id)).length;
+  $("#progressCompleted").textContent=`${completeCertificates}/${learningRoutes.length} certificados`;
+  $("#progressPaths").innerHTML=learningRoutes.map(route=>{
+    const unlocked=!route.requires||state.claimedCertificates.has(route.requires);
+    const demoRoute=route.id==="bases";
+    const topics=route.topics.map(topic=>({...topic,progress:demoRoute?topic.lessons:topic.progress()}));
+    const done=topics.filter(topic=>topic.progress>=topic.lessons).length;
+    const ready=unlocked&&done===topics.length;
+    const claimed=state.claimedCertificates.has(route.certificate.id);
+    return `<section class="route-stage ${unlocked?"":"future"}">
+      <header class="route-stage-head"><b>${route.name}</b><span>${unlocked?`${done}/${topics.length} temáticas`:"Próxima ruta"}</span></header>
+      <div class="topic-graph">${topics.map(topic=>{const available=unlocked&&(!topic.requires||topic.requires.every(id=>topics.find(item=>item.id===id)?.progress>=topics.find(item=>item.id===id)?.lessons));return `<button class="topic-node ${topic.progress>=topic.lessons?"done":""} ${available?"":"locked"}" data-topic="${topic.id}" ${unlocked?"":"disabled"}><span class="topic-node-icon">${topic.progress>=topic.lessons?"✓":topic.icon}</span><span><strong>${topic.name}</strong><small>${available?`${topic.progress}/${topic.lessons} lecciones`:"Ruta previa requerida"}</small></span></button>`}).join("")}</div>
+      <div class="route-merge" aria-hidden="true"><span>✦</span></div>
+      <div class="certificate-gate"><b>${route.certificate.icon} Certificado: ${route.certificate.name}</b><p>${claimed?"Certificado obtenido. Ya forma parte de tu perfil.":ready?"Completaste toda la ruta. Tu certificado está listo.":`Completa las ${topics.length-done} temática${topics.length-done===1?"":"s"} restante${topics.length-done===1?"":"s"} para liberarlo.`}</p><button class="claim-certificate" data-certificate="${route.certificate.id}" ${ready&&!claimed?"":"disabled"}>${claimed?"✓ Certificado obtenido":ready?"Obtener certificado":"Ruta en progreso"}</button></div>
+    </section>`;
+  }).join("");
+}
+function findTopic(topicId){return learningRoutes.flatMap(route=>route.topics.map(topic=>({...topic,route}))).find(topic=>topic.id===topicId)}
+function openTopic(topicId){
+  const topic=findTopic(topicId); if(!topic) return;
+  const progress=topic.route.id==="bases"?topic.lessons:topic.progress(),done=progress>=topic.lessons,percent=Math.round(progress/topic.lessons*100);
+  $("#topicModalContent").innerHTML=`<span class="hub-kicker">Temática</span><h3 id="topicModalTitle">${topic.icon} ${topic.name}</h3><p>${topic.detail}</p><div class="topic-progress"><i style="width:${percent}%"></i></div><p><b>${progress}/${topic.lessons} lecciones completadas</b>${done?" · Badge desbloqueado":""}</p><div class="topic-actions"><button data-close-topic>Cerrar</button>${done?`<button data-share-topic="${topic.id}">Compartir badge</button>`:""}</div>`;
+  $("#topicModal").classList.add("show");
+}
+function closeTopic(){$("#topicModal").classList.remove("show")}
+function claimCertificate(certificateId){
+  const route=learningRoutes.find(item=>item.certificate.id===certificateId); if(!route) return;
+  if(!route.topics.every(topic=>route.id==="bases"||topic.progress()>=topic.lessons)) return;
+  state.claimedCertificates.add(certificateId); renderProgressMap();
+  $("#certificateModalContent").innerHTML=`<div class="certificate-emblem">${route.certificate.icon}</div><span class="hub-kicker">Certificado desbloqueado</span><h2 id="certificateModalTitle">${route.certificate.name}</h2><p>${route.certificate.description}</p><div class="certificate-actions"><button data-download-certificate="${certificateId}">Descargar</button><button data-close-certificate>Seguir</button></div>`;
+  $("#certificateModal").classList.add("show");
+}
+function downloadCertificate(certificateId){
+  const route=learningRoutes.find(item=>item.certificate.id===certificateId);if(!route)return;
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><rect width="100%" height="100%" fill="#171129"/><rect x="42" y="42" width="1116" height="716" rx="30" fill="none" stroke="#f6d47a" stroke-width="8"/><text x="600" y="235" text-anchor="middle" fill="#f6d47a" font-size="44" font-family="Arial">DINETIK CERTIFICA</text><text x="600" y="370" text-anchor="middle" fill="white" font-size="76" font-family="Arial">${route.certificate.name}</text><text x="600" y="445" text-anchor="middle" fill="#cfc2dd" font-size="34" font-family="Arial">@dinetik_user completó esta ruta de aprendizaje</text><text x="600" y="590" text-anchor="middle" fill="#f6d47a" font-size="98">${route.certificate.icon}</text></svg>`;
+  const url=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"})),link=document.createElement("a");link.href=url;link.download=`${route.certificate.id}.svg`;link.click();URL.revokeObjectURL(url);
+}
 function renderProfile(){
   const points=earnedPoints(), cosmic=currentCosmicLevel(), cosmicIndex=cosmicLevels.indexOf(cosmic), nextCosmic=cosmicLevels[cosmicIndex+1]||cosmic;
   const progress=cosmicIndex===cosmicLevels.length-1?100:Math.round(((points-cosmic.min)/Math.max(1,nextCosmic.min-cosmic.min))*100);
@@ -1850,22 +1951,10 @@ function renderProfile(){
   $("#profileLevelBar").style.width=`${progress}%`;
   $("#profileLevelNote").textContent=cosmicIndex===cosmicLevels.length-1?"Has alcanzado la élite máxima":`${Math.max(0,nextCosmic.min-points)} puntos para ${nextCosmic.name}`;
   const videosSeen=seenVideos();
-  const topicProgress=Math.round((videosSeen/9)*100);
-  const finishedLessons=state.seen.filter(seen=>seen.size===3).length;
-  const topicReady=videosSeen===9;
+  const path=learningPathMarkup();
   const topicClaimed=state.claimedTopics.has(learningTopic.id);
-  $("#profileCompleted").textContent=`${finishedLessons}/3 lecciones`;
-  $("#profilePaths").innerHTML=`
-    <div class="path-row ${topicReady&&!topicClaimed?"ready":""}">
-      <strong>${learningTopic.name}</strong><span>${topicProgress}%</span>
-      <div class="path-track"><i style="width:${topicProgress}%"></i></div>
-      <div class="path-meta"><span>${videosSeen}/9 videos vistos</span><span>${finishedLessons}/3 lecciones</span></div>
-      <div class="path-reward">
-        <div class="path-reward-copy"><span>🪙</span><span>${topicClaimed?"Recompensa obtenida":`+${learningTopic.rewardCoins} monedas · 1 logro`}</span></div>
-        <button class="claim-topic ${topicClaimed?"claimed":""}" ${topicReady&&!topicClaimed?"":"disabled"}>${topicClaimed?"✓ Reclamado":topicReady?"Reclamar":"Completa el tema"}</button>
-      </div>
-      <div class="path-status" aria-live="polite">${topicClaimed?`Logro desbloqueado: ${learningTopic.achievement.name}`:topicReady?"¡Tema completo! Tu recompensa está lista.":`Mira ${9-videosSeen} video${9-videosSeen===1?"":"s"} más para desbloquearla.`}</div>
-    </div>`;
+  $("#profileCompleted").textContent=`${path.finishedLessons}/3 lecciones`;
+  $("#profilePaths").innerHTML=path.markup;
   const highlights=[
     {badge:learningTopic.achievement,unlocked:topicClaimed},
     {badge:badgeMock[0],unlocked:completedDays()>0},
@@ -1878,6 +1967,7 @@ function claimLearningTopic(){
   state.claimedTopics.add(learningTopic.id);
   state.bonusCoins+=learningTopic.rewardCoins;
   renderGlobal();
+  renderProgressMap();
   renderProfile();
 }
 function goDay(delta){
@@ -1932,6 +2022,21 @@ $("#videoFeed").addEventListener("click",event=>{
 });
 $("#profilePaths").addEventListener("click",event=>{
   if(event.target.closest(".claim-topic")) claimLearningTopic();
+});
+$("#progressPaths").addEventListener("click",event=>{
+  const topic=event.target.closest("[data-topic]");
+  const certificate=event.target.closest("[data-certificate]");
+  if(topic) openTopic(topic.dataset.topic);
+  if(certificate) claimCertificate(certificate.dataset.certificate);
+});
+$("#topicModal").addEventListener("click",event=>{
+  if(event.target===event.currentTarget||event.target.closest("[data-close-topic]")) closeTopic();
+  const share=event.target.closest("[data-share-topic]");
+  if(share&&navigator.share) navigator.share({title:"Mi badge de Dinetik",text:"Completé la temática ${findTopic(share.dataset.shareTopic).name} en Dinetik."});
+});
+$("#certificateModal").addEventListener("click",event=>{
+  if(event.target===event.currentTarget||event.target.closest("[data-close-certificate]")) $("#certificateModal").classList.remove("show");
+  const download=event.target.closest("[data-download-certificate]");if(download) downloadCertificate(download.dataset.downloadCertificate);
 });
 $("#markBtn").addEventListener("click",()=>{});
 $("#nextVideoBtn").addEventListener("click",()=>{});
